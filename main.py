@@ -10,4 +10,20 @@ manager = AgentManager()
 memory = MemoryManager()
 workflow = StoryWorkflow()
 
-workflow.run("Lion and Rabbit")
+story = workflow.run("Lion and Rabbit")
+
+print("\n==============================")
+print("Story Generated Successfully")
+print("==============================\n")
+
+print("Title:")
+print(story.title)
+
+print("\nStory:")
+print(story.story)
+
+print("\nMoral:")
+print(story.moral)
+
+print("\nWord Count:")
+print(story.word_count)

@@ -8,3 +8,4 @@ class ResearchReport:
     target_audience: str
     goal: str
     tone: str
+    research: str
