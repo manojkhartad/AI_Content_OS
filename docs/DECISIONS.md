@@ -1,8 +1,10 @@
 # AI_Content_OS
 
-# Engineering Decisions
+# Architecture Decisions
 
-Version: 1.0
+Version: 2.0
+
+Status: Active
 
 Last Updated: July 2026
 
@@ -10,514 +12,518 @@ Last Updated: July 2026
 
 # Purpose
 
-This document records every important engineering, architectural and product decision made during the development of AI_Content_OS.
+This document records all major architectural and engineering decisions made during the development of AI_Content_OS.
 
-The objective is to preserve the reasoning behind major decisions so future development remains consistent.
+Every significant design choice should be documented with its motivation, alternatives considered, and long-term impact.
 
-Every decision should include:
-
-- Decision
-- Reason
-- Status
+The goal is to preserve engineering reasoning so future development remains consistent.
 
 ---
 
-# Decision 001
+# Decision Format
 
-Title
+Every decision follows this structure:
 
-Modular Agent-Based Architecture
-
-Decision
-
-The system will be built using multiple specialized AI agents instead of one large AI script.
-
-Reason
-
-Smaller components are easier to understand, maintain, test and extend.
+Decision ID
 
 Status
 
-✅ Accepted
-
----
-
-# Decision 002
-
-Title
-
-Brain Owns Only LLM Communication
+Date
 
 Decision
 
-The Brain is responsible only for communicating with the LLM.
-
 Reason
 
-Business logic should never exist inside the Brain.
+Alternatives Considered
 
-Keeping the Brain lightweight makes it reusable across every future AI agent.
-
-Status
-
-✅ Accepted
+Impact
 
 ---
 
-# Decision 003
-
-Title
-
-Business Logic Belongs to Agents
+# ADR-001
 
 Decision
 
-Every business decision will be implemented inside an Agent.
-
-Reason
-
-Agents represent independent units of work.
-
-This separation keeps the architecture modular and easier to expand.
+Adopt a Multi-Agent Architecture.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Different AI tasks require different responsibilities.
+
+Separating Research, Writing, Reviewing, Character Generation, and Production into independent agents creates a modular and maintainable system.
+
+Alternatives Considered
+
+• Single monolithic prompt
+
+• Single AI class
+
+Impact
+
+Positive
+
+- Easier maintenance
+- Independent agent upgrades
+- Better scalability
+- Easier testing
 
 ---
 
-# Decision 004
-
-Title
-
-Reports are Structured Data
+# ADR-002
 
 Decision
 
-Every Agent returns a structured model instead of raw text.
-
-Examples
-
-ResearchReport
-
-StoryDraft
-
-ReviewReport
-
-Reason
-
-Structured data is easier to validate, reuse and pass between components.
+Introduce a BaseAgent class.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Every agent performs common tasks such as initialization, logging, and execution flow.
+
+Using inheritance removes duplicate code.
+
+Alternatives Considered
+
+Duplicate code in every agent.
+
+Impact
+
+Positive
+
+- Cleaner architecture
+- Standardized behavior
+- Less maintenance
 
 ---
 
-# Decision 005
-
-Title
-
-Prompt Engineering Lives Outside the Brain
+# ADR-003
 
 Decision
 
-Prompt generation is handled by Prompt classes.
-
-Reason
-
-The Brain should never know how prompts are constructed.
-
-Prompt engineering evolves independently from AI communication.
+Centralize all LLM communication inside Brain.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Agents should never communicate directly with language models.
+
+Brain acts as the single interface responsible for model selection, retries, fallback logic, and future optimizations.
+
+Alternatives Considered
+
+Allow each agent to call the API directly.
+
+Impact
+
+Positive
+
+- Centralized AI logic
+- Easier debugging
+- Easier provider migration
 
 ---
 
-# Decision 006
-
-Title
-
-Formatter Layer
+# ADR-004
 
 Decision
 
-Formatting is separated from business logic.
-
-Reason
-
-Business logic should produce data.
-
-Formatters decide how that data is presented.
+Implement Automatic Model Fallback.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Large language models occasionally return quota errors, internal errors, or become temporarily unavailable.
+
+Automatic fallback prevents workflow interruption.
+
+Current Priority
+
+1. Gemma 4 31B
+2. Gemini 3.5 Flash
+3. Gemini 3.1 Flash Lite
+
+Impact
+
+Positive
+
+- Higher reliability
+- Reduced failures
+- Better user experience
 
 ---
 
-# Decision 007
-
-Title
-
-Exporter Layer
+# ADR-005
 
 Decision
 
-Exporters are responsible only for saving files.
-
-Reason
-
-Content generation and file generation are separate responsibilities.
+Use Structured Data Models.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Agents should exchange structured objects instead of raw text.
+
+Current Models
+
+- ResearchReport
+- CharacterProfile
+- CharacterBible
+- StoryDraft
+- ReviewReport
+
+Impact
+
+Positive
+
+- Strong typing
+- Easier validation
+- Cleaner workflows
 
 ---
 
-# Decision 008
-
-Title
-
-Automatic Model Fallback
+# ADR-006
 
 Decision
 
-Multiple Gemini models are configured with automatic fallback.
-
-Reason
-
-Temporary model failures should not stop the production pipeline.
+Generate Characters before Story Writing.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Stories should be written around predefined characters instead of inventing new characters during writing.
+
+Impact
+
+Positive
+
+- Consistent personalities
+- Better storytelling
+- Reusable characters
 
 ---
 
-# Decision 009
-
-Title
-
-Reviewer Does Not Rewrite Stories
+# ADR-007
 
 Decision
 
-ReviewerAgent evaluates stories but does not modify them.
-
-Reason
-
-Writing and reviewing are separate responsibilities.
-
-Future improvement cycles can be added without changing this design.
+Introduce Character Bible Layer.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Character consistency is critical for illustrations, animation, and future video generation.
+
+Character Bible separates visual identity from story generation.
+
+Impact
+
+Positive
+
+- Stable character design
+- Consistent prompts
+- Reusable production assets
 
 ---
 
-# Decision 010
-
-Title
-
-JSON as Internal Communication Format
+# ADR-008
 
 Decision
 
-LLM responses should be converted into structured JSON whenever possible.
-
-Reason
-
-JSON is predictable, machine-readable and easier to validate than plain text.
+Export Production Assets.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Generated content should be stored independently from runtime memory.
+
+Current Exports
+
+Stories
+
+- Markdown
+- Plain Text
+
+Character Bible
+
+- JSON
+
+Impact
+
+Positive
+
+- Easier production workflow
+- Reusable assets
+- Version control friendly
 
 ---
 
-# Decision 011
-
-Title
-
-Single Responsibility Principle
+# ADR-009
 
 Decision
 
-Every module performs one responsibility only.
-
-Examples
-
-Brain
-
-Agents
-
-Models
-
-Formatters
-
-Exporters
-
-Reason
-
-Small focused modules reduce coupling and improve maintainability.
+Separate Prompts from Agent Logic.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Prompt engineering changes frequently.
+
+Keeping prompts outside agent classes simplifies experimentation without modifying application logic.
+
+Impact
+
+Positive
+
+- Cleaner codebase
+- Easier prompt iteration
+- Better maintainability
 
 ---
 
-# Decision 012
-
-Title
-
-Documentation First
+# ADR-010
 
 Decision
 
-Major milestones are documented immediately after completion.
-
-Reason
-
-Documentation should evolve with the project rather than being written later.
+Use Workflow Orchestration.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Business logic should exist inside workflows instead of individual agents.
+
+StoryWorkflow coordinates the entire pipeline.
+
+Current Flow
+
+Research
+
+↓
+
+Character Generation
+
+↓
+
+Character Bible Generation
+
+↓
+
+Story Writing
+
+↓
+
+Story Review
+
+↓
+
+Production Export
+
+Impact
+
+Positive
+
+- Centralized orchestration
+- Easier expansion
+- Better readability
 
 ---
 
-# Decision 013
-
-Title
-
-Git for Every Stable Milestone
+# ADR-011
 
 Decision
 
-Every stable feature is committed before beginning the next feature.
-
-Reason
-
-Each Git commit should represent a working state of the project.
+Keep Agents Stateless.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Agents should process inputs and return outputs without maintaining internal state.
+
+State management belongs to workflows and future memory systems.
+
+Impact
+
+Positive
+
+- Easier testing
+- Predictable behavior
+- Better scalability
 
 ---
 
-# Decision 014
-
-Title
-
-Avoid Premature Refactoring
+# ADR-012
 
 Decision
 
-Major refactoring is postponed until the MVP is complete.
-
-Reason
-
-Delivering a working product has higher priority than perfect architecture.
-
-Only blocking architectural issues justify immediate refactoring.
+Adopt Production-Ready Folder Structure.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Separate source code from generated assets.
+
+Current Structure
+
+agents/
+
+brain/
+
+config/
+
+formatters/
+
+memory/
+
+models/
+
+production/
+
+prompts/
+
+tests/
+
+utils/
+
+workflows/
+
+Impact
+
+Positive
+
+- Cleaner organization
+- Easier navigation
+- Better scalability
 
 ---
 
-# Decision 015
-
-Title
-
-Character Management Before Scene Generation
+# ADR-013
 
 Decision
 
-Character consistency will be implemented before generating scenes.
-
-Reason
-
-Scenes, images and videos depend on stable character identities.
-
-Without consistent characters, downstream visual generation becomes unreliable.
+Use JSON as the Primary Communication Format.
 
 Status
 
-✅ Accepted
+Accepted
+
+Reason
+
+Structured JSON responses are easier to parse, validate, and reuse than plain text.
+
+Impact
+
+Positive
+
+- Reliable parsing
+- Future API compatibility
+- Better automation
 
 ---
 
-# Decision 016
-
-Title
-
-Original Family Voices
+# ADR-014
 
 Decision
 
-Narration will use original family voices whenever practical.
-
-Reason
-
-Original voices strengthen brand identity and avoid copyright concerns.
+Validate Stories Before Export.
 
 Status
 
-✅ Planned
-
----
-
-# Decision 017
-
-Title
-
-AI Video Generation
-
-Decision
-
-Google Flow / Veo will be the primary AI video generation platform.
+Accepted
 
 Reason
 
-Existing Gemini credits can be utilized while maintaining a simple workflow.
+Every generated story should pass quality checks before being considered production-ready.
 
-Alternative tools may be evaluated in the future.
+Validation Includes
 
-Status
+- Grammar
+- Structure
+- Word Count
+- Educational Value
+- Child Safety
+- Moral
 
-🟡 In Progress
+Impact
 
----
+Positive
 
-# Decision 018
-
-Title
-
-Consistent Character Universe
-
-Decision
-
-The same core characters will be reused across multiple stories.
-
-Reason
-
-Recurring characters improve audience recognition and channel branding.
-
-Status
-
-🟡 In Progress
+- Higher quality output
+- Reduced manual review
 
 ---
 
-# Decision 019
+# Pending Decisions
 
-Title
+The following architectural decisions are expected in future versions:
 
-Production Before Optimization
-
-Decision
-
-A complete working pipeline is prioritized before advanced optimizations.
-
-Reason
-
-Early optimization slows feature delivery.
-
-Optimization is more effective once the full pipeline exists.
-
-Status
-
-✅ Accepted
+- Scene Generation Pipeline
+- Image Generation Pipeline
+- Animation Pipeline
+- Voice Generation Pipeline
+- Memory Persistence
+- Plugin System
+- Knowledge Base
+- Asset Management
+- Multi-language Workflow
+- Multi-modal Production Pipeline
 
 ---
 
-# Decision 020
+# Decision Principles
 
-Title
+When making future architectural decisions, follow these principles:
 
-Documentation Structure
-
-Decision
-
-Documentation is divided into dedicated documents.
-
-PROJECT_STATUS.md
-
-ROADMAP.md
-
-DEVLOG.md
-
-ARCHITECTURE.md
-
-DECISIONS.md
-
-Reason
-
-Each document has one clear responsibility, making maintenance easier.
-
-Status
-
-✅ Accepted
+- Prefer modularity over complexity.
+- Keep agents independent.
+- Centralize shared logic.
+- Separate data from behavior.
+- Design for scalability.
+- Optimize for production workflows.
+- Maintain clear documentation.
+- Favor reusable components over one-time solutions.
 
 ---
 
-# Future Decisions
+# Summary
 
-The following topics will receive formal engineering decisions as development progresses.
+The architecture of AI_Content_OS is intentionally modular, scalable, and production-oriented.
 
-- Character Database Design
-- Scene Data Structure
-- Image Prompt Standard
-- Video Prompt Standard
-- Voice Pipeline
-- Thumbnail Strategy
-- SEO Automation
-- Multi-language Support
-- YouTube Publishing
-- Testing Strategy
-- CI/CD Pipeline
+Every major design choice favors long-term maintainability, reusable components, and clear separation of responsibilities.
 
----
-
-# Decision Review Policy
-
-Engineering decisions are considered stable once accepted.
-
-A decision should only be changed if:
-
-- It blocks future development.
-- It significantly improves architecture.
-- It reduces long-term maintenance cost.
-- A better production-ready alternative is proven.
-
-When a decision changes:
-
-- Do not delete the old decision.
-- Mark it as superseded.
-- Record the replacement decision.
-- Preserve historical context.
-
----
-
-# Engineering Philosophy
-
-AI_Content_OS is developed with a long-term engineering mindset.
-
-Every architectural decision should favor:
-
-- Simplicity
-- Reusability
-- Maintainability
-- Scalability
-- Production Readiness
-
-The goal is not only to build working software, but to build software that remains understandable, extensible and reliable as the project grows.
+This document should evolve alongside the project and remain the authoritative record of all architectural decisions.

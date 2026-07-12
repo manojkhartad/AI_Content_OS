@@ -2,7 +2,7 @@
 
 # Product Roadmap
 
-Version: 1.0
+Version: 2.0
 
 Status: Active Development
 
@@ -10,552 +10,416 @@ Last Updated: July 2026
 
 ---
 
-# Status Legend
+# Vision
 
-🟢 Completed
+AI_Content_OS is being developed as a complete AI-powered Content Production Operating System.
 
-🟡 In Progress
+The long-term goal is to automate the entire educational content creation pipeline—from a single topic idea to a fully produced YouTube-ready video—using specialized AI agents.
 
-🔵 Planned
-
-⚪ Backlog
-
-🔴 On Hold
+The roadmap follows an incremental engineering approach where every milestone results in a stable, production-ready build before moving to the next stage.
 
 ---
 
-# Project Vision
+# Development Philosophy
 
-AI_Content_OS is a modular AI-powered Content Production Studio designed to automate the complete workflow of creating educational children's content.
+The project follows these principles:
 
-The long-term objective is to transform a simple topic into a fully produced YouTube-ready video with minimal human intervention while maintaining high production quality, reusable architecture, consistent characters, and scalable AI agents.
-
-The project is being developed incrementally, where every milestone is fully completed, tested, documented, and committed before moving to the next phase.
+- Build modular systems.
+- Complete one milestone at a time.
+- Every feature must be production-ready.
+- Every milestone ends with testing.
+- Every stable milestone is committed to Git.
+- Documentation evolves together with the codebase.
+- Avoid premature optimization until the complete pipeline exists.
 
 ---
 
-# Project Progress
+# Development Stages
 
-Current Version
+---
 
-v0.1 (MVP Development)
+## Stage 1 — Foundation
 
-Overall Progress
+Goal:
 
-🟢 Story Generation Pipeline Completed
+Build the reusable core architecture that every future AI Agent depends on.
 
-🟡 Character Management System In Progress
+Status:
 
-Current Sprint
+✅ Completed
 
-Character Management System
+Completed Components:
 
-Next Milestone
+- Brain
+- LLM Client
+- Agent Manager
+- Memory Manager
+- Base Agent
+- Prompt Architecture
+- Formatter Layer
+- Exporter Layer
+- JSON Parser
+- Configuration System
+- Automatic Model Fallback
+- Story Workflow
+
+Outcome:
+
+A reusable AI operating system capable of coordinating multiple specialized AI agents.
+
+---
+
+## Stage 2 — Story Generation Pipeline
+
+Goal:
+
+Generate complete educational children's stories from a single topic.
+
+Status:
+
+✅ Completed
+
+Completed Agents:
+
+- Research Agent
+- Character Agent
+- Character Bible Agent
+- Writer Agent
+- Reviewer Agent
+
+Completed Models:
+
+- ResearchReport
+- CharacterProfile
+- CharacterBible
+- StoryDraft
+- ReviewReport
+
+Completed Production:
+
+- Story Export (.md)
+- Story Export (.txt)
+- Character Bible Export (.json)
+
+Workflow:
+
+Topic
+
+↓
+
+Research
+
+↓
+
+Characters
+
+↓
+
+Character Bible
+
+↓
+
+Story
+
+↓
+
+Review
+
+↓
+
+Export
+
+Outcome:
+
+A complete end-to-end AI story generation pipeline with reusable character consistency.
+
+---
+
+## Stage 3 — Scene Generation
+
+Goal:
+
+Convert every story into structured production-ready scenes.
+
+Status:
+
+🟡 Planned
+
+Planned Components:
+
+- Scene Agent
+- Scene Model
+- Scene Prompt
+- Scene Validator
+- Scene Exporter
+
+Expected Output:
+
+Scene JSON
+
+Each scene should include:
+
+- Scene ID
+- Scene Purpose
+- Characters
+- Location
+- Camera Description
+- Emotion
+- Dialogue
+- Narration
+- Visual Notes
+
+Purpose:
+
+Scenes become the foundation for image generation, animation, video creation, and voice synchronization.
+
+---
+
+## Stage 4 — Image Pipeline
+
+Status:
+
+🟡 Planned
+
+Planned Agents:
+
+- Image Prompt Agent
+- Image Consistency Agent
+- Image Reviewer
+
+Outputs:
+
+- Image Prompt
+- Negative Prompt
+- Style Prompt
+- Character Reference
+- Camera Information
+
+Future Integration:
+
+- Gemini
+- Imagen
+- Flux
+- Stable Diffusion
+- ComfyUI
+
+---
+
+## Stage 5 — Video Pipeline
+
+Status:
+
+🟡 Planned
+
+Planned Agents:
+
+- Video Prompt Agent
+- Shot Planner
+- Motion Planner
+- Animation Planner
+
+Target Platforms:
+
+- Google Veo
+- Google Flow
+- Future Video Models
+
+---
+
+## Stage 6 — Voice Pipeline
+
+Status:
+
+🟡 Planned
+
+Planned Components:
+
+- Narration Generator
+- Character Voice Profiles
+- Voice Consistency System
+- Background Music Planner
+- Sound Effects Planner
+
+---
+
+## Stage 7 — Video Builder
+
+Status:
+
+🟡 Planned
+
+Purpose:
+
+Automatically assemble:
+
+- Images
+- Animation
+- Narration
+- Music
+- Sound Effects
+- Subtitles
+
+Output:
+
+Complete YouTube-ready video.
+
+---
+
+## Stage 8 — Publishing Pipeline
+
+Status:
+
+🟡 Planned
+
+Planned Agents:
+
+- Thumbnail Agent
+- SEO Agent
+- Metadata Agent
+- YouTube Upload Agent
+- Analytics Agent
+
+Outputs:
+
+- Thumbnail
+- Title
+- Description
+- Tags
+- Chapters
+- Shorts Metadata
+
+---
+
+# Current Architecture Progress
+
+Foundation
+
+████████████████████ 100%
+
+Story Generation
+
+████████████████████ 100%
 
 Scene Generation
 
-Long-Term Goal
+□□□□□□□□□□□□□□ 0%
 
-Complete AI-powered YouTube Content Production Studio
+Image Pipeline
+
+□□□□□□□□□□□□□□ 0%
+
+Video Pipeline
+
+□□□□□□□□□□□□□□ 0%
+
+Voice Pipeline
+
+□□□□□□□□□□□□□□ 0%
+
+Publishing Pipeline
+
+□□□□□□□□□□□□□□ 0%
 
 ---
 
-# Development Principles
+# Current Stable Build
 
-The following rules guide the development of AI_Content_OS.
+Current Version:
 
-- Build one production-ready feature at a time.
-- Avoid unnecessary refactoring during active development.
-- Every feature must follow modular architecture.
-- Every milestone must be committed to GitHub.
-- Documentation is updated continuously.
-- Working software is preferred over unnecessary complexity.
-- All future components should remain reusable and extensible.
+v0.2
 
----
-
-# Phase 1 — Story Generation Pipeline
-
-Status
-
-🟢 Completed
-
-Goal
-
-Generate complete educational children's stories using multiple AI agents.
-
-Completed Components
-
-✅ Brain
-
-✅ LLM Client
-
-✅ Gemini Integration
-
-✅ Automatic Model Fallback
+Stable Features:
 
 ✅ Research Agent
+
+✅ Character Agent
+
+✅ Character Bible Agent
 
 ✅ Writer Agent
 
 ✅ Reviewer Agent
 
-✅ Story Exporter
+✅ Story Export
 
-✅ Research Report
+✅ Character Bible Export
 
-✅ Story Draft
-
-✅ Review Report
-
-✅ JSON Parser
-
-✅ Markdown Export
-
-✅ Text Export
-
-Git Milestone
-
-v0.1
-
-Result
-
-The system can successfully generate, review and export complete children's stories.
+✅ Automatic Model Fallback
 
 ---
 
-# Phase 2 — Character Management System
+# Immediate Next Milestone
 
-Status
+Scene Generation System
 
-🟡 In Progress
+Deliverables:
 
-Goal
+- Scene Model
+- Scene Prompt
+- Scene Agent
+- Scene Exporter
+- Scene JSON
 
-Create reusable character profiles that remain consistent across every story, scene, image and video.
-
-Tasks
-
-⬜ Character Model
-
-⬜ Character Database
-
-⬜ Character Profile
-
-⬜ Personality System
-
-⬜ Physical Appearance
-
-⬜ Character Relationships
-
-⬜ Character Prompt Integration
-
-⬜ Character Memory
-
-Dependencies
-
-Story Generation Pipeline
-
-Git Milestone
-
-v0.2
-
-Expected Result
-
-Every generated story uses the same characters with consistent names, appearance and personality.
+This milestone will establish the production layer required for image generation and future video automation.
 
 ---
 
-# Phase 3 — Scene Generation
+# Long-Term Goal
 
-Status
+Complete AI Content Production OS capable of generating:
 
-🔵 Planned
+Topic
 
-Goal
+↓
 
-Convert complete stories into structured cinematic scenes.
+Research
 
-Tasks
+↓
 
-⬜ Scene Agent
+Characters
 
-⬜ Scene Prompt
+↓
 
-⬜ Scene Report
+Character Bible
 
-⬜ Scene Formatter
+↓
 
-⬜ Scene Export
+Story
 
-Dependencies
-
-Character Management System
-
-Git Milestone
-
-v0.3
-
-Expected Result
-
-Every story is automatically divided into production-ready scenes.
-
----
-
-# Phase 4 — Image Prompt Generation
-
-Status
-
-🔵 Planned
-
-Goal
-
-Generate high-quality prompts for AI image generation.
-
-Tasks
-
-⬜ Image Prompt Agent
-
-⬜ Character Injection
-
-⬜ Environment Description
-
-⬜ Camera Angle
-
-⬜ Lighting
-
-⬜ Art Style
-
-⬜ Negative Prompt
-
-Dependencies
-
-Scene Generation
-
-Git Milestone
-
-v0.4
-
-Expected Result
-
-Professional prompts ready for AI image generation.
-
----
-
-# Phase 5 — Video Prompt Generation
-
-Status
-
-🔵 Planned
-
-Goal
-
-Generate cinematic prompts optimized for Google Flow / Veo.
-
-Tasks
-
-⬜ Video Prompt Agent
-
-⬜ Camera Motion
-
-⬜ Character Motion
-
-⬜ Facial Expressions
-
-⬜ Environment Motion
-
-⬜ Lighting Instructions
-
-⬜ Scene Timing
-
-Dependencies
-
-Image Prompt Generation
-
-Git Milestone
-
-v0.5
-
-Expected Result
-
-Production-ready prompts for AI video generation.
-
----
-
-# Phase 6 — Voice Production
-
-Status
-
-⚪ Backlog
-
-Goal
-
-Generate natural narration using original family voices.
-
-Tasks
-
-⬜ Narration Script
-
-⬜ Voice Timing
-
-⬜ Emotion Tags
-
-⬜ Character Voices
-
-⬜ AI Voice Integration
-
-Future Goal
-
-Use original voices from family members to build a unique and recognizable channel identity.
-
-Dependencies
-
-Video Prompt Generation
-
-Git Milestone
-
-v0.6
-
----
-
-# Phase 7 — Video Builder
-
-Status
-
-⚪ Backlog
-
-Goal
-
-Combine generated assets into a complete YouTube-ready video.
-
-Pipeline
+↓
 
 Scenes
 
 ↓
 
-Images / Videos
+Images
 
 ↓
 
-Narration
+Animation
 
 ↓
 
-Background Music
+Voice
 
 ↓
 
-Captions
+Video
 
 ↓
 
-Transitions
+Thumbnail
 
 ↓
 
-Brand Logo
+SEO
 
 ↓
 
-Final Video
+YouTube Publishing
 
-Tasks
+↓
 
-⬜ Subtitle Generation
+Analytics
 
-⬜ Intro
-
-⬜ Outro
-
-⬜ Background Music
-
-⬜ Logo Integration
-
-⬜ Final Rendering
-
-Dependencies
-
-Voice Production
-
-Git Milestone
-
-v0.7
-
----
-
-# Phase 8 — Thumbnail Generator
-
-Status
-
-⚪ Backlog
-
-Goal
-
-Automatically generate attractive YouTube thumbnails.
-
-Tasks
-
-⬜ Thumbnail Prompt
-
-⬜ Brand Style
-
-⬜ Character Focus
-
-⬜ Title Placement
-
-⬜ Thumbnail Export
-
-Git Milestone
-
-v0.8
-
----
-
-# Phase 9 — SEO Automation
-
-Status
-
-⚪ Backlog
-
-Goal
-
-Automatically generate YouTube metadata.
-
-Tasks
-
-⬜ SEO Title
-
-⬜ Description
-
-⬜ Tags
-
-⬜ Keywords
-
-⬜ Hashtags
-
-⬜ Chapters
-
-Git Milestone
-
-v0.9
-
----
-
-# Phase 10 — Publishing System
-
-Status
-
-⚪ Backlog
-
-Goal
-
-Publish completed content directly to YouTube.
-
-Tasks
-
-⬜ Video Upload
-
-⬜ Thumbnail Upload
-
-⬜ Metadata Upload
-
-⬜ Playlist Selection
-
-⬜ Scheduling
-
-Git Milestone
-
-v1.0
-
----
-
-# Future Features
-
-The following features are planned after Version 1.0.
-
-⬜ Multi-language Stories
-
-⬜ Hindi Narration
-
-⬜ Shorts Generator
-
-⬜ Quiz Generator
-
-⬜ Blog Generator
-
-⬜ Instagram Reels
-
-⬜ Facebook Videos
-
-⬜ TikTok Support
-
-⬜ Podcast Generation
-
-⬜ Character Universe
-
-⬜ Story Series
-
-⬜ Analytics Dashboard
-
-⬜ Performance Tracking
-
----
-
-# Future Technical Improvements
-
-The following engineering improvements are intentionally postponed until the MVP is complete.
-
-⬜ BaseLLMAgent
-
-⬜ Prompt Versioning
-
-⬜ Configuration Manager
-
-⬜ Logging Framework
-
-⬜ Retry Policies
-
-⬜ Plugin Architecture
-
-⬜ Automated Testing
-
-⬜ CI/CD Pipeline
-
-⬜ Docker Support
-
----
-
-# MVP Success Criteria
-
-Version 1.0 is considered successful when the system can:
-
-✅ Maintain consistent characters
-
-✅ Generate educational children's stories
-
-✅ Review generated stories
-
-✅ Export production-ready story files
-
-⬜ Split stories into scenes
-
-⬜ Generate AI image prompts
-
-⬜ Generate AI video prompts
-
-⬜ Generate narration
-
-⬜ Build a complete children's video
-
-⬜ Prepare assets for YouTube publishing
-
----
-
-# Long-Term Vision
-
-AI_Content_OS is not intended to remain only a story generator.
-
-The long-term vision is to evolve into a complete modular AI-powered Content Production Studio capable of automatically producing educational content for YouTube and other digital platforms.
-
-The architecture is designed so that every major component remains reusable, extensible, independently testable and production-ready, allowing future expansion without significant redesign.
+without requiring manual content production.

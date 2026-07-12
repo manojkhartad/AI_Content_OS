@@ -1,8 +1,8 @@
 # Universal Research Report (URR)
 
-Version: 1.0
+Version: 2.0
 
-Status: Approved
+Status: Active
 
 Owner: AI_Content_OS
 
@@ -12,29 +12,111 @@ Last Updated: July 2026
 
 # Purpose
 
-The Universal Research Report (URR) is the standard communication format used by AI_Content_OS.
+The Universal Research Report (URR) is the official project specification document used throughout AI_Content_OS.
 
-Every content generation workflow must begin with a Universal Research Report before any creative writing starts.
+Every content generation workflow begins with a Universal Research Report before any creative, visual, or production work starts.
 
-The URR acts as the single source of truth for all downstream AI agents, ensuring consistency, reusability, and predictable data flow throughout the production pipeline.
+The URR serves as the single source of truth for all AI agents by collecting every important project decision into one structured document.
+
+Instead of repeating instructions inside every prompt, agents consume the URR and perform their specialized tasks using the information provided.
+
+The report remains independent from any individual AI model and represents the project's requirements rather than model-specific prompts.
+
+---
+
+# Vision
+
+AI_Content_OS is designed as a multi-agent content production platform.
+
+Every future workflow—including stories, educational videos, animated series, explainers, comics, books, and interactive learning experiences—will begin with a Universal Research Report.
+
+The URR allows every downstream AI system to operate with complete project awareness while maintaining consistency across the entire production pipeline.
 
 ---
 
 # Objectives
 
-The Universal Research Report is designed to:
+The Universal Research Report has six primary objectives.
 
-- Standardize project information.
-- Define content strategy.
-- Maintain character consistency.
-- Capture production requirements.
-- Reduce prompt duplication.
-- Improve communication between AI agents.
-- Enable reusable workflows across multiple content types.
+## 1. Standardization
+
+Provide a single standardized project document for every content generation workflow.
+
+Every project should follow the same structure regardless of content type.
 
 ---
 
-# Workflow Position
+## 2. Consistency
+
+Maintain consistency between all AI agents by ensuring everyone receives identical project information.
+
+This eliminates conflicting instructions and reduces prompt duplication.
+
+---
+
+## 3. Reusability
+
+Allow project information to be reused across multiple workflows without rewriting prompts.
+
+The same URR can support:
+
+- Story Generation
+- Scene Planning
+- Character Design
+- Image Generation
+- Animation
+- Voice Generation
+- Publishing
+
+---
+
+## 4. Scalability
+
+Support future expansion without redesigning the communication system.
+
+New AI agents should consume the existing URR instead of requiring new project formats.
+
+---
+
+## 5. Production Readiness
+
+Capture all information required to produce professional-quality content rather than only generating text.
+
+The report should contain enough information for complete asset production.
+
+---
+
+## 6. Automation
+
+Enable fully automated content pipelines where every downstream module receives structured information directly from the URR.
+
+---
+
+# Core Principles
+
+The Universal Research Report follows these principles.
+
+- Human Readable
+- Machine Readable
+- AI Friendly
+- Modular
+- Reusable
+- Extensible
+- Production Ready
+- Version Controlled
+- Platform Independent
+
+---
+
+# Position Inside AI_Content_OS
+
+The Universal Research Report is generated immediately after the Research Agent completes its work.
+
+Every major AI agent consumes the URR before performing its own responsibilities.
+
+Current workflow:
+
+```
 
 Topic
 
@@ -44,7 +126,15 @@ Research Agent
 
 ↓
 
-Universal Research Report (URR)
+Universal Research Report
+
+↓
+
+Character Agent
+
+↓
+
+Character Bible Agent
 
 ↓
 
@@ -56,38 +146,171 @@ Reviewer Agent
 
 ↓
 
-Scene Generator
-
-↓
-
-Image Prompt Generator
-
-↓
-
-Video Prompt Generator
-
-↓
-
-Voice Generator
+Production Exporters
 
 ↓
 
 Production Assets
 
-Every downstream module consumes information from the URR.
+```
+
+Future workflow:
+
+```
+
+Topic
+
+↓
+
+Research Agent
+
+↓
+
+Universal Research Report
+
+↓
+
+Character Agent
+
+↓
+
+Character Bible Agent
+
+↓
+
+Writer Agent
+
+↓
+
+Reviewer Agent
+
+↓
+
+Scene Agent
+
+↓
+
+Image Prompt Agent
+
+↓
+
+Image Generator
+
+↓
+
+Animation Agent
+
+↓
+
+Voice Agent
+
+↓
+
+Subtitle Agent
+
+↓
+
+Video Builder
+
+↓
+
+Publishing Agent
+
+```
+
+The URR remains the central communication document throughout the entire production pipeline.
 
 ---
 
-# Section 1 — Project Information
+# AI Communication Standard
 
-## Project Metadata
+Every AI agent communicates using structured models instead of free-form text.
+
+The Universal Research Report acts as the central reference document that keeps every agent synchronized.
+
+Example communication flow:
+
+```
+
+Research Agent
+
+↓
+
+Universal Research Report
+
+↓
+
+Character Agent
+
+↓
+
+Character Profiles
+
+↓
+
+Character Bible Agent
+
+↓
+
+Character Bible
+
+↓
+
+Writer Agent
+
+↓
+
+Story Draft
+
+↓
+
+Reviewer Agent
+
+↓
+
+Review Report
+
+↓
+
+Production Exporters
+
+```
+
+No downstream AI agent should invent missing project information when the required data already exists inside the URR.
+
+---
+
+# Project Metadata
+
+Every Universal Research Report must begin with project metadata.
+
+These fields uniquely identify the project inside AI_Content_OS.
+
+## Project Identification
 
 - Project ID
 - Project Name
+- Project Version
 - Workflow Version
 - Research Version
+
+---
+
+## Ownership
+
 - Generated By
-- Generated At
+- Approved By
+- Organization
+- Project Owner
+
+---
+
+## Timeline
+
+- Created Date
+- Last Updated
+- Target Completion
+- Revision Number
 
 ---
 
@@ -98,236 +321,1859 @@ Every downstream module consumes information from the URR.
 - Language
 - Target Platform
 - Target Audience
+- Reading Level
 - Estimated Duration
 - Estimated Word Count
 - Priority
 
 ---
 
-# Section 2 — Content Strategy
+# Supported Content Types
 
-The Research Agent defines the overall creative direction.
+The Universal Research Report is designed to support multiple production formats.
 
-Fields
+Examples include:
 
-- Goal
-- Tone
-- Core Message
-- Learning Objective
-- Educational Value
-- Target Emotion
-- Audience Reading Level
-- Call To Action
+- Children's Story
+- Educational Story
+- Moral Story
+- Animated Short
+- YouTube Video
+- Educational Lesson
+- Storybook
+- Comic
+- Interactive Learning
+- Short Film
+- Documentary
+- Explainer Video
+
+Future content types can be added without modifying the URR structure.
 
 ---
 
-# Section 3 — Creative Requirements
+# Document Scope
 
-This section defines the creative foundation used by future agents.
+The Universal Research Report defines project requirements only.
+
+It does **not** generate stories, scenes, characters, images, or videos.
+
+Those responsibilities belong to downstream AI agents.
+
+The URR answers:
+
+- What should be created?
+- Why should it be created?
+- Who is it for?
+- What rules must be followed?
+- What production requirements exist?
+
+Downstream AI agents determine **how** those requirements are implemented.
+
+---
+
+# End of Part 1
+
+# Section 1 — Content Strategy
+
+The Content Strategy defines the overall creative direction of the project.
+
+This section answers **why** the content is being created and what outcome the audience should experience after consuming it.
+
+Every downstream AI agent should treat this section as the project's creative foundation.
+
+---
+
+## Goal
+
+Defines the primary objective of the project.
+
+Examples
+
+- Teach a moral lesson
+- Explain a scientific concept
+- Improve critical thinking
+- Entertain children
+- Encourage curiosity
+- Teach coding through storytelling
+
+---
+
+## Core Message
+
+The single most important idea the audience should remember after experiencing the content.
+
+Example
+
+> Intelligence is more powerful than strength.
+
+Only one core message should exist for each project.
+
+---
+
+## Learning Objective
+
+Defines what the audience should learn.
+
+Examples
+
+- Importance of teamwork
+- Basics of gravity
+- Problem solving
+- Logical thinking
+- Environmental awareness
+- Healthy habits
+- Computer programming concepts
+
+Learning objectives should always be measurable and age appropriate.
+
+---
+
+## Educational Value
+
+Defines the educational category.
+
+Examples
+
+- Moral Education
+- Science
+- Mathematics
+- Coding
+- Language Learning
+- History
+- Geography
+- Social Skills
+- Emotional Intelligence
+
+Multiple categories are allowed.
+
+---
+
+## Target Emotion
+
+Defines the emotional journey.
+
+Examples
+
+Beginning
+
+- Curiosity
+- Excitement
+
+Middle
+
+- Wonder
+- Suspense
+
+Ending
+
+- Happiness
+- Satisfaction
+- Inspiration
+
+The emotional flow should remain suitable for the target audience.
+
+---
+
+## Tone
+
+Defines the writing style.
+
+Examples
+
+- Friendly
+- Funny
+- Inspirational
+- Educational
+- Magical
+- Adventurous
+- Calm
+- Emotional
+
+The tone should remain consistent throughout the project.
+
+---
+
+## Audience Reading Level
+
+Defines the complexity of language.
+
+Examples
+
+Age 3–5
+
+- Very simple vocabulary
+- Short sentences
+- High repetition
+
+Age 5–8
+
+- Simple vocabulary
+- Short paragraphs
+- Basic dialogue
+
+Age 8–12
+
+- Rich vocabulary
+- Longer sentences
+- More detailed explanations
+
+---
+
+## Call To Action
+
+Defines the desired audience action after consuming the content.
+
+Examples
+
+- Think before acting.
+- Practice today's lesson.
+- Try the experiment.
+- Read another story.
+- Share with friends.
+- Ask questions.
+- Continue learning.
+
+---
+
+# Section 2 — Research Summary
+
+The Research Summary contains all factual and creative information collected by the Research Agent.
+
+This section becomes the primary knowledge source for every downstream AI agent.
+
+No downstream agent should independently research topics already covered here.
+
+---
+
+## Topic Summary
+
+A concise explanation of the project topic.
+
+Maximum length should be sufficient to provide context without overwhelming downstream agents.
+
+---
+
+## Key Facts
+
+List the most important facts required by the project.
+
+Examples
+
+- Animal behavior
+- Scientific principles
+- Historical facts
+- Programming concepts
+- Mathematical rules
+
+Facts should be verified whenever accuracy is important.
+
+---
+
+## Important Concepts
+
+Defines the concepts that should appear naturally inside the content.
+
+Examples
+
+- Reflection
+- Gravity
+- Friendship
+- Variables
+- Loops
+- Recycling
+- Teamwork
+
+These concepts help guide future storytelling.
+
+---
+
+## Keywords
+
+Important words that should appear naturally inside the project.
+
+Examples
+
+- Lion
+- Rabbit
+- Courage
+- Shadow
+- Coding
+- Forest
+- Robot
+
+Keywords also assist SEO planning.
+
+---
+
+## Assumptions
+
+Lists any assumptions made during research.
+
+Example
+
+- Story takes place in a fictional forest.
+- Animals can communicate.
+- Educational simplifications are acceptable.
+
+Assumptions should be clearly separated from factual information.
+
+---
+
+## Research Confidence
+
+Defines confidence in the collected information.
+
+Levels
+
+- High
+- Medium
+- Low
+
+Projects requiring factual accuracy should target High confidence.
+
+---
+
+## Fact Verification
+
+Specifies whether external verification is required.
+
+Possible values
+
+- Required
+- Optional
+- Not Required
+
+Educational projects should normally require verification.
+
+---
+
+## Sensitive Topics
+
+Lists any topics requiring careful handling.
+
+Examples
+
+- Violence
+- Death
+- Religion
+- Politics
+- Health
+- Safety
+
+Children's content should avoid unnecessary sensitive material.
+
+---
+
+## Risks
+
+Potential research risks.
+
+Examples
+
+- Scientific inaccuracies
+- Historical inaccuracies
+- Cultural misunderstandings
+- Copyright concerns
+
+---
+
+## References
+
+Optional list of trusted information sources used during research.
+
+Examples
+
+- Books
+- Academic Papers
+- Educational Websites
+- Government Resources
+
+---
+
+# Section 3 — Creative Direction
+
+The Creative Direction defines how the project should look and feel.
+
+Unlike the Research Summary, this section focuses on artistic decisions rather than factual information.
+
+---
+
+## Story World
+
+Defines the fictional environment.
+
+Examples
+
+- Jungle
+- Space
+- School
+- Fantasy Kingdom
+- Digital World
+- Underwater City
+
+---
+
+## Genre
+
+Examples
+
+- Adventure
+- Comedy
+- Educational
+- Mystery
+- Fantasy
+- Slice of Life
+
+Projects may combine multiple genres.
+
+---
+
+## Theme
+
+Defines the underlying idea repeated throughout the story.
+
+Examples
+
+- Kindness
+- Intelligence
+- Friendship
+- Curiosity
+- Courage
+- Innovation
+
+---
+
+## Narrative Style
+
+Examples
+
+- Third Person
+- First Person
+- Dialogue Driven
+- Narrator Driven
+- Episodic
+- Cinematic
+
+---
+
+## Visual Direction
+
+Defines the intended visual identity.
+
+Examples
+
+- Pixar Style
+- Stylized 3D
+- Storybook Illustration
+- Cartoon
+- Clay Animation
+- Anime Inspired
+
+---
+
+## Music Direction
+
+Defines the overall musical atmosphere.
+
+Examples
+
+- Cheerful
+- Magical
+- Playful
+- Calm
+- Orchestral
+- Cinematic
+
+---
+
+## Voice Direction
+
+Defines narration style.
+
+Examples
+
+- Warm
+- Energetic
+- Friendly
+- Calm
+- Excited
+- Storyteller
+
+---
+
+## Color Direction
+
+Defines the dominant visual colors.
+
+Examples
+
+- Bright
+- Colorful
+- Pastel
+- Warm
+- Vibrant
+
+This information helps maintain visual consistency across generated assets.
+
+---
+
+# Section 4 — Educational Objectives
+
+Educational goals should remain visible throughout the production pipeline.
+
+Every downstream AI agent should preserve these objectives.
+
+---
+
+## Primary Skill
+
+The main skill the audience should develop.
+
+Examples
+
+- Logical Thinking
+- Reading
+- Observation
+- Creativity
+- Coding
+- Communication
+
+---
+
+## Secondary Skills
+
+Additional learning outcomes.
+
+Examples
+
+- Vocabulary
+- Problem Solving
+- Emotional Intelligence
+- Memory
+- Collaboration
+
+---
+
+## Curriculum Alignment
+
+Optional mapping to educational standards or learning frameworks.
+
+---
+
+## Assessment Criteria
+
+Defines how success can be measured.
+
+Examples
+
+- Child understands the moral.
+- Child remembers the science concept.
+- Child identifies the problem-solving strategy.
+- Child can explain the main lesson.
+
+---
+
+# End of Part 2
+
+
+# Section 5 — Character Planning
+
+Characters are the most valuable reusable assets inside AI_Content_OS.
+
+Unlike stories, characters may appear across multiple projects, episodes, books, videos, and animations.
+
+This section defines every character before story generation begins.
+
+The Character Agent consumes this information to generate structured Character Profiles.
+
+---
+
+## Main Characters
+
+Defines all primary characters required for the project.
+
+For each character include:
+
+- Name
+- Role
+- Species
+- Age Group
+- Gender
+- Importance Level
+
+Example
+
+Main Character
+
+- Rabbit
+- Lion
+
+---
+
+## Supporting Characters
+
+Defines optional supporting characters.
+
+Examples
+
+- Squirrel
+- Turtle
+- Owl
+- Robot
+- Teacher
+- Friend
+
+Supporting characters should enhance the story without distracting from the primary narrative.
+
+---
+
+## Character Roles
+
+Every character must have a clearly defined responsibility.
+
+Possible roles
+
+- Hero
+- Mentor
+- Friend
+- Rival
+- Villain
+- Comic Relief
+- Teacher
+- Narrator
+- Helper
+
+A single character may perform multiple roles.
+
+---
+
+## Character Relationships
+
+Defines relationships between characters.
+
+Examples
+
+- Friends
+- Family
+- Teacher & Student
+- Leader & Team
+- Rivals
+- Parent & Child
+
+Relationships should remain consistent across all generated content.
+
+---
+
+## Character Personality Requirements
+
+Defines required personality traits.
+
+Examples
+
+- Curious
+- Brave
+- Clever
+- Funny
+- Honest
+- Patient
+- Kind
+- Confident
+
+Negative traits may also exist when required.
+
+Examples
+
+- Bossy
+- Lazy
+- Arrogant
+- Impulsive
+
+Every character should have both strengths and weaknesses.
+
+---
+
+## Character Goals
+
+Defines what each character wants to achieve.
+
+Examples
+
+- Solve a mystery
+- Learn science
+- Help friends
+- Protect the forest
+- Build a robot
+- Become a better leader
+
+Goals should naturally support the story's core message.
+
+---
+
+## Character Growth
+
+Defines how characters should evolve.
+
+Example
+
+Beginning
+
+Bossy
+
+↓
+
+Middle
+
+Learns consequences
+
+↓
+
+Ending
+
+Kind leader
+
+Character growth should reinforce the educational objective whenever possible.
+
+---
+
+## Speaking Style
+
+Defines how each character communicates.
+
+Examples
+
+- Calm
+- Energetic
+- Funny
+- Formal
+- Childlike
+- Dramatic
+
+Speech patterns should remain consistent throughout the project.
+
+---
+
+## Recurring Characters
+
+Indicates whether a character is reusable in future stories.
+
+Possible values
+
+- Yes
+- No
+
+Recurring characters should receive permanent Character Bibles.
+
+---
+
+# Section 6 — Character Bible Requirements
+
+The Character Bible is the permanent identity document for every recurring character.
+
+Once created, it becomes the authoritative reference for future stories, images, videos, voices, and animations.
+
+Character consistency must always take priority over individual story requirements.
+
+---
+
+## Character Identity
+
+Required fields
+
+- Character ID
+- Character Name
+- Species
+- Gender
+- Age Group
+- Role
+
+Character IDs should remain permanent across the entire project.
+
+---
+
+## Physical Appearance
+
+Defines the visual identity.
 
 Fields
 
-- Story World
-- Genre
-- Theme
-- Main Characters
-- Supporting Characters
-- Character Requirements
-- Locations
-- Important Objects
+- Height
+- Body Shape
+- Fur / Skin / Hair
+- Eye Color
+- Nose
+- Tail
+- Ears
+- Facial Features
+
+Appearance should never change unless intentionally redesigned.
+
+---
+
+## Clothing
+
+Defines default clothing.
+
+Fields
+
+- Shirt
+- Pants
+- Shoes
+- Cape
+- Dress
+- Uniform
+
+Default clothing should remain consistent across episodes.
+
+---
+
+## Accessories
+
+Defines permanent accessories.
+
+Examples
+
+- Glasses
+- Backpack
+- Crown
+- Scarf
+- Hat
+- Notebook
+- Tool Belt
+
+Accessories become part of the character identity.
+
+---
+
+## Color Palette
+
+Defines official colors.
+
+Examples
+
+Primary Color
+
+Secondary Color
+
+Accent Color
+
+Background Preference
+
+Future image generation should reuse these colors.
+
+---
+
+## Expressions
+
+Defines common facial expressions.
+
+Examples
+
+- Happy
+- Curious
+- Angry
+- Surprised
+- Thinking
+- Laughing
+- Confused
+
+Expressions improve animation consistency.
+
+---
+
+## Default Pose
+
+Defines the character's neutral pose.
+
+Examples
+
+- Standing
+- Sitting
+- Walking
+- Jumping
+- Arms Folded
+- Hands on Hips
+
+---
+
+## Movement Style
+
+Defines animation behavior.
+
+Examples
+
+- Slow
+- Bouncy
+- Elegant
+- Heavy
+- Energetic
+- Clumsy
+
+This information is reused by animation systems.
+
+---
+
+## Gestures
+
+Defines common body language.
+
+Examples
+
+- Points while talking
+- Taps chin while thinking
+- Waves excitedly
+- Shrugs shoulders
+- Crosses arms
+
+Gestures reinforce personality.
+
+---
+
+## Voice Style
+
+Defines vocal characteristics.
+
+Examples
+
+- Soft
+- Cheerful
+- Deep
+- Dramatic
+- High-Pitched
+- Calm
+
+Voice consistency should be maintained across narration and dialogue.
+
+---
+
+## Catch Phrase
+
+Optional signature line.
+
+Examples
+
+- "Let's think this through!"
+- "I have a bright idea!"
+- "Adventure awaits!"
+
+Recurring characters should avoid changing catch phrases.
+
+---
+
+## Image Generation Requirements
+
+Defines standardized prompts for image generation.
+
+Required Fields
+
+- Master Image Prompt
+- Negative Prompt
+- Style Keywords
+- Rendering Style
+- Lighting Style
+- Background Rules
+
+Every generated image should follow these specifications.
+
+---
+
+## Animation Requirements
+
+Defines animation-specific constraints.
+
+Fields
+
+- Default Idle Animation
+- Walk Cycle
+- Run Cycle
+- Jump Style
+- Reaction Style
+- Emotional Range
+
+Future animation agents will consume this information.
+
+---
+
+## Character Consistency Rules
+
+Every generated asset must preserve:
+
+- Appearance
+- Clothing
+- Accessories
+- Personality
+- Colors
+- Expressions
+- Voice
+- Catch Phrase
+- Role
+- Relationships
+
+No downstream AI agent should modify these attributes without explicit approval.
+
+The Character Bible always overrides temporary story instructions whenever conflicts occur.
+
+---
+
+# End of Part 3
+
+
+# Section 7 — Production Requirements
+
+The Production Requirements define every asset that should be produced from the project.
+
+While the Writer Agent generates the story, downstream AI agents are responsible for producing additional assets required for a complete production pipeline.
+
+This section ensures every department receives clear production objectives before generation begins.
+
+---
+
+## Story Requirements
+
+Defines the requirements for the written story.
+
+Fields
+
+- Story Title
+- Target Word Count
+- Reading Time
+- Story Structure
+- Chapter Count
+- Scene Count (Estimated)
+
+Requirements
+
+- Age appropriate
+- Original
+- Educational
+- Family friendly
+- Easy to understand
+- Natural dialogue
+- Positive ending
+
+---
+
+## Character Asset Requirements
+
+Defines character-related production assets.
+
+Required Assets
+
+- Character Profiles
+- Character Bible
+- Character Images
+- Expression Sheets
+- Pose Sheets
+
+Future Assets
+
+- Turnaround Sheets
+- Animation Sheets
+- Lip Sync References
+
+---
+
+## Environment Requirements
+
+Defines all required environments.
+
+Examples
+
+- Forest
+- Classroom
+- Playground
+- Space
+- Laboratory
+- Castle
+
+Each environment should include
+
 - Visual Style
-- Music Style
-- Voice Style
+- Lighting
+- Color Mood
+- Time of Day
+
+Future image generators should maintain environmental consistency.
 
 ---
 
-# Section 4 — Production Requirements
+## Object Requirements
 
-This section defines technical production constraints.
+Defines reusable story objects.
+
+Examples
+
+- Crown
+- Backpack
+- Book
+- Carrot
+- Robot
+- Telescope
+- Computer
+
+Important objects should remain visually consistent across all scenes.
+
+---
+
+## Scene Planning
+
+Defines production expectations for future Scene Agents.
 
 Fields
 
-- Minimum Word Count
-- Maximum Word Count
-- Reading Age
-- Language Style
-- Content Restrictions
-- Visual Requirements
-- Scene Complexity
-- Animation Friendly
-- Image Friendly
-- Video Friendly
+- Estimated Scene Count
+- Major Events
+- Character Participation
+- Location Changes
+- Emotional Flow
+
+Future scene generation should follow these guidelines.
 
 ---
 
-# Section 5 — Character Requirements
+## Image Requirements
 
-This section becomes mandatory once the Character Management System is implemented.
+Defines image generation standards.
 
 Fields
 
-- Character Consistency Required
-- Recurring Characters
-- Character Relationships
-- Personality Notes
-- Appearance Notes
-- Speaking Style
-- Emotional Traits
+- Aspect Ratio
+- Resolution
+- Rendering Style
+- Background Type
+- Lighting
+- Color Palette
 
-Purpose
+Examples
 
-Ensure every story, image and video uses consistent characters.
+Aspect Ratio
+
+- 16:9
+- 9:16
+- 1:1
+
+Rendering Style
+
+- Pixar
+- Stylized 3D
+- Storybook
+- Cartoon
 
 ---
 
-# Section 6 — SEO & Publishing
+## Animation Requirements
+
+Defines animation production requirements.
 
 Fields
 
-- Primary Keywords
-- Secondary Keywords
-- Thumbnail Concept
-- Suggested Title Direction
-- Platform Notes
-- Publishing Notes
+- Frame Rate
+- Animation Style
+- Camera Style
+- Character Motion
+- Facial Animation
+- Transitions
+
+Examples
+
+Animation Style
+
+- Smooth
+- Cartoon
+- Stylized
+- Educational
 
 ---
 
-# Section 7 — Research Quality
+## Audio Requirements
 
-Fields
+Defines audio production.
 
-- Research Confidence
-- Fact Verification Required
-- Educational Accuracy
-- Sensitive Topics
-- Risks
-- Assumptions
-- Special Notes
+Assets
 
-Purpose
+- Narration
+- Character Voices
+- Background Music
+- Sound Effects
+- Ambient Sounds
 
-Help downstream agents understand the reliability of the collected research.
+Audio should remain appropriate for the target audience.
 
 ---
 
-# Section 8 — AI Generation Rules
+## Subtitle Requirements
 
-These rules guide future AI agents.
+Defines subtitle generation.
 
-Fields
+Requirements
 
-- Output Format
-- Preferred Language
-- JSON Required
-- Markdown Required
-- Image Prompt Required
-- Video Prompt Required
-- Narration Required
+- Accurate
+- Child Friendly
+- Proper Punctuation
+- Speaker Identification (Optional)
 
-Purpose
-
-Standardize AI output across the production pipeline.
+Future subtitle agents should use these requirements.
 
 ---
 
-# Section 9 — Downstream Consumers
+## Export Requirements
 
-The Universal Research Report is consumed by:
+Defines final production outputs.
 
-- Writer Agent
-- Reviewer Agent
-- Character Agent
-- Scene Generator
-- Image Prompt Generator
-- Video Prompt Generator
-- Voice Generator
-- Video Builder
+Current Outputs
 
-Every future AI component should read the URR before generating new content.
+- Markdown
+- Plain Text
+- Character Bible JSON
 
----
+Future Outputs
 
-# Section 10 — Workflow Status
-
-Tracks project progress inside AI_Content_OS.
-
-Fields
-
-- Research Agent
-- Writer Agent
-- Reviewer Agent
-- Scene Generator
-- Image Generator
-- Video Generator
-- Voice Generator
-- Founder Approval
-- Final Status
+- PNG
+- JPEG
+- MP4
+- WAV
+- MP3
+- SRT
+- PDF
 
 ---
 
-# Company Rules
+# Section 8 — SEO & Publishing
 
-Every generated project must follow these rules.
+This section defines metadata used during publishing.
 
-- Original Content Only
-- Child Safe
+Publishing information should remain independent from the creative content.
+
+---
+
+## SEO Keywords
+
+Primary Keywords
+
+Secondary Keywords
+
+Long Tail Keywords
+
+Keywords should naturally appear inside generated content.
+
+---
+
+## Search Intent
+
+Examples
+
+- Educational
+- Informational
+- Entertainment
+- Learning
+- Storytelling
+
+---
+
+## Thumbnail Idea
+
+Describe the visual concept for the thumbnail.
+
+Include
+
+- Main Characters
+- Main Emotion
+- Background
+- Color Focus
+- Text Placement
+
+---
+
+## Video Title Ideas
+
+Generate multiple possible titles.
+
+Recommended
+
+- Primary Title
+- Alternative Title
+- SEO Optimized Title
+
+---
+
+## Description Summary
+
+Short project summary suitable for publishing.
+
+Future Publishing Agents may reuse this information.
+
+---
+
+## Tags
+
+Examples
+
+- Kids Story
+- Moral Story
+- Learning
+- Educational
+- Animation
+
+---
+
+## Platform Optimization
+
+Specify production targets.
+
+Examples
+
+- YouTube
+- Shorts
+- Instagram
+- TikTok
+- Facebook
+- Storybook
+- Website
+
+Each platform may require different asset sizes.
+
+---
+
+# Section 9 — AI Generation Rules
+
+This section defines mandatory rules that every AI agent must follow.
+
+These rules override individual prompt behavior whenever conflicts occur.
+
+---
+
+## Content Rules
+
+Every generated asset must be
+
+- Original
 - Educational
 - Family Friendly
-- Positive Moral
-- No Copyright Violation
-- No Hate Speech
-- No Graphic Violence
-- No Adult Content
-- Age Appropriate
-- Brand Consistent
+- Child Safe
+- Copyright Safe
+
+Generated content must never intentionally imitate copyrighted works.
 
 ---
 
-# Design Principles
+## Character Rules
 
-The Universal Research Report follows these principles.
+Characters must remain consistent.
 
-- Structured
-- Reusable
-- Extensible
-- Human Readable
-- Machine Readable
-- AI Friendly
-- Production Ready
+Never randomly change
 
-The report should remain independent from any individual AI model or provider.
+- Name
+- Appearance
+- Clothing
+- Personality
+- Voice
+- Accessories
+- Color Palette
 
----
-
-# Future Expansion
-
-The URR is intentionally designed to support future AI modules without requiring major redesign.
-
-Planned integrations include:
-
-- Character Database
-- Scene Planning
-- Image Generation
-- Video Generation
-- Voice Production
-- Thumbnail Generation
-- SEO Automation
-- Multi-language Content
-- Publishing Pipeline
+Character Bible always takes priority.
 
 ---
 
-# Version History
+## Story Rules
 
-## Version 1.0
+Every story should contain
 
-- Introduced Universal Research Report.
-- Standardized communication between AI agents.
-- Defined project metadata.
-- Defined content strategy.
-- Added production requirements.
-- Added character planning.
-- Added AI generation rules.
-- Added workflow tracking.
-- Established URR as the foundation of AI_Content_OS.
+- Beginning
+- Conflict
+- Resolution
+- Positive Ending
+- Moral
+
+Stories should avoid unnecessary complexity.
+
+---
+
+## Educational Rules
+
+Educational content should
+
+- Be age appropriate
+- Encourage curiosity
+- Avoid misinformation
+- Promote positive values
+
+---
+
+## Visual Rules
+
+Future image generation should
+
+- Preserve consistency
+- Use approved visual style
+- Avoid disturbing imagery
+- Avoid unnecessary realism
+
+---
+
+## Voice Rules
+
+Voice generation should
+
+- Match personality
+- Maintain consistency
+- Use appropriate pacing
+- Remain understandable
+
+---
+
+## Safety Rules
+
+Generated assets must never include
+
+- Graphic Violence
+- Horror
+- Hate Speech
+- Adult Content
+- Dangerous Activities
+- Political Propaganda
+- Religious Bias
+
+---
+
+# Section 10 — AI Workflow Status
+
+The Workflow Status tracks project progress across every AI agent.
+
+Every completed stage should update its status.
+
+---
+
+## Research Phase
+
+Research Agent
+
+Status
+
+Completion Time
+
+---
+
+## Character Phase
+
+Character Agent
+
+Status
+
+Characters Generated
+
+---
+
+## Character Bible Phase
+
+Character Bible Agent
+
+Status
+
+Character Bibles Generated
+
+---
+
+## Story Phase
+
+Writer Agent
+
+Status
+
+Story Generated
+
+Word Count
+
+---
+
+## Review Phase
+
+Reviewer Agent
+
+Status
+
+Review Score
+
+Approved
+
+Feedback
+
+---
+
+## Production Phase
+
+Story Exporter
+
+Status
+
+Markdown Export
+
+Text Export
+
+Character Bible Export
+
+---
+
+## Future Production
+
+Scene Agent
+
+Image Agent
+
+Animation Agent
+
+Voice Agent
+
+Subtitle Agent
+
+Publishing Agent
+
+These fields remain inactive until the corresponding agents are implemented.
+
+---
+
+# End of Part 4
+
+
+# Section 11 — Company Standards
+
+The Universal Research Report is the official project specification used throughout AI_Content_OS.
+
+Every project created under AI_Content_OS should follow these standards regardless of content type.
+
+---
+
+## Standardization
+
+Every project should use the same document structure.
+
+Benefits
+
+- Easier maintenance
+- Better collaboration
+- Consistent AI behavior
+- Predictable production pipeline
+
+---
+
+## Naming Conventions
+
+Project files should follow consistent naming.
+
+Examples
+
+Research Report
+
+Universal_Research_Report.md
+
+Story
+
+The_Clever_Rabbit.md
+
+Character Bible
+
+Barnaby.json
+
+Scene
+
+Scene_01.json
+
+Image
+
+Scene_01_Image.png
+
+Audio
+
+Narration.wav
+
+Video
+
+Final_Video.mp4
+
+---
+
+## Documentation Rules
+
+Every major feature should include documentation.
+
+Required Documents
+
+- ROADMAP
+- PROJECT_STATUS
+- DEVLOG
+- DECISIONS
+- ARCHITECTURE
+- Universal Research Report
+
+Documentation should always remain synchronized with implementation.
+
+---
+
+## Coding Standards
+
+Development should follow these principles.
+
+- Modular Design
+- Single Responsibility Principle
+- Reusable Components
+- Clear Naming
+- Structured Models
+- Minimal Code Duplication
+- Consistent Formatting
+
+---
+
+# Section 12 — Quality Checklist
+
+Every completed project should pass the following quality checks.
+
+---
+
+## Research Checklist
+
+- Topic clearly defined
+- Goal identified
+- Audience specified
+- Educational objectives documented
+- Research completed
+- Risks identified
+
+---
+
+## Character Checklist
+
+- Main characters defined
+- Supporting characters documented
+- Relationships identified
+- Character goals created
+- Personalities consistent
+- Character Bible generated
+
+---
+
+## Story Checklist
+
+- Strong beginning
+- Clear conflict
+- Satisfying ending
+- Positive moral
+- Age appropriate language
+- Target word count achieved
+
+---
+
+## Review Checklist
+
+- Grammar verified
+- Story approved
+- Educational objective achieved
+- Tone consistent
+- Safety verified
+
+---
+
+## Production Checklist
+
+Current
+
+- Markdown exported
+- Text exported
+- Character Bible exported
+
+Future
+
+- Scene plan exported
+- Images generated
+- Voice generated
+- Animation completed
+- Video rendered
+- Metadata prepared
+
+---
+
+# Section 13 — Validation Rules
+
+Every downstream AI agent should validate its input before generation.
+
+Required validations include:
+
+---
+
+## Required Fields
+
+The project should contain
+
+- Topic
+- Audience
+- Goal
+- Research Summary
+- Character Planning
+
+Missing required fields should stop automatic generation.
+
+---
+
+## Character Validation
+
+Characters should contain
+
+- Name
+- Role
+- Species
+- Personality
+- Goal
+
+Recurring characters should always include a Character Bible.
+
+---
+
+## Story Validation
+
+Stories should satisfy
+
+- Target audience
+- Target tone
+- Educational objective
+- Required structure
+- Safety requirements
+
+---
+
+## Export Validation
+
+Every exported asset should be checked for
+
+- File creation
+- Correct naming
+- Proper encoding
+- Data completeness
+
+---
+
+# Section 14 — Future Expansion
+
+The Universal Research Report is intentionally designed to support future AI agents without requiring structural changes.
+
+Planned expansions include
+
+---
+
+## Creative Agents
+
+- Scene Agent
+- Dialogue Agent
+- Screenplay Agent
+- Image Prompt Agent
+- Thumbnail Agent
+
+---
+
+## Visual Production
+
+- Image Generator
+- Character Pose Generator
+- Background Generator
+- Animation Generator
+
+---
+
+## Audio Production
+
+- Narration Agent
+- Character Voice Agent
+- Music Agent
+- Sound Effect Agent
+
+---
+
+## Video Production
+
+- Video Builder
+- Subtitle Agent
+- Video Editor
+- Publishing Agent
+
+---
+
+## Publishing
+
+Future versions of AI_Content_OS will support automated publishing to platforms such as
+
+- YouTube
+- YouTube Shorts
+- Instagram
+- TikTok
+- Facebook
+- Websites
+- Storybook Platforms
+
+The Universal Research Report should continue serving as the central project specification regardless of future expansion.
+
+---
+
+# Section 15 — Version History
+
+| Version | Date | Major Changes |
+|----------|------|---------------|
+| 1.0 | Initial Release | Introduced Universal Research Report for story generation. |
+| 2.0 | July 2026 | Redesigned URR as the master specification document for the AI_Content_OS multi-agent production pipeline. Added Character Planning, Character Bible, Production Requirements, Workflow Status, Quality Standards, Validation Rules, and Future Expansion. |
+
+---
+
+# Section 16 — Approval
+
+Every production-ready project should pass the following approval stages.
+
+Research
+
+↓
+
+Character Planning
+
+↓
+
+Character Bible
+
+↓
+
+Story Generation
+
+↓
+
+Review
+
+↓
+
+Production Export
+
+↓
+
+Founder Approval (Optional)
+
+↓
+
+Release
+
+Approval ensures that generated content satisfies both technical and creative requirements before publication.
+
+---
+
+# Final Summary
+
+The Universal Research Report (URR) is the foundation of AI_Content_OS.
+
+It serves as the single source of truth for every project by combining research, creative direction, character planning, production requirements, quality standards, and workflow status into one structured specification.
+
+Rather than acting as a simple research document, the URR enables multiple AI agents to collaborate using shared project knowledge while maintaining consistency across stories, characters, images, animations, voices, and future production assets.
+
+As AI_Content_OS continues to evolve into a complete AI-powered content production platform, the Universal Research Report will remain the central document that connects every stage of the pipeline—from the initial idea to the final published product.
+
+---
+
+**End of Universal Research Report v2.0**
+
+**Document Status:** Active
+
+**Maintained By:** AI_Content_OS
+
+**Version:** 2.0
+
+

@@ -2,7 +2,9 @@
 
 # System Architecture
 
-Version: 1.0
+Version: 2.0
+
+Status: Active
 
 Last Updated: July 2026
 
@@ -10,397 +12,384 @@ Last Updated: July 2026
 
 # Purpose
 
-This document defines the complete architecture of AI_Content_OS.
+This document describes the overall architecture of AI_Content_OS.
 
-It serves as the single source of truth for how the system is organized, how data flows between components, and how future modules should integrate with the existing architecture.
+It explains how every major component interacts, how information flows through the system, and the design principles that guide future development.
 
-Every new feature must follow the architectural principles defined in this document.
-
----
-
-# Project Vision
-
-AI_Content_OS is a modular AI-powered Content Production Studio.
-
-The long-term goal is to transform a single topic into a complete YouTube-ready educational video using multiple specialized AI agents.
-
-The system is designed around reusable components instead of monolithic scripts.
+This document is the primary technical reference for developers contributing to the project.
 
 ---
 
-# Core Design Principles
+# Architecture Goals
 
-The architecture follows these principles.
+The system is designed to be:
 
-- Modular Design
-- Single Responsibility Principle
-- Agent-Based Workflow
-- Reusable Components
-- Separation of Concerns
-- Production-Ready Code
-- Scalable Architecture
-- Human Readable Documentation
-
-Every component should perform one responsibility exceptionally well.
+- Modular
+- Scalable
+- Agent-based
+- Production-ready
+- Model-independent
+- Easy to extend
+- Easy to test
+- Easy to maintain
 
 ---
 
-# High-Level Pipeline
+# High-Level Architecture
 
-Topic
-│
-▼
-Research Agent
-│
-▼
-Research Report
-│
-▼
-Writer Agent
-│
-▼
-Story Draft
-│
-▼
-Reviewer Agent
-│
-▼
-Review Report
-│
-▼
-Story Exporter
-│
-▼
-Production Files
+```
 
-This is the current stable production pipeline.
+                 User
 
----
+                   │
 
-# Future Production Pipeline
+                   ▼
 
-Topic
-│
-▼
-Character Manager
-│
-▼
-Research Agent
-│
-▼
-Research Report
-│
-▼
-Writer Agent
-│
-▼
-Story Draft
-│
-▼
-Reviewer Agent
-│
-▼
-Review Report
-│
-▼
-Scene Generator
-│
-▼
-Scene Report
-│
-▼
-Image Prompt Generator
-│
-▼
-Video Prompt Generator
-│
-▼
-Voice Generator
-│
-▼
-Video Builder
-│
-▼
-YouTube Assets
+              StoryWorkflow
 
-This represents the long-term architecture of AI_Content_OS.
+                   │
+
+      ┌────────────┼────────────┐
+
+      ▼            ▼            ▼
+
+Research      Character      Character Bible
+
+ Agent          Agent            Agent
+
+      │            │              │
+
+      └────────────┼──────────────┘
+
+                   ▼
+
+             Writer Agent
+
+                   ▼
+
+            Reviewer Agent
+
+                   ▼
+
+          Production Exporters
+
+                   ▼
+
+           Production Assets
+
+```
 
 ---
 
-# Current Folder Structure
+# Layered Architecture
+
+The project follows a layered architecture.
+
+```
+
+Presentation Layer
+
+↓
+
+Workflow Layer
+
+↓
+
+Agent Layer
+
+↓
+
+Brain Layer
+
+↓
+
+LLM Layer
+
+↓
+
+Production Layer
+
+```
+
+Each layer has a single responsibility.
+
+---
+
+# Project Structure
+
+```
 
 AI_Content_OS/
 
-agents/
+│
 
-brain/
+├── agents/
 
-config/
+├── brain/
 
-docs/
+├── config/
 
-formatters/
+├── formatters/
 
-memory/
+├── memory/
 
-models/
+├── models/
 
-production/
+├── production/
 
-prompts/
+├── prompts/
 
-utils/
+├── tests/
 
-workflows/
+├── utils/
 
-main.py
+├── workflows/
 
-README.md
+└── main.py
 
-requirements.txt
-
-Each folder owns a single responsibility.
+```
 
 ---
 
-# Brain Architecture
+# Component Overview
+
+---
+
+## 1. Workflows
 
 Purpose
 
-The Brain acts as the communication layer between the application and the Large Language Model.
+Coordinate the execution of multiple agents.
 
 Responsibilities
 
-- Receive prompts
-- Send prompts to the LLM
-- Receive responses
-- Return responses
+- Control execution order
+- Pass structured data
+- Handle orchestration
+- Coordinate exports
 
-The Brain does not contain business logic.
+Current Workflow
 
-Business decisions always belong to Agents.
+StoryWorkflow
 
----
+Future Workflows
 
-# LLM Layer
-
-Current Provider
-
-Google Gemini API
-
-Current Strategy
-
-Primary Model
-
-Gemma 4 31B
-
-Fallback Models
-
-Gemini Flash
-
-Automatic model fallback is enabled.
-
-If the first model fails, the next model is automatically used.
-
-This makes the pipeline resilient to temporary model failures.
+- VideoWorkflow
+- ImageWorkflow
+- AnimationWorkflow
 
 ---
 
-# Agent Architecture
+## 2. Agents
 
-Agents are responsible for business logic.
+Purpose
+
+Each agent performs one specialized AI task.
 
 Current Agents
 
-ResearchAgent
-
-WriterAgent
-
-ReviewerAgent
+- Research Agent
+- Character Agent
+- Character Bible Agent
+- Writer Agent
+- Reviewer Agent
 
 Future Agents
 
-CharacterAgent
+- Scene Agent
+- Image Agent
+- Voice Agent
+- Animation Agent
+- Thumbnail Agent
+- SEO Agent
+- Publishing Agent
 
-SceneAgent
+Agents never communicate directly with each other.
 
-ImagePromptAgent
-
-VideoPromptAgent
-
-VoiceAgent
-
-ThumbnailAgent
-
-SEOAgent
-
-PublisherAgent
-
-Every Agent should perform exactly one responsibility.
+Only workflows coordinate agents.
 
 ---
 
-# Model Architecture
+## 3. Brain
 
-Models represent structured data flowing through the pipeline.
+Purpose
+
+Brain is the central AI execution engine.
+
+Responsibilities
+
+- Prompt execution
+- Model selection
+- Retry logic
+- Fallback logic
+- Error handling
+
+Agents never access LLMs directly.
+
+All AI communication passes through Brain.
+
+---
+
+## 4. LLM Layer
+
+Current Priority
+
+1. Gemma 4 31B
+2. Gemini 3.5 Flash
+3. Gemini 3.1 Flash Lite
+
+Execution Strategy
+
+```
+
+Try Model 1
+
+↓
+
+If Failed
+
+↓
+
+Try Model 2
+
+↓
+
+If Failed
+
+↓
+
+Try Model 3
+
+↓
+
+Return Response
+
+```
+
+This provides automatic fault tolerance.
+
+---
+
+## 5. Prompt Layer
+
+Purpose
+
+Separate prompt engineering from business logic.
+
+Each agent owns its own prompt.
+
+Examples
+
+Research Agent
+
+↓
+
+Research Prompt
+
+Character Agent
+
+↓
+
+Character Prompt
+
+Writer Agent
+
+↓
+
+Writer Prompt
+
+This separation allows prompts to evolve independently.
+
+---
+
+## 6. Models
+
+Purpose
+
+Models define structured communication between agents.
 
 Current Models
 
 ResearchReport
 
+CharacterProfile
+
+CharacterBible
+
 StoryDraft
 
 ReviewReport
 
-Future Models
+Advantages
 
-CharacterProfile
-
-SceneReport
-
-ImagePrompt
-
-VideoPrompt
-
-NarrationScript
-
-VideoProject
-
-Models should never contain business logic.
-
-They only transport structured data.
+- Strong typing
+- Easier debugging
+- Reliable parsing
+- Better scalability
 
 ---
 
-# Prompt Architecture
+## 7. Memory Layer
 
-All prompt engineering is isolated from business logic.
+Current State
 
-Current Prompts
+Basic implementation.
 
-Story Prompt
+Responsibilities
 
-Writer Prompt
+- Store runtime information
+- Manage future long-term memory
 
-Reviewer Prompt
+Future Capabilities
 
-Future Prompts
-
-Character Prompt
-
-Scene Prompt
-
-Image Prompt
-
-Video Prompt
-
-Voice Prompt
-
-Prompt files should only generate prompts.
-
-They should never call the LLM directly.
+- Character memory
+- Story memory
+- World memory
+- User memory
+- Project memory
 
 ---
 
-# Formatter Architecture
+## 8. Production Layer
 
-Formatters convert internal models into readable output.
+Purpose
 
-Current Formatter
+Export production-ready assets.
 
-Research Report Formatter
+Current Exporters
 
-Story Formatter
+Story Exporter
 
-Future Formatters
+Exports
 
-Scene Formatter
+- Markdown
+- Plain Text
 
-Video Formatter
+Character Bible Exporter
 
-Formatter responsibilities include presentation only.
+Exports
 
----
+- JSON
 
-# Export Architecture
+Future Exporters
 
-Exporters create production-ready assets.
-
-Current Export Formats
-
-Markdown
-
-Text
-
-Future Export Formats
-
-JSON
-
-PDF
-
-HTML
-
-Subtitle Files
-
-YouTube Metadata
-
-Exporters never generate content.
-
-They only save content.
-
----
-
-# Utility Layer
-
-Utilities provide reusable helper functions.
-
-Current Utilities
-
-JSON Parser
-
-Future Utilities
-
-Logger
-
-Retry Manager
-
-File Manager
-
-Prompt Validator
-
-Utilities must remain independent from business logic.
-
----
-
-# Workflow Architecture
-
-Workflows coordinate the execution of Agents.
-
-Current Workflow
-
-Story Workflow
-
-Future Workflows
-
-Video Workflow
-
-Blog Workflow
-
-Shorts Workflow
-
-Podcast Workflow
-
-Workflows should coordinate Agents without implementing business logic.
+- Scene Exporter
+- Image Exporter
+- Subtitle Exporter
+- Voice Exporter
+- Animation Exporter
 
 ---
 
 # Current Data Flow
 
-Topic
+```
+
+User Topic
 
 ↓
 
-ResearchAgent
+Research Agent
 
 ↓
 
@@ -408,7 +397,23 @@ ResearchReport
 
 ↓
 
-WriterAgent
+Character Agent
+
+↓
+
+CharacterProfile[]
+
+↓
+
+Character Bible Agent
+
+↓
+
+CharacterBible[]
+
+↓
+
+Writer Agent
 
 ↓
 
@@ -416,7 +421,7 @@ StoryDraft
 
 ↓
 
-ReviewerAgent
+Reviewer Agent
 
 ↓
 
@@ -424,21 +429,159 @@ ReviewReport
 
 ↓
 
-StoryExporter
+Story Exporter
 
 ↓
 
-Production Files
+Markdown
 
-Every step produces structured output.
+Text
 
-No component depends on printed text.
+↓
+
+Character Bible Exporter
+
+↓
+
+JSON
+
+```
 
 ---
 
-# Future Data Flow
+# Production Assets
 
-Topic
+Current Outputs
+
+```
+
+production/
+
+│
+
+├── stories/
+
+│
+
+│     Story.md
+
+│
+
+│     Story.txt
+
+│
+
+└── characters/
+
+      Character.json
+
+```
+
+Future Outputs
+
+```
+
+production/
+
+│
+
+├── stories/
+
+├── scenes/
+
+├── images/
+
+├── audio/
+
+├── subtitles/
+
+├── videos/
+
+├── thumbnails/
+
+└── metadata/
+
+```
+
+---
+
+# Design Principles
+
+## Single Responsibility
+
+Every class has one job.
+
+---
+
+## Separation of Concerns
+
+Business logic
+
+↓
+
+Agent logic
+
+↓
+
+Prompt logic
+
+↓
+
+LLM logic
+
+↓
+
+Export logic
+
+All remain independent.
+
+---
+
+## Modularity
+
+Every component can be replaced independently.
+
+Example
+
+Writer Agent can change without affecting Research Agent.
+
+---
+
+## Scalability
+
+Adding a new agent should require minimal modification.
+
+Workflow
+
+↓
+
+New Agent
+
+↓
+
+Done
+
+No existing agent should require major changes.
+
+---
+
+## Production First
+
+Generated data should always be exportable.
+
+Nothing important should exist only in memory.
+
+---
+
+## Structured Communication
+
+Agents exchange objects.
+
+Never raw paragraphs.
+
+Example
+
+ResearchReport
 
 ↓
 
@@ -446,7 +589,7 @@ CharacterProfile
 
 ↓
 
-ResearchReport
+CharacterBible
 
 ↓
 
@@ -454,190 +597,137 @@ StoryDraft
 
 ↓
 
-SceneReport
+ReviewReport
+
+---
+
+# Error Handling
+
+Brain is responsible for:
+
+- Retry
+- Model switching
+- API failure recovery
+- Quota recovery
+- Exception handling
+
+Agents remain simple.
+
+---
+
+# Testing Strategy
+
+Every major component should be testable independently.
+
+Current Tests
+
+- Character Agent
+- Character Bible Agent
+
+Future Tests
+
+- Research Agent
+- Writer Agent
+- Reviewer Agent
+- Workflow Integration
+- Export Validation
+
+---
+
+# Future Architecture
+
+The current architecture represents only Phase 1.
+
+Future pipeline
+
+```
+
+Research
 
 ↓
 
-ImagePrompt
+Characters
 
 ↓
 
-VideoPrompt
+Character Bible
 
 ↓
 
-Narration
+Story
 
 ↓
 
-VideoProject
+Scenes
 
 ↓
 
-YouTube Assets
+Images
 
-Every stage transforms one structured model into another.
+↓
 
----
+Voice
 
-# Character Architecture (Planned)
+↓
 
-Character Manager will become the foundation of the production pipeline.
+Animation
 
-Responsibilities
+↓
 
-- Character Database
-- Appearance
-- Personality
-- Relationships
-- Speaking Style
-- Memory
-- Prompt Injection
+Video
 
-Every downstream module will use the same character information.
+↓
 
----
+Publishing
 
-# Scene Architecture (Planned)
+```
 
-The Scene Generator will convert stories into cinematic production units.
-
-Each scene will contain
-
-- Scene Number
-- Narration
-- Characters
-- Environment
-- Action
-- Emotion
-- Camera Notes
-
-Scenes become the source for image and video generation.
+Each stage will become an independent reusable production pipeline.
 
 ---
 
-# Image Generation Architecture
+# System Characteristics
 
-Image prompts will include
+Architecture Style
 
-- Character Appearance
-- Environment
-- Art Style
-- Camera Angle
-- Lighting
-- Composition
-- Negative Prompt
+Multi-Agent
 
-These prompts will be optimized for AI image models.
+Workflow
 
----
+Orchestrated
 
-# Video Generation Architecture
+Communication
 
-Video prompts will include
+Structured Models
 
-- Character Motion
-- Camera Motion
-- Facial Expressions
-- Environment Motion
-- Timing
-- Scene Continuity
+AI Access
 
-Primary Target
+Centralized Brain
 
-Google Flow / Veo
+Prompt Strategy
 
----
+Modular
 
-# Voice Architecture
+Production
 
-Narration generation will support
+Export Driven
 
-- Story Narration
-- Character Voices
-- Emotion Tags
-- Timing
+Scalability
 
-Long-term objective
+High
 
-Use original family voices to create a unique and recognizable channel identity.
+Maintainability
+
+High
+
+Testing
+
+Independent Modules
 
 ---
 
-# Error Handling Strategy
+# Summary
 
-The system follows graceful failure.
+AI_Content_OS follows a modular multi-agent architecture where workflows orchestrate specialized agents, the Brain manages all AI communication, structured models connect components, and exporters generate production-ready assets.
 
-Current Implementation
-
-Automatic model fallback.
-
-Future Improvements
-
-Retry Policies
-
-Logging
-
-Error Reports
-
-Recovery Strategies
-
----
-
-# Documentation Architecture
-
-Project documentation is divided into dedicated responsibilities.
-
-PROJECT_STATUS.md
-
-Current state of the project.
-
-ROADMAP.md
-
-Future development plan.
-
-DEVLOG.md
-
-Development history.
-
-ARCHITECTURE.md
-
-System design and technical blueprint.
-
-DECISIONS.md
-
-Important architectural decisions.
-
-Universal Research Report
-
-Research system documentation.
-
-Each document has a single purpose.
-
----
-
-# Design Rules
-
-All future development must follow these rules.
-
-- Brain communicates with the LLM only.
-- Agents own business logic.
-- Models transport data.
-- Prompts generate prompts.
-- Formatters format data.
-- Exporters save files.
-- Utilities provide reusable functions.
-- Workflows coordinate execution.
-- Components should remain loosely coupled.
-- Avoid duplicate responsibilities.
-- Prefer composition over unnecessary inheritance.
-
----
-
-# Long-Term Architecture Vision
-
-AI_Content_OS is designed to evolve beyond story generation.
-
-The final system will function as a complete AI-powered Content Production Studio capable of generating stories, scenes, images, videos, narration, thumbnails, metadata, and publishing assets while maintaining consistent characters, reusable modules, and production-ready architecture.
-
-The architecture emphasizes scalability, maintainability, and modularity so that future expansion can occur without major redesign.
+The architecture is intentionally designed to support future expansion into scene generation, image generation, animation, voice synthesis, and complete AI-driven content production while keeping every module independent, reusable, and easy to maintain.
