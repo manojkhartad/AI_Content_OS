@@ -1,0 +1,51 @@
+# The Grumpy Lion and the Clever Rabbit
+
+## Story
+
+Once upon a time, in the green Sunny Forest, lived a king named Leo the Lion. Leo was very big. He was very strong. But most of all, Leo was very grumpy. He loved to show off by roaring. "ROAR!" he would shout. The trees would shake, and the birds would fly away. Leo thought he was the smartest and strongest animal in the world.
+
+In the same forest lived Barnaby. Barnaby was a tiny rabbit with long, floppy ears. He was not big, and he was not strong. But Barnaby had a very big brain. He loved solving puzzles and eating sweet orange carrots.
+
+One sunny morning, Barnaby was chewing on a carrot. Suddenly, the bushes shook. Out stepped Leo the Lion! His tummy made a loud grumble. 
+
+"Aha!" roared Leo. "A little rabbit! You look like a tasty snack!"
+
+Barnaby did not run. He did not cry. He tapped his chin and used his big brain. He smiled and said, "Oh, King Leo! You cannot eat me. I am already promised to the other king."
+
+Leo stopped. He looked very confused. "The other king? I am the only king of this forest!"
+
+"Oh, no," Barnaby whispered, pointing to an old stone well. "There is a much bigger, scarier lion living down in that well. He told me he is the real king!"
+
+Leo’s face turned bright red with anger. "A scarier lion? With a bigger mane? Never!"
+
+Leo stomped over to the well. He stood on his tiptoes and peeked inside. The water at the bottom was shiny like a mirror. Leo saw a lion looking back at him. 
+
+"Hey! You look silly!" Leo yelled down.
+
+Of course, it was just his own reflection. But Leo was not very smart. He thought it was a rival lion! 
+
+Leo showed his sharp teeth. The reflection showed its teeth back. Leo got very angry. He puffed out his chest and roared, "ROAR!"
+
+The echo from the well roared back even louder, "ROAR!"
+
+"That is it!" Leo screamed. "I will fight you!"
+
+Leo leaped high into the air. He tucked in his paws and jumped right into the well. 
+
+SPLASH!
+
+Cold water sprayed everywhere. Leo was wet, soggy, and shivering. He looked up and saw Barnaby peeking over the edge. 
+
+Barnaby giggled. "Have fun with your new friend, Leo!" he called out.
+
+Leo sighed. He had to slowly climb out of the well. He was too wet and too tired to chase anyone now. Barnaby hopped away happily, munching on his carrot. He was safe and warm, all because of his big brain.
+
+---
+
+## Moral
+
+Being smart is much better than just being strong.
+
+---
+
+**Word Count:** 432

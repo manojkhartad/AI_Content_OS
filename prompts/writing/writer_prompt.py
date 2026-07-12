@@ -1,55 +1,64 @@
-import json
-
-
 class WriterPrompt:
 
-    def build(self, report):
+    @staticmethod
+    def generate(research_report, characters):
 
-        schema = {
-            "title": "Story title",
-            "story": "Complete children's story",
-            "moral": "Moral of the story"
-        }
+        character_section = ""
+
+        for character in characters:
+            character_section += f"""
+Name: {character.name}
+Role: {character.role}
+Species: {character.species}
+Description: {character.description}
+
+"""
 
         return f"""
 You are an expert children's story writer.
 
-Your job is to write a beautiful children's story using the research provided below.
+Write an original educational story.
 
-Research:
-
-{report.research}
+Project Information
 
 Topic:
-{report.topic}
+{research_report.topic}
+
+Content Type:
+{research_report.content_type}
 
 Target Audience:
-{report.target_audience}
+{research_report.target_audience}
 
 Goal:
-{report.goal}
+{research_report.goal}
 
 Tone:
-{report.tone}
+{research_report.tone}
 
-Instructions:
+Characters
 
-- Write in simple English.
-- Use short and easy sentences.
-- Make the story fun and engaging.
-- Give each character a unique personality.
-- Include natural dialogues where appropriate.
-- Story length should be around 500 words.
-- End with a happy ending.
-- Include a clear moral lesson.
+{character_section}
+
+Story Requirements
+
+- Use ONLY the characters listed above.
+- Keep the story between 350 and 450 words.
+- Use simple English suitable for children aged 5–8.
+- Give the story a clear beginning, middle and ending.
+- Make the story fun, educational and engaging.
+- End with a positive moral.
+- Do not introduce new major characters unless absolutely necessary.
+- Do not include violence, horror or inappropriate content.
 
 Return ONLY valid JSON.
 
-Do NOT write explanations.
-Do NOT use markdown.
-Do NOT wrap JSON inside ```json blocks.
+JSON Schema
 
-JSON Format:
-
-{json.dumps(schema, indent=4)}
+{{
+    "title": "",
+    "story": "",
+    "moral": "",
+    "word_count": 0
+}}
 """
