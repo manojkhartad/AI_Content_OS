@@ -1,0 +1,22 @@
+{
+    "character_id": "RUBY_001",
+    "name": "Ruby",
+    "species": "Rabbit",
+    "role": "Main Character",
+    "appearance": "Stylized 3D rabbit with soft peach-cream fur, large expressive amber eyes, and long, velvety ears.",
+    "clothing": "A bright teal overall dress with a single large gold button on the center chest.",
+    "accessories": "A small, bright red ribbon bow tied neatly to the base of her right ear.",
+    "color_palette": "Peach (Fur), Teal (Outfit), Gold (Button), Red (Bow), Amber (Eyes).",
+    "personality": "Optimistic, curious, and analytical. She is a natural problem-solver who approaches every challenge with a positive attitude.",
+    "strengths": "Quick thinking, high observation skills, and creative intelligence.",
+    "weaknesses": "Can be overly impatient and occasionally clumsy when she gets too excited.",
+    "goals": "To solve every puzzle she encounters and ensure all her friends are happy and safe.",
+    "default_expression": "A confident, wide-eyed, friendly smile.",
+    "default_pose": "Standing upright on two legs with one paw resting on her hip.",
+    "movement_style": "Bouncy and energetic, characterized by light hops and sudden, sharp pivots.",
+    "gestures": "Tapping her chin with one paw when thinking; rapid nose wiggling when she discovers a solution.",
+    "voice_style": "Bright, clear, and enthusiastic with a youthful, high-pitched tone.",
+    "catch_phrase": "Got a bright idea!",
+    "image_prompt": "Full body 3D stylized cute rabbit, soft peach-cream fur, large expressive amber eyes, wearing a bright teal overall dress with one large gold button, small red bow on right ear, high-quality 3D animation style, vibrant colors, simple clean shapes.",
+    "negative_prompt": "background, scenery, landscape, environment, low resolution, blurry, distorted, realistic photography, dark colors, human, scary, messy, grainy, text, watermark."
+}

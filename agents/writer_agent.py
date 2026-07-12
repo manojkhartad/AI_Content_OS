@@ -14,13 +14,13 @@ class WriterAgent(BaseAgent):
     def __init__(self):
         super().__init__("Writer Agent")
 
-    def write(self, research_report, characters):
+    def write(self, research_report, character_bibles):
 
         print("Story Writing Started")
 
         prompt = WriterPrompt.generate(
             research_report,
-            characters
+            character_bibles
         )
 
         brain = Brain()
@@ -29,11 +29,14 @@ class WriterAgent(BaseAgent):
 
         data = parse_json(response)
 
-        draft = StoryDraft(
-            title=data["title"],
-            story=data["story"],
-            moral=data["moral"],
-            word_count=data["word_count"]
-        )
+        return StoryDraft(
 
-        return draft
+            title=data.get("title", ""),
+
+            story=data.get("story", ""),
+
+            moral=data.get("moral", ""),
+
+            word_count=data.get("word_count", 0)
+
+        )

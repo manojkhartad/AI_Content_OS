@@ -1,25 +1,74 @@
 class WriterPrompt:
 
     @staticmethod
-    def generate(research_report, characters):
+    def generate(research_report, character_bibles):
 
-        character_section = ""
+        characters = ""
 
-        for character in characters:
-            character_section += f"""
-Name: {character.name}
-Role: {character.role}
-Species: {character.species}
-Description: {character.description}
+        for character in character_bibles:
 
+            characters += f"""
+
+Name:
+{character.name}
+
+Species:
+{character.species}
+
+Role:
+{character.role}
+
+Appearance:
+{character.appearance}
+
+Clothing:
+{character.clothing}
+
+Accessories:
+{character.accessories}
+
+Personality:
+{character.personality}
+
+Strengths:
+{character.strengths}
+
+Weaknesses:
+{character.weaknesses}
+
+Goals:
+{character.goals}
+
+Voice Style:
+{character.voice_style}
+
+Catch Phrase:
+{character.catch_phrase}
+
+Movement Style:
+{character.movement_style}
+
+Default Expression:
+{character.default_expression}
+
+Default Pose:
+{character.default_pose}
+
+Gestures:
+{character.gestures}
+
+----------------------------------------
 """
 
         return f"""
-You are an expert children's story writer.
+You are a professional children's story writer.
 
-Write an original educational story.
+Write an ORIGINAL children's story.
 
-Project Information
+Never copy existing stories.
+
+----------------------------------------
+Research
 
 Topic:
 {research_report.topic}
@@ -36,20 +85,76 @@ Goal:
 Tone:
 {research_report.tone}
 
-Characters
+Research:
+{research_report.research}
 
-{character_section}
+----------------------------------------
+Official Character Bible
 
-Story Requirements
+{characters}
 
-- Use ONLY the characters listed above.
-- Keep the story between 350 and 450 words.
-- Use simple English suitable for children aged 5–8.
-- Give the story a clear beginning, middle and ending.
-- Make the story fun, educational and engaging.
-- End with a positive moral.
-- Do not introduce new major characters unless absolutely necessary.
-- Do not include violence, horror or inappropriate content.
+----------------------------------------
+Rules
+
+Use ONLY the characters provided.
+
+Never change their appearance.
+
+Never change their clothing.
+
+Never change their accessories.
+
+Never change their personality.
+
+Keep every character visually consistent.
+
+Never invent new main characters.
+
+Only introduce tiny side characters if absolutely necessary.
+
+Story Structure
+
+Beginning
+
+Problem
+
+Adventure
+
+Climax
+
+Ending
+
+Moral
+
+Language Rules
+
+Simple English
+
+Age 5–8
+
+Fun
+
+Funny
+
+Educational
+
+Family Friendly
+
+No violence
+
+No horror
+
+No politics
+
+No religion
+
+No copyrighted characters
+
+Story Length
+
+Approximately 350–450 words.
+
+----------------------------------------
 
 Return ONLY valid JSON.
 

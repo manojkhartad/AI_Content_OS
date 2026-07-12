@@ -1,0 +1,22 @@
+{
+    "character_id": "LEO_LION_001",
+    "name": "Leo",
+    "species": "Lion",
+    "role": "Antagonist",
+    "appearance": "A cute, stylized 3D lion with a rounded body, golden-yellow fur, and a disproportionately large, fluffy, bright orange mane that looks like a sunburst. He has large, expressive eyes and a small, pink nose.",
+    "clothing": "A short, royal purple velvet cape fastened with a single circular gold clasp at the neck.",
+    "accessories": "A small, shimmering gold crown that is slightly too small for his head and always sits tilted to the left.",
+    "color_palette": "Golden Yellow, Bright Orange, Royal Purple, Shimmering Gold",
+    "personality": "Pompous, grumpy, and self-important. He believes he is the supreme ruler of the jungle, though he is more comical than menacing. He is easily frustrated but has a secret soft spot for naps.",
+    "strengths": "Unshakable confidence, loud presence, natural leadership instincts.",
+    "weaknesses": "Over-confidence, easily distracted by snacks, terrified of tiny butterflies.",
+    "goals": "To be officially acknowledged as the 'Boss of the Jungle' by every animal.",
+    "default_expression": "A cute scowl with one eyebrow raised and a slight pout.",
+    "default_pose": "Standing tall with chest puffed out and paws resting firmly on his hips.",
+    "movement_style": "Stiff, formal walking with dramatic, exaggerated turns; occasionally trips over his own cape.",
+    "gestures": "Crossing arms stubbornly, pointing a single paw authoritatively, tossing his mane with a flick of his head.",
+    "voice_style": "Booming and theatrical, yet slightly raspy and comical.",
+    "catch_phrase": "I am the Boss of the Brush!",
+    "image_prompt": "A cute stylized 3D animation character of a grumpy golden-yellow lion. He has a large fluffy bright orange mane, wearing a small tilted gold crown and a short royal purple velvet cape with a gold clasp. High-quality render, vivid colors, soft fur texture, big expressive eyes, rounded features.",
+    "negative_prompt": "background, scenery, environment, landscape, blurry, distorted, low resolution, photorealistic, scary, aggressive, dark colors, human, text, watermark, signature"
+}
