@@ -1,34 +1,76 @@
+# ==========================
 # Python
+# ==========================
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 
+# ==========================
 # Virtual Environment
+# ==========================
 venv/
 .venv/
 env/
 
+# ==========================
 # Environment Variables
+# ==========================
 .env
 
+# ==========================
 # VS Code
+# ==========================
 .vscode/
 
+# ==========================
 # OS Files
+# ==========================
 .DS_Store
 Thumbs.db
 
+# ==========================
 # Logs
+# ==========================
 *.log
 
+# ==========================
 # Build
+# ==========================
 build/
 dist/
 *.egg-info/
 
+# ==========================
 # Testing
+# ==========================
 .pytest_cache/
 
+# ==========================
 # Jupyter
+# ==========================
 .ipynb_checkpoints/
+
+# ==========================
+# Generated Production Assets
+# ==========================
+
+# Generated Stories
+production/*.md
+production/*.txt
+
+# Generated Character Bibles
+production/characters/*.json
+
+# Future Scene Exports
+production/scenes/
+
+# Future Image Outputs
+production/images/
+
+# Future Video Outputs
+production/videos/
+
+# Temporary Files
+*.tmp
+*.temp
