@@ -1,14 +1,22 @@
+# ==========================================================
+# Imports
+# ==========================================================
+
 from agents.research_agent import ResearchAgent
 from agents.character_agent import CharacterAgent
 from agents.character_bible_agent import CharacterBibleAgent
 from agents.writer_agent import WriterAgent
 from agents.reviewer_agent import ReviewerAgent
 
+from exporters.story_exporter import StoryExporter
+from exporters.character_bible_exporter import CharacterBibleExporter
+
 from formatters.story_formatter import StoryFormatter
 
-from production.story_exporter import StoryExporter
-from production.character_bible_exporter import CharacterBibleExporter
 
+# ==========================================================
+# Story Workflow
+# ==========================================================
 
 class StoryWorkflow:
 
@@ -16,18 +24,18 @@ class StoryWorkflow:
 
         print("Story Workflow Started")
 
-        # -----------------------------
-        # Research
-        # -----------------------------
+        # ==================================================
+        # Step 1 : Research
+        # ==================================================
 
         research_agent = ResearchAgent()
         research_agent.start()
 
         research_report = research_agent.research(topic)
 
-        # -----------------------------
-        # Character Profiles
-        # -----------------------------
+        # ==================================================
+        # Step 2 : Character Profiles
+        # ==================================================
 
         character_agent = CharacterAgent()
         character_agent.start()
@@ -36,55 +44,60 @@ class StoryWorkflow:
             research_report
         )
 
-        # -----------------------------
-        # Character Bible
-        # -----------------------------
+        # ==================================================
+        # Step 3 : Character Bibles
+        # ==================================================
 
         character_bible_agent = CharacterBibleAgent()
         character_bible_agent.start()
 
-        character_bibles = character_bible_agent.generate_character_bibles(
-            characters
+        character_bibles = (
+            character_bible_agent.generate_character_bibles(
+                characters
+            )
         )
-
-        # -----------------------------
-        # Export Character Bibles
-        # -----------------------------
 
         CharacterBibleExporter.export(
             character_bibles
         )
 
-        # -----------------------------
-        # Story Writer
-        # -----------------------------
+        # ==================================================
+        # Step 4 : Story Writing
+        # ==================================================
 
         writer_agent = WriterAgent()
         writer_agent.start()
 
-        draft = writer_agent.write(
+        story = writer_agent.write(
             research_report,
             character_bibles
         )
 
-        # -----------------------------
-        # Story Reviewer
-        # -----------------------------
+        # ==================================================
+        # Step 5 : Story Review
+        # ==================================================
 
         reviewer_agent = ReviewerAgent()
         reviewer_agent.start()
 
-        review = reviewer_agent.review(draft)
+        review = reviewer_agent.review(
+            story
+        )
 
-        StoryFormatter.print_review(review)
+        StoryFormatter.print_review(
+            review
+        )
 
-        # -----------------------------
-        # Export Story
-        # -----------------------------
+        # ==================================================
+        # Step 6 : Story Export
+        # ==================================================
 
-        exporter = StoryExporter()
-        exporter.export(draft)
+        StoryExporter.export(
+            story
+        )
 
-        StoryFormatter.print_story(draft)
+        StoryFormatter.print_story(
+            story
+        )
 
-        return draft
+        return story
