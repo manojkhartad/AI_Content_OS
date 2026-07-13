@@ -1,0 +1,10 @@
+{
+    "scene_id": "SCENE_003",
+    "scene_number": 3,
+    "title": "A Trip and a Trick",
+    "positive_prompt": "Cinematic close-up, Pixar-quality 3D animation style. A disheveled anthropomorphic lion, LEO-001, with soft golden-yellow fur and a fluffy orange-brown mane, is sprawled on the ground of a vibrant jungle meadow during a bright morning. Leo has wide, shocked amber eyes and wears a royal red velvet cape with a gold-trimmed collar and a crooked gold crown atop his head. Standing over him is RUBY-BUNNY-001, a small cream-colored rabbit wearing a vibrant cyan tunic with a yellow button and red-framed magnifying goggles on her forehead; she looks calm, methodical, and manipulative. The morning sun casts soft, warm glows and dappled shadows on the lush grass. Shallow depth of field with a soft-focus meadow background. High detail, expressive facial features, smooth fur textures, vivid color palette, professional lighting, heartwarming yet mischievous atmosphere.",
+    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, dull colors, distorted faces, asymmetrical eyes, low resolution, sketch, painting",
+    "style": "Pixar 3D Animated Movie",
+    "aspect_ratio": "16:9",
+    "image_size": "1024x576"
+}

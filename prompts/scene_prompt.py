@@ -1,50 +1,109 @@
 # ==========================================================
-# Scene Generation Prompt
+# Scene Prompt
 # ==========================================================
 
-SCENE_PROMPT = """
-You are an expert Children's Story Scene Planner.
+class ScenePrompt:
 
-Your job is NOT to rewrite the story.
+    @staticmethod
+    def generate(story, character_bibles):
 
-Your job is to break the story into a sequence of visual scenes.
+        characters = ""
+
+        for character in character_bibles:
+
+            characters += f"""
+Character ID: {character.character_id}
+Name: {character.name}
+Species: {character.species}
+Role: {character.role}
+
+Appearance: {character.appearance}
+Clothing: {character.clothing}
+Accessories: {character.accessories}
+Color Palette: {character.color_palette}
+
+Personality: {character.personality}
+Strengths: {character.strengths}
+Weaknesses: {character.weaknesses}
+Goals: {character.goals}
+
+Default Expression: {character.default_expression}
+Default Pose: {character.default_pose}
+Movement Style: {character.movement_style}
+Gestures: {character.gestures}
+
+Voice Style: {character.voice_style}
+Catch Phrase: {character.catch_phrase}
+
+--------------------------------------------------
+"""
+
+        return f"""
+You are an expert Storyboard Artist and Children's Story Scene Planner.
+
+Your task is to convert the children's story into a sequence of visual scenes.
 
 The scenes will later be used for:
 
-- Story Illustration
 - AI Image Generation
 - AI Animation
 - AI Video Generation
 
-------------------------------------------------------------
+==================================================
 
-RULES
+STORY TITLE
 
-1. Read the entire story carefully.
+{story.title}
 
-2. Divide the story into 6 to 10 logical scenes.
+==================================================
 
-3. Every scene should represent one important event.
+MORAL
 
-4. Keep continuity between scenes.
+{story.moral}
 
-5. Never skip important story events.
+==================================================
 
-6. Use simple language.
+CHARACTER BIBLES
 
-7. Keep narration concise.
+{characters}
 
-8. Dialogue should only contain spoken words.
+==================================================
 
-9. Visual notes should describe what should be visible on screen.
+STORY
 
-10. Do NOT invent new characters.
+{story.story}
 
-11. Do NOT change the story.
+==================================================
 
-------------------------------------------------------------
+INSTRUCTIONS
 
-For EACH scene provide:
+1. Divide the story into 6–10 logical scenes.
+
+2. Each scene should represent ONE important event.
+
+3. Maintain chronological order.
+
+4. Never skip important events.
+
+5. Never invent new characters.
+
+6. Always use the Character Bible for appearance and personality consistency.
+
+7. Narration should describe what happens.
+
+8. Dialogue should contain ONLY spoken words.
+
+9. Visual Notes should describe exactly what should be visible on screen.
+
+10. Continuity Notes should help the next scene remain visually consistent.
+
+11. Keep every scene child-friendly.
+
+12. Keep every scene visually interesting.
+
+==================================================
+
+For EACH scene generate:
 
 scene_id
 scene_number
@@ -60,18 +119,17 @@ emotion
 visual_notes
 continuity_notes
 
-------------------------------------------------------------
+==================================================
 
 Return ONLY valid JSON.
 
-Expected JSON format:
+Expected Format
 
-{
+{{
     "title": "Story Title",
-    "total_scenes": 6,
-    "scenes":
-    [
-        {
+    "total_scenes": 8,
+    "scenes": [
+        {{
             "scene_id": "SCENE_001",
             "scene_number": 1,
             "title": "",
@@ -85,13 +143,9 @@ Expected JSON format:
             "emotion": "",
             "visual_notes": "",
             "continuity_notes": ""
-        }
+        }}
     ]
-}
+}}
 
-------------------------------------------------------------
-
-Story:
-
-{story}
+Return ONLY JSON.
 """

@@ -1,0 +1,10 @@
+{
+    "scene_id": "SCENE_002",
+    "scene_number": 2,
+    "title": "The Hidden Friends",
+    "positive_prompt": "A stunning 3D Pixar-style animated movie still. At the edge of a lush jungle meadow in the warm morning light, a cute anthropomorphic cream-colored rabbit stands upright on her hind legs in the foreground. She has large amber eyes, pink-lined rounded ears, and wears a cyan sleeveless tunic with a single golden button on her chest, with thick red-framed magnifying goggles resting on her forehead. Her expression is inquisitive and concerned as she taps her chin with a cream-colored paw in a thinking pose. In the mid-ground, nestled timidly under the low, vibrant green leaves of a large bush, a small trio of stylized animal friends huddles close together: a white rabbit wearing a bright yellow knitted scarf, a light brown squirrel wearing a tiny blue messenger bag, and a soft lavender hedgehog wearing a small red beret. Soft volumetric morning sunbeams filter through the jungle canopy, casting a warm glow and gentle dappled shadows. High-quality 3D render, incredibly detailed fur and leaf textures, rich vibrant colors, cinematic depth of field, Disney-animation style.",
+    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, photo, realistic, sketch, drawing, low-res",
+    "style": "Pixar 3D Animated Movie",
+    "aspect_ratio": "16:9",
+    "image_size": "1024x576"
+}

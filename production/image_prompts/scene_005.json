@@ -1,0 +1,10 @@
+{
+    "scene_id": "SCENE_005",
+    "scene_number": 5,
+    "title": "Staring Down the Rival",
+    "positive_prompt": "A cinematic high-angle top-down shot in a Pixar-style 3D animation. Leo, a cute plump lion with soft golden-yellow fur and a large fluffy orange-brown mane, is leaning over the edge of an old mossy stone well. He wears a royal red velvet cape with a gold-trimmed collar and a small, shiny gold crown tilted to one side. Leo has a furious expression, glaring down into the dark water with big expressive amber eyes and a grumpy pout. Below him, a stylized ripple in the water shows his own reflection looking back up with the same grumpy face and tipped crown. Bright morning sunlight filters from above, creating soft highlights on his fur and caustic light patterns in the water. High-detail textures, soft subsurface scattering on the fur, vibrant colors, professional cinematic lighting, shallow depth of field focusing on Leo and the reflection.",
+    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs",
+    "style": "Pixar 3D Animated Movie",
+    "aspect_ratio": "16:9",
+    "image_size": "1024x576"
+}

@@ -1,5 +1,6 @@
 from google import genai
 from dotenv import load_dotenv
+from config.settings import GEMINI_API_KEY
 import os
 
 # Load environment variables

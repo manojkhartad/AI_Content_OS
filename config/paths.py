@@ -25,7 +25,15 @@ CHARACTERS_DIR = PRODUCTION_DIR / "characters"
 
 SCENES_DIR = PRODUCTION_DIR / "scenes"
 
+NARRATIONS_DIR = PRODUCTION_DIR / "narrations"
+
+IMAGE_PROMPTS_DIR = PRODUCTION_DIR / "image_prompts"
+
 IMAGES_DIR = PRODUCTION_DIR / "images"
+
+AUDIO_DIR = PRODUCTION_DIR / "audio"
+
+SUBTITLES_DIR = PRODUCTION_DIR / "subtitles"
 
 VIDEOS_DIR = PRODUCTION_DIR / "videos"
 
@@ -39,7 +47,14 @@ for folder in [
     STORIES_DIR,
     CHARACTERS_DIR,
     SCENES_DIR,
+    NARRATIONS_DIR,
+    IMAGE_PROMPTS_DIR,
     IMAGES_DIR,
+    AUDIO_DIR,
+    SUBTITLES_DIR,
     VIDEOS_DIR,
 ]:
-    folder.mkdir(parents=True, exist_ok=True)
+    folder.mkdir(
+        parents=True,
+        exist_ok=True
+    )

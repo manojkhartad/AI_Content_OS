@@ -55,21 +55,26 @@ dist/
 # Generated Production Assets
 # ==========================
 
-# Generated Stories
-production/*.md
-production/*.txt
+# Stories
+production/stories/
 
-# Generated Character Bibles
-production/characters/*.json
+# Character JSON
+production/characters/
 
-# Future Scene Exports
+# Scene JSON
 production/scenes/
 
-# Future Image Outputs
+# Generated Images
 production/images/
 
-# Future Video Outputs
+# Generated Videos
 production/videos/
+
+# Generated Audio (future)
+production/audio/
+
+# Generated Thumbnails (future)
+production/thumbnails/
 
 # Temporary Files
 *.tmp

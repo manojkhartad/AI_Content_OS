@@ -1,0 +1,10 @@
+{
+    "scene_id": "SCENE_007",
+    "scene_number": 7,
+    "title": "Dripping Defeat",
+    "positive_prompt": "Cinematic 3D animation style, Pixar quality. A humiliated wet lion named Leo sitting dejectedly by a mossy ancient stone well in a sunlit forest at morning. Leo has golden-yellow fur, a large clumped and soggy orange-brown mane, wearing a sodden royal red velvet cape with a gold button and a slightly tilted small shiny gold crown. He is performing a dramatic face-paw sigh with an exhausted, humbled expression. Beside him, Ruby the bunny stands upright, cream-colored fur, cyan tunic with a large golden-yellow button, oversized red-framed goggles on her head, looking at him with a gentle, inquisitive smile. In the background, behind a large oak tree, the Forest Friends (a white rabbit with a yellow scarf, a light brown squirrel with a blue messenger bag, and a lavender hedgehog with a red beret) peek out with amused, wide-eyed expressions. Soft morning dappled sunlight filtering through lush greenery, cinematic depth of field, vibrant colors, expressive character design, high-fidelity textures on fur and velvet, 8k resolution, whimsical storybook lighting.",
+    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, scary, dark, realistic, human, distorted face, messy art style, flat lighting, dull colors",
+    "style": "Pixar 3D Animated Movie",
+    "aspect_ratio": "16:9",
+    "image_size": "1024x576"
+}

@@ -1,0 +1,86 @@
+{
+    "title": "The King of the Wobbly Crown",
+    "total_scenes": 8,
+    "narrations": [
+        {
+            "scene_id": "SCENE_001",
+            "scene_number": 1,
+            "title": "The Pompous Proclamation",
+            "narration": "Leo the Lion puffed out his chest, his red velvet cape sweeping behind him. He adjusted his tiny gold crown, which immediately tipped over his left ear.",
+            "word_count": 27,
+            "estimated_duration": 10.8,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_002",
+            "scene_number": 2,
+            "title": "The Hidden Friends",
+            "narration": "Ruby the Rabbit hopped into the clearing. She pushed her magnifying goggles up her forehead and noticed the Forest Friends huddled together under a bush.",
+            "word_count": 25,
+            "estimated_duration": 10.0,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_003",
+            "scene_number": 3,
+            "title": "A Trip and a Trick",
+            "narration": "Ruby hopped up to Leo, who was trying to eat a snack while strutting. He tripped over his own cape and landed with a soft thump.",
+            "word_count": 26,
+            "estimated_duration": 10.4,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_004",
+            "scene_number": 4,
+            "title": "The Well Confrontation",
+            "narration": "Leo marched toward the mossy well, his pompous strut wobbling. Ruby followed, her ears twitching with excitement.",
+            "word_count": 17,
+            "estimated_duration": 6.8,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_005",
+            "scene_number": 5,
+            "title": "Staring Down the Rival",
+            "narration": "Leo leaned over the edge, glaring into the dark water. He saw his own reflection: a plump lion with a tipped crown.",
+            "word_count": 22,
+            "estimated_duration": 8.8,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_006",
+            "scene_number": 6,
+            "title": "The Splash",
+            "narration": "Leo lunged forward to chase the intruder away, but his heavy cape got caught on his paw. He tumbled forward and landed in the shallow water with a giant, comical splash!",
+            "word_count": 31,
+            "estimated_duration": 12.4,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_007",
+            "scene_number": 7,
+            "title": "Dripping Defeat",
+            "narration": "Leo scrambled out, dripping wet. The Forest Friends peeked out and chirped with laughter. Leo let out a long, dramatic face-paw sigh.",
+            "word_count": 22,
+            "estimated_duration": 8.8,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_008",
+            "scene_number": 8,
+            "title": "Peace in the Meadow",
+            "narration": "Ruby smiled and hopped away. She had solved the puzzle, and the jungle was quiet, peaceful, and perfectly fun.",
+            "word_count": 19,
+            "estimated_duration": 7.6,
+            "audio_file": "",
+            "subtitle_file": ""
+        }
+    ]
+}

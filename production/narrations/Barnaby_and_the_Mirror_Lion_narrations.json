@@ -1,0 +1,86 @@
+{
+    "title": "Barnaby and the Mirror Lion",
+    "total_scenes": 8,
+    "narrations": [
+        {
+            "scene_id": "SCENE_001",
+            "scene_number": 1,
+            "title": "Leo's Pompous Roar",
+            "narration": "Leo the Lion stood in the heart of the Green-Leaf Jungle, his tight teal vest straining against his belly as he tried to look as fearsome as possible.",
+            "word_count": 28,
+            "estimated_duration": 11.2,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_002",
+            "scene_number": 2,
+            "title": "Pip's Panic",
+            "narration": "Hearing the roar, Pip the Squirrel's fluffy tail flicked frantically as he prepared to escape the perceived danger.",
+            "word_count": 18,
+            "estimated_duration": 7.2,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_003",
+            "scene_number": 3,
+            "title": "Barnaby's Bright Idea",
+            "narration": "While everyone else fled, Barnaby the Rabbit hopped into view, his amber eyes bright behind his orange glasses as he tapped his temple.",
+            "word_count": 23,
+            "estimated_duration": 9.2,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_004",
+            "scene_number": 4,
+            "title": "The Doubtful Lion",
+            "narration": "Leo adjusted his monocle, his brow furrowed in deep annoyance as he began to stomp toward the nearby stone well.",
+            "word_count": 20,
+            "estimated_duration": 8.0,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_005",
+            "scene_number": 5,
+            "title": "The Owl's Observation",
+            "narration": "High above the path, Wise Owl watched the proceedings with a knowing glint in his amber eyes, polishing his glasses as he chuckled.",
+            "word_count": 23,
+            "estimated_duration": 9.2,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_006",
+            "scene_number": 6,
+            "title": "The Confrontation",
+            "narration": "Leo reached the edge of the well and peered down into the dark water, where he saw a plump, familiar-looking lion staring back at him.",
+            "word_count": 25,
+            "estimated_duration": 10.0,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_007",
+            "scene_number": 7,
+            "title": "The Splash",
+            "narration": "With a roar of frustration, Leo lunged forward, jumping into the shallow water with a spectacular splash.",
+            "word_count": 17,
+            "estimated_duration": 6.8,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_008",
+            "scene_number": 8,
+            "title": "A Lesson Learned",
+            "narration": "Barnaby hopped away with a giggle as Leo sat shivering in the well, realizing he had just been out-smarted by his own reflection.",
+            "word_count": 23,
+            "estimated_duration": 9.2,
+            "audio_file": "",
+            "subtitle_file": ""
+        }
+    ]
+}

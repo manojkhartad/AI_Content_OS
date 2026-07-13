@@ -1,0 +1,10 @@
+{
+    "scene_id": "SCENE_008",
+    "scene_number": 8,
+    "title": "Peace in the Meadow",
+    "positive_prompt": "Wide cinematic shot, Pixar 3D animation style. A vibrant, sun-drenched jungle meadow filled with colorful wildflowers and soft morning light. In the foreground, RUBY-BUNNY-001—a small anthropomorphic rabbit with cream-colored fur, oversized rounded ears with pink lining, and large amber eyes—is hopping away into the distance. She is wearing a cyan sleeveless tunic with a large circular golden-yellow button and round magnifying goggles with thick red frames resting on her forehead. Ruby is looking back over her shoulder with a proud, satisfied, and happy smile. The background features lush, detailed tropical foliage under a clear morning sky. High-end 3D character design, volumetric lighting, soft bokeh, cinematic depth of field, vibrant color palette, intricate fur texture, 8k resolution, masterpiece quality.",
+    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, dull colors, photorealistic, realistic, humans, messy, uneven eyes",
+    "style": "Pixar 3D Animated Movie",
+    "aspect_ratio": "16:9",
+    "image_size": "1024x576"
+}
