@@ -1,14 +1,13 @@
-from brain.llm_client import LLMClient
+from brain.llm_router import LLMRouter
 
 
 class Brain:
+
+    def __init__(self):
+        self.router = LLMRouter()
 
     def think(self, prompt):
 
         print("Brain Thinking...")
 
-        llm = LLMClient()
-
-        response = llm.generate(prompt)
-
-        return response
+        return self.router.generate(prompt)

@@ -1,8 +1,12 @@
 from google import genai
-from google.genai.errors import ClientError, ServerError
 
 from config.settings import GEMINI_API_KEY
 from brain.model_registry import ModelRegistry
+from brain.retry_manager import RetryManager
+from brain.fallback_manager import FallbackManager
+from brain.response_parser import ResponseParser
+from brain.usage_tracker import UsageTracker
+from brain.exceptions import LLMGenerationError
 
 
 class LLMClient:
@@ -10,12 +14,17 @@ class LLMClient:
     def __init__(self):
         self.client = genai.Client(api_key=GEMINI_API_KEY)
         self.models = ModelRegistry.get_models()
+        self.usage_tracker = UsageTracker()
 
     def generate(self, prompt):
 
         last_error = None
 
-        for model in self.models:
+        models = FallbackManager.get_models(self.models)
+
+        for model in models:
+
+            start_time = self.usage_tracker.start_request(model)
 
             try:
 
@@ -26,15 +35,26 @@ class LLMClient:
                     contents=prompt,
                 )
 
+                self.usage_tracker.end_request(start_time, success=True)
+
                 print(f"Success : {model}")
 
-                return response.text
+                return ResponseParser.parse(response)
 
-            except (ClientError, ServerError) as e:
+            except Exception as e:
 
-                print(f"Failed : {model}")
-                print(e)
+                self.usage_tracker.end_request(start_time, success=False)
 
-                last_error = e
+                if RetryManager.should_retry(e):
 
-        raise last_error
+                    print(f"Failed : {model}")
+                    print(e)
+
+                    last_error = e
+                    continue
+
+                raise
+
+        raise LLMGenerationError(
+            f"All models failed to generate a response. Last error: {last_error}"
+        )

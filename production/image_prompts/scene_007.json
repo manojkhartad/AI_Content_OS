@@ -1,9 +1,9 @@
 {
     "scene_id": "SCENE_007",
     "scene_number": 7,
-    "title": "The Rescue",
-    "positive_prompt": "A cinematic high-angle shot looking straight down into an ancient, mossy stone well. At the bottom, LEO, a plump stylized 3D lion with golden-yellow fur, floats in the clear water with an embarrassed expression; his once-fluffy orange mane is now dark, wet, and flattened against his head, and his tiny gold crown floats comically beside him. He wears a soaked royal red velvet cape with a gold embroidered border. At the top rim of the well, ROBBY, a cute cream-colored 3D rabbit with long ears, wearing a lime green button-up vest, a red silk bowtie, and a royal blue leather satchel across his shoulder, leans over the edge with a helpful expression, lowering a thick brown hemp rope. Bright morning sunlight streams down into the well, creating ethereal god-rays and sparkling reflections on the water's surface. Pixar-quality 3D animation, ultra-detailed fur textures (contrasting wet and dry fur), vibrant colors, soft cinematic lighting, shallow depth of field focusing on Leo, 8k resolution, highly polished render.",
-    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, fluffy mane, dry fur on lion",
+    "title": "The Royal Splash",
+    "positive_prompt": "A cinematic Pixar-style 3D animated action shot. Leonard, a cute stylized lion with golden-yellow fur, a round plump belly, and an oversized fluffy deep-orange mane, is captured mid-air in a hysterical, comical leap downwards into a stone well. His royal red velvet cape with thick gold trim is flying wildly upwards due to the descent. His small, polished gold crown has flown off his head and is suspended in the air above him. A massive, exaggerated, comical splash of crystalline water is erupting upwards from the Great Well, with droplets frozen in time. Setting is a bright, sunny afternoon with vibrant lighting and soft shadows. High-detail fur grooming, subsurface scattering, fluid simulation for the water. Wide-angle composition, shallow depth of field with a lush, blurred natural background, 8k resolution, vibrant colors, Disney-style character expression of flustered fury.",
+    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, crown on head, static pose, dull colors",
     "style": "Pixar 3D Animated Movie",
     "aspect_ratio": "16:9",
     "image_size": "1024x576"

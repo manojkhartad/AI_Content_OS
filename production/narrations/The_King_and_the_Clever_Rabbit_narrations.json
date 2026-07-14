@@ -1,0 +1,86 @@
+{
+    "title": "The King and the Clever Rabbit",
+    "total_scenes": 8,
+    "narrations": [
+        {
+            "scene_id": "SCENE_001",
+            "scene_number": 1,
+            "title": "The Pompous Procession",
+            "narration": "In a bright, green jungle, there lived a lion named Leonard. He believed he was the rightful King, marching with pride and a very plump belly.",
+            "word_count": 26,
+            "estimated_duration": 10.4,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_002",
+            "scene_number": 2,
+            "title": "The Clumsy King",
+            "narration": "Leonard wanted everyone to bow to him, but the other animals mostly ignored him because he was incredibly clumsy.",
+            "word_count": 19,
+            "estimated_duration": 7.6,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_003",
+            "scene_number": 3,
+            "title": "Enter Remy",
+            "narration": "One sunny afternoon, Remy the rabbit noticed Leonard having a comical temper tantrum because a squirrel refused to follow his royal decrees.",
+            "word_count": 22,
+            "estimated_duration": 8.8,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_004",
+            "scene_number": 4,
+            "title": "The Clever Challenge",
+            "narration": "Remy stepped forward with a plan. He told Leonard about another king who claimed to be bigger and stronger.",
+            "word_count": 19,
+            "estimated_duration": 7.6,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_005",
+            "scene_number": 5,
+            "title": "Journey to the Great Well",
+            "narration": "With his pride wounded, Leonard followed the little rabbit to a deep, stone well filled with clear water.",
+            "word_count": 18,
+            "estimated_duration": 7.2,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_006",
+            "scene_number": 6,
+            "title": "The Mirror Image",
+            "narration": "Leonard leaned over the edge. He didn't realize he was looking at his own reflection!",
+            "word_count": 15,
+            "estimated_duration": 6.0,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_007",
+            "scene_number": 7,
+            "title": "The Royal Splash",
+            "narration": "Flustered and furious, Leonard jumped right into the well with a giant splash!",
+            "word_count": 13,
+            "estimated_duration": 5.2,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_008",
+            "scene_number": 8,
+            "title": "A Lesson Learned",
+            "narration": "Leonard realized he had been fooled. He learned that being a kind friend was much better than being a grumpy boss.",
+            "word_count": 21,
+            "estimated_duration": 8.4,
+            "audio_file": "",
+            "subtitle_file": ""
+        }
+    ]
+}

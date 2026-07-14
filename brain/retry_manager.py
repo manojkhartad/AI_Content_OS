@@ -1,2 +1,9 @@
+from google.genai.errors import ClientError, ServerError
+
+
 class RetryManager:
-    pass
+
+    @staticmethod
+    def should_retry(error):
+
+        return isinstance(error, (ClientError, ServerError))

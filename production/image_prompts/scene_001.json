@@ -1,9 +1,9 @@
 {
     "scene_id": "SCENE_001",
     "scene_number": 1,
-    "title": "The Royal Decree",
-    "positive_prompt": "A cinematic wide shot in a high-end Pixar-style 3D animation. A plump, stylized golden-yellow lion named Leo with a massive, fluffy orange mane and big, expressive amber eyes. Leo is marching with stiff, exaggerated steps down a lush tropical jungle path, puffing his chest out with a pompous and commanding expression. He is wearing a royal red velvet cape with a thick gold embroidered border and a tiny, polished gold crown that is tilted precariously to the left. The environment is a vibrant, stylized jungle filled with giant, colorful exotic flowers and oversized tropical leaves. Bright morning sunlight filters through the canopy, creating soft dappled lighting and a warm glow. High-detail fur grooming, soft rounded character design, cinematic composition, depth of field with a softly blurred background, 8k resolution, vivid and saturated color palette.",
-    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs",
+    "title": "The Pompous Procession",
+    "positive_prompt": "A high-end Pixar-style 3D animated medium shot of Leonard, a cute stylized lion with soft golden-yellow fur and an oversized, fluffy deep-orange mane. He has a round, plump belly and a chest puffed out in a pompous manner, performing a stiff-legged royal march. He is wearing a royal red velvet cape with a thick gold trim border and a small, polished gold crown that sits precariously and tilted between his ears. His expression is a comical pout with slightly lowered eyebrows. The scene is set on a bright, lush green jungle path surrounded by oversized, stylized tropical leaves. Vibrant morning sunlight filters through the canopy, creating cinematic god rays and soft dappled lighting. 8k resolution, octane render, ray-tracing, subsurface scattering on fur, deep depth of field with a soft blurred jungle background, vivid colors, professional cinematography.",
+    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, realistic photo, 2D, sketch, moody lighting, thin lion",
     "style": "Pixar 3D Animated Movie",
     "aspect_ratio": "16:9",
     "image_size": "1024x576"
