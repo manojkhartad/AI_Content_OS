@@ -1,8 +1,8 @@
 {
     "scene_id": "SCENE_001",
     "scene_number": 1,
-    "title": "The Pompous Proclamation",
-    "positive_prompt": "Cinematic 3D animation, Pixar style. A detailed close-up shot of Leo, a stylized cute lion with soft golden-yellow fur, a massive fluffy orange-brown mane, and large expressive amber eyes. He is wearing a luxurious royal red velvet cape with a thick gold-trimmed collar fastened by a single large gold button. A small, shiny gold crown is perched precariously on his head, noticeably tilted over his left ear. Leo has a pompous and irritable expression, featuring a grumpy pout with one eyebrow raised. Setting: A bright, sun-drenched jungle meadow during a golden morning, with lush tropical flora and soft-focus greenery in the background. Lighting: Professional cinematic lighting with warm morning sunlight, subsurface scattering on the fur for a soft touch, and a shallow depth of field. High resolution, 8k, meticulously detailed textures, vibrant color palette of golden yellow, burnt orange, and royal red.",
+    "title": "The Royal Decree",
+    "positive_prompt": "A cinematic wide shot in a high-end Pixar-style 3D animation. A plump, stylized golden-yellow lion named Leo with a massive, fluffy orange mane and big, expressive amber eyes. Leo is marching with stiff, exaggerated steps down a lush tropical jungle path, puffing his chest out with a pompous and commanding expression. He is wearing a royal red velvet cape with a thick gold embroidered border and a tiny, polished gold crown that is tilted precariously to the left. The environment is a vibrant, stylized jungle filled with giant, colorful exotic flowers and oversized tropical leaves. Bright morning sunlight filters through the canopy, creating soft dappled lighting and a warm glow. High-detail fur grooming, soft rounded character design, cinematic composition, depth of field with a softly blurred background, 8k resolution, vivid and saturated color palette.",
     "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs",
     "style": "Pixar 3D Animated Movie",
     "aspect_ratio": "16:9",

@@ -1,0 +1,4460 @@
+==========================================================
+FILE: extract_code.py
+==========================================================
+
+import os
+
+# Agar script project ke root me hai to "." use karo
+ROOT_DIR = "."
+
+OUTPUT_FILE = "project_code.txt"
+
+# Jin folders ko ignore karna hai
+IGNORE_DIRS = {
+    "__pycache__",
+    ".git",
+    ".venv",
+    "venv",
+    "env",
+    "node_modules",
+    "build",
+    "dist",
+    ".idea",
+    ".vscode"
+}
+
+with open(OUTPUT_FILE, "w", encoding="utf-8") as outfile:
+
+    for foldername, subfolders, filenames in os.walk(ROOT_DIR):
+
+        # Ignore folders
+        subfolders[:] = [d for d in subfolders if d not in IGNORE_DIRS]
+
+        for filename in sorted(filenames):
+
+            if filename.endswith(".py"):
+
+                file_path = os.path.join(foldername, filename)
+                relative_path = os.path.relpath(file_path, ROOT_DIR)
+
+                outfile.write("=" * 58 + "\n")
+                outfile.write(f"FILE: {relative_path}\n")
+                outfile.write("=" * 58 + "\n\n")
+
+                try:
+                    with open(file_path, "r", encoding="utf-8") as f:
+                        outfile.write(f.read())
+                except Exception as e:
+                    outfile.write(f"Error reading file: {e}")
+
+                outfile.write("\n\n")
+
+print(f"Done! Output saved to '{OUTPUT_FILE}'")
+
+==========================================================
+FILE: main.py
+==========================================================
+
+print("===================================")
+print("      AI Content OS Started")
+print("===================================")
+
+from agents.agent_manager import AgentManager
+from memory.memory_manager import MemoryManager
+from workflows.story_workflow import StoryWorkflow
+
+
+manager = AgentManager()
+
+memory = MemoryManager()
+
+workflow = StoryWorkflow()
+
+workflow.run("Lion and Rabbit")
+
+==========================================================
+FILE: agents\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: agents\agent_manager.py
+==========================================================
+
+from agents.base_agent import BaseAgent
+
+
+class AgentManager(BaseAgent):
+
+    def __init__(self):
+        super().__init__("Agent Manager")
+
+==========================================================
+FILE: agents\base_agent.py
+==========================================================
+
+class BaseAgent:
+
+    def __init__(self, name):
+        self.name = name
+
+    def start(self):
+        print(f"{self.name} Started")
+
+==========================================================
+FILE: agents\base_llm_agent.py
+==========================================================
+
+
+
+==========================================================
+FILE: agents\character_agent.py
+==========================================================
+
+from agents.base_agent import BaseAgent
+from brain.brain import Brain
+
+from models.character_profile import CharacterProfile
+
+from prompts.character.character_prompt import CharacterPrompt
+
+from utils.json_parser import parse_json
+
+
+class CharacterAgent(BaseAgent):
+
+    def __init__(self):
+        super().__init__("Character Agent")
+
+    def generate_characters(self, research_report):
+
+        print("Character Generation Started")
+
+        prompt = CharacterPrompt.generate(research_report)
+
+        brain = Brain()
+
+        response = brain.think(prompt)
+
+        data = parse_json(response)
+
+        characters = []
+
+        for item in data.get("characters", []):
+
+            character = CharacterProfile(
+                name=item.get("name", ""),
+                role=item.get("role", ""),
+                species=item.get("species", ""),
+                description=item.get("description", "")
+            )
+
+            characters.append(character)
+
+        return characters
+
+==========================================================
+FILE: agents\character_bible_agent.py
+==========================================================
+
+from agents.base_agent import BaseAgent
+
+from brain.brain import Brain
+
+from models.character_bible import CharacterBible
+
+from prompts.character.character_bible_prompt import CharacterBiblePrompt
+
+from utils.json_parser import parse_json
+
+
+class CharacterBibleAgent(BaseAgent):
+
+    def __init__(self):
+        super().__init__("Character Bible Agent")
+
+    def generate_character_bible(self, character):
+
+        print(f"Generating Character Bible: {character.name}")
+
+        prompt = CharacterBiblePrompt.generate(character)
+
+        brain = Brain()
+
+        response = brain.think(prompt)
+
+        data = parse_json(response)
+
+        return CharacterBible(
+            character_id=data.get("character_id", ""),
+            name=data.get("name", ""),
+            species=data.get("species", ""),
+            role=data.get("role", ""),
+            appearance=data.get("appearance", ""),
+            clothing=data.get("clothing", ""),
+            accessories=data.get("accessories", ""),
+            color_palette=data.get("color_palette", ""),
+            personality=data.get("personality", ""),
+            strengths=data.get("strengths", ""),
+            weaknesses=data.get("weaknesses", ""),
+            goals=data.get("goals", ""),
+            default_expression=data.get("default_expression", ""),
+            default_pose=data.get("default_pose", ""),
+            movement_style=data.get("movement_style", ""),
+            gestures=data.get("gestures", ""),
+            voice_style=data.get("voice_style", ""),
+            catch_phrase=data.get("catch_phrase", ""),
+            image_prompt=data.get("image_prompt", ""),
+            negative_prompt=data.get("negative_prompt", "")
+        )
+
+    def generate_character_bibles(self, characters):
+
+        character_bibles = []
+
+        for character in characters:
+
+            bible = self.generate_character_bible(character)
+
+            character_bibles.append(bible)
+
+        return character_bibles
+
+==========================================================
+FILE: agents\image_generation_agent.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from agents.base_agent import BaseAgent
+from brain.image_client import ImageClient
+from config.paths import IMAGES_DIR
+from exporters.image_exporter import ImageExporter
+from models.generated_image import GeneratedImage
+
+
+# ==========================================================
+# Image Generation Agent
+# ==========================================================
+
+class ImageGenerationAgent(BaseAgent):
+
+    def __init__(self):
+        super().__init__("Image Generation Agent")
+
+    def generate_images(self, image_prompts):
+
+        print("Image Generation Started")
+
+        generated_images = []
+
+        for prompt in image_prompts:
+
+            print(
+                f"\nGenerating Image : Scene {prompt.scene_number}"
+            )
+
+            filename = (
+                f"scene_{prompt.scene_number:03d}.png"
+            )
+
+            output_path = IMAGES_DIR / filename
+
+            try:
+
+                ImageClient.generate_image(
+                    prompt=prompt.positive_prompt,
+                    output_path=output_path
+                )
+
+            except Exception as e:
+
+                print(
+                    f"\n❌ Failed Scene {prompt.scene_number}"
+                )
+                print(e)
+
+                continue
+
+            image = GeneratedImage(
+                scene_id=prompt.scene_id,
+                scene_number=prompt.scene_number,
+                title=prompt.title,
+                prompt=prompt.positive_prompt,
+                image_path=str(output_path),
+                width=1024,
+                height=576,
+                provider="Pollinations",
+                model="flux"
+            )
+
+            ImageExporter.export(image)
+
+            generated_images.append(image)
+
+        return generated_images
+
+==========================================================
+FILE: agents\image_prompt_agent.py
+==========================================================
+
+from agents.base_agent import BaseAgent
+from brain.brain import Brain
+
+from prompts.image_prompt import ImagePromptPrompt
+
+from utils.json_parser import parse_json
+from utils.image_prompt_mapper import ImagePromptMapper
+
+
+class ImagePromptAgent(BaseAgent):
+
+    def __init__(self):
+        super().__init__("Image Prompt Agent")
+
+    def generate_image_prompts(
+        self,
+        scenes,
+        character_bibles
+    ):
+
+        print("Image Prompt Generation Started")
+
+        brain = Brain()
+
+        image_prompts = []
+
+        for scene in scenes:
+
+            print(
+                f"Generating Image Prompt: "
+                f"Scene {scene.scene_number}"
+            )
+
+            prompt = ImagePromptPrompt.generate(
+                scene,
+                character_bibles
+            )
+
+            response = brain.think(prompt)
+
+            data = parse_json(response)
+
+            image_prompt = ImagePromptMapper.from_json(
+                data
+            )
+
+            image_prompts.append(
+                image_prompt
+            )
+
+        return image_prompts
+
+==========================================================
+FILE: agents\narration_agent.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from agents.base_agent import BaseAgent
+from models.narration import Narration
+from models.narration import NarrationList
+
+
+# ==========================================================
+# Narration Agent
+# ==========================================================
+
+class NarrationAgent(BaseAgent):
+
+    def __init__(self):
+
+        super().__init__("Narration Agent")
+
+    def generate_narrations(
+        self,
+        scene_list
+    ) -> NarrationList:
+
+        print("Narration Generation Started")
+
+        narrations = []
+
+        for scene in scene_list.scenes:
+
+            word_count = len(scene.narration.split())
+
+            estimated_duration = round(
+                word_count / 2.5,
+                2
+            )
+
+            narration = Narration(
+
+                scene_id=scene.scene_id,
+
+                scene_number=scene.scene_number,
+
+                title=scene.title,
+
+                narration=scene.narration,
+
+                word_count=word_count,
+
+                estimated_duration=estimated_duration,
+
+                audio_file="",
+
+                subtitle_file=""
+
+            )
+
+            narrations.append(narration)
+
+            print(
+                f"Scene {scene.scene_number} ✓ "
+                f"{word_count} words | "
+                f"{estimated_duration} sec"
+            )
+
+        print()
+
+        return NarrationList(
+
+            title=scene_list.title,
+
+            total_scenes=scene_list.total_scenes,
+
+            narrations=narrations
+
+        )
+
+==========================================================
+FILE: agents\research_agent.py
+==========================================================
+
+from agents.base_agent import BaseAgent
+
+from models.research_report import ResearchReport
+
+from brain.brain import Brain
+
+from prompts.research.story_prompt import StoryPrompt
+
+
+class ResearchAgent(BaseAgent):
+
+    def __init__(self):
+        super().__init__("Research Agent")
+
+    def research(self, topic):
+
+        print(f"Research Started on: {topic}")
+
+        prompt = StoryPrompt()
+
+        final_prompt = prompt.build(topic)
+
+        brain = Brain()
+
+        research_text = brain.think(final_prompt)
+
+        report = ResearchReport(
+            topic=topic,
+            content_type="Kids Story",
+            target_audience="5-8 Years",
+            goal="Educational + Fun",
+            tone="Funny",
+            research=research_text
+        )
+
+        return report
+
+==========================================================
+FILE: agents\reviewer_agent.py
+==========================================================
+
+from agents.base_agent import BaseAgent
+
+from brain.brain import Brain
+
+from prompts.reviewing.reviewer_prompt import ReviewerPrompt
+
+from models.review_report import ReviewReport
+
+from utils.json_parser import parse_json
+
+
+class ReviewerAgent(BaseAgent):
+
+    def __init__(self):
+        super().__init__("Reviewer Agent")
+
+    def review(self, story):
+
+        print("Story Review Started")
+
+        prompt = ReviewerPrompt().build(story)
+
+        brain = Brain()
+
+        response = brain.think(prompt)
+
+        data = parse_json(response)
+
+        report = ReviewReport(
+            passed=data["passed"],
+            score=data["score"],
+            feedback=data["feedback"]
+        )
+
+        return report
+
+==========================================================
+FILE: agents\scene_agent.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from agents.base_agent import BaseAgent
+from brain.brain import Brain
+
+from prompts.scene_prompt import ScenePrompt
+
+from utils.json_parser import parse_json
+from utils.scene_mapper import SceneMapper
+
+
+# ==========================================================
+# Scene Agent
+# ==========================================================
+
+class SceneAgent(BaseAgent):
+
+    def __init__(self):
+        super().__init__("Scene Agent")
+
+    def generate_scenes(
+        self,
+        story,
+        character_bibles
+    ):
+
+        print("Scene Generation Started")
+
+        prompt = ScenePrompt.generate(
+            story,
+            character_bibles
+        )
+
+        brain = Brain()
+
+        response = brain.think(prompt)
+
+        data = parse_json(response)
+
+        scene_list = SceneMapper.from_json(data)
+
+        return scene_list
+
+==========================================================
+FILE: agents\tts_agent.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from agents.base_agent import BaseAgent
+from brain.tts_client import TTSClient
+from config.paths import AUDIO_DIR
+from exporters.audio_exporter import AudioExporter
+from models.generated_audio import GeneratedAudio
+
+
+# ==========================================================
+# TTS Agent
+# ==========================================================
+
+class TTSAgent(BaseAgent):
+
+    def __init__(self):
+        super().__init__("TTS Agent")
+
+    def generate_audio(self, narration_list):
+
+        print("Audio Generation Started")
+
+        generated_audio = []
+
+        for narration in narration_list.narrations:
+
+            print(
+                f"\nGenerating Audio : Scene {narration.scene_number}"
+            )
+
+            filename = (
+                f"scene_{narration.scene_number:03d}.mp3"
+            )
+
+            output_path = AUDIO_DIR / filename
+
+            try:
+
+                # --------------------------------------------------
+                # Generate Audio
+                # --------------------------------------------------
+
+                TTSClient.generate_audio(
+                    text=narration.narration,
+                    output_path=output_path
+                )
+
+                narration.audio_file = str(output_path)
+
+                # --------------------------------------------------
+                # Create GeneratedAudio Model
+                # --------------------------------------------------
+
+                audio = GeneratedAudio(
+
+                    scene_id=narration.scene_id,
+
+                    scene_number=narration.scene_number,
+
+                    title=narration.title,
+
+                    narration=narration.narration,
+
+                    audio_path=str(output_path),
+
+                    duration=narration.estimated_duration,
+
+                    voice="en-US-AriaNeural",
+
+                    provider="Microsoft Edge TTS",
+
+                    model="edge-tts",
+
+                    sample_rate=24000,
+
+                    format="mp3"
+
+                )
+
+                # --------------------------------------------------
+                # Export Metadata
+                # --------------------------------------------------
+
+                AudioExporter.export(audio)
+
+                generated_audio.append(audio)
+
+                print(
+                    f"✓ Audio Generated : Scene {narration.scene_number}"
+                )
+
+            except Exception as e:
+
+                print(
+                    f"\n❌ Failed : Scene {narration.scene_number}"
+                )
+
+                print(e)
+
+                continue
+
+        print("\nAudio Generation Completed")
+
+        return generated_audio
+
+==========================================================
+FILE: agents\video_generation_agent.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+import re
+from pathlib import Path
+
+from agents.base_agent import BaseAgent
+from brain.video_client import VideoClient
+from config.paths import VIDEOS_DIR
+from exporters.video_exporter import VideoExporter
+from models.generated_video import GeneratedVideo
+from config.settings import (
+    VIDEO_WIDTH,
+    VIDEO_HEIGHT,
+    VIDEO_FPS,
+)
+
+
+# ==========================================================
+# Video Generation Agent
+# ==========================================================
+
+class VideoGenerationAgent(BaseAgent):
+
+    def __init__(self):
+
+        super().__init__("Video Generation Agent")
+
+    def generate_video(
+
+        self,
+
+        draft,
+
+        generated_images,
+
+        generated_audio
+
+    ):
+
+        print("Video Generation Started")
+
+        scene_videos = []
+
+        # --------------------------------------------------
+        # Create Scene Videos
+        # --------------------------------------------------
+
+        for image, audio in zip(
+            generated_images,
+            generated_audio
+        ):
+
+            print(
+                f"\nGenerating Video : Scene {image.scene_number}"
+            )
+
+            output_path = (
+                VIDEOS_DIR /
+                f"scene_{image.scene_number:03d}.mp4"
+            )
+
+            try:
+
+                VideoClient.create_scene_video(
+
+                    image_path=Path(
+                        image.image_path
+                    ),
+
+                    audio_path=Path(
+                        audio.audio_path
+                    ),
+
+                    output_path=output_path
+
+                )
+
+                scene_videos.append(
+                    output_path
+                )
+
+                print(
+                    f"✓ Scene {image.scene_number} Video Created"
+                )
+
+            except Exception as e:
+
+                print(
+                    f"\n❌ Failed : Scene {image.scene_number}"
+                )
+
+                print(e)
+
+                continue
+
+        # --------------------------------------------------
+        # Stop if no videos were created
+        # --------------------------------------------------
+
+        if not scene_videos:
+
+            raise RuntimeError(
+                "No scene videos were created."
+            )
+
+        # --------------------------------------------------
+        # Create Safe File Name
+        # --------------------------------------------------
+
+        safe_title = re.sub(
+            r"[^A-Za-z0-9_-]+",
+            "_",
+            draft.title
+        ).strip("_")
+
+        # --------------------------------------------------
+        # Merge Videos
+        # --------------------------------------------------
+
+        print("\nCreating Final Video...")
+
+        final_video = (
+            VIDEOS_DIR /
+            f"{safe_title}.mp4"
+        )
+
+        VideoClient.merge_scene_videos(
+
+            video_paths=scene_videos,
+
+            output_path=final_video
+
+        )
+
+        # --------------------------------------------------
+        # Calculate Total Duration
+        # --------------------------------------------------
+
+        total_duration = sum(
+            audio.duration
+            for audio in generated_audio
+        )
+
+        # --------------------------------------------------
+        # Video Metadata
+        # --------------------------------------------------
+
+        video = GeneratedVideo(
+
+            title=draft.title,
+
+            video_path=str(
+                final_video
+            ),
+
+            width=VIDEO_WIDTH,
+
+            height=VIDEO_HEIGHT,
+
+            fps=VIDEO_FPS,
+
+            duration=round(
+                total_duration,
+                2
+            ),
+
+            codec="H.264",
+
+            format="MP4",
+
+            provider="FFmpeg",
+
+            total_scenes=len(scene_videos),
+
+            status="completed"
+
+        )
+
+        VideoExporter.export(
+            video
+        )
+
+        print("\n===================================")
+        print("Video Generation Completed")
+        print(f"Saved : {final_video}")
+        print("===================================")
+
+        return video
+
+==========================================================
+FILE: agents\writer_agent.py
+==========================================================
+
+from agents.base_agent import BaseAgent
+
+from brain.brain import Brain
+
+from models.story_draft import StoryDraft
+
+from prompts.writing.writer_prompt import WriterPrompt
+
+from utils.json_parser import parse_json
+
+
+class WriterAgent(BaseAgent):
+
+    def __init__(self):
+        super().__init__("Writer Agent")
+
+    def write(self, research_report, character_bibles):
+
+        print("Story Writing Started")
+
+        prompt = WriterPrompt.generate(
+            research_report,
+            character_bibles
+        )
+
+        brain = Brain()
+
+        response = brain.think(prompt)
+
+        data = parse_json(response)
+
+        return StoryDraft(
+
+            title=data.get("title", ""),
+
+            story=data.get("story", ""),
+
+            moral=data.get("moral", ""),
+
+            word_count=data.get("word_count", 0)
+
+        )
+
+==========================================================
+FILE: brain\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: brain\brain.py
+==========================================================
+
+from brain.llm_client import LLMClient
+
+
+class Brain:
+
+    def think(self, prompt):
+
+        print("Brain Thinking...")
+
+        llm = LLMClient()
+
+        response = llm.generate(prompt)
+
+        return response
+
+==========================================================
+FILE: brain\camera_effects.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+import random
+
+from models.camera_effect import CameraEffect
+from config.settings import (
+    VIDEO_FPS,
+    CAMERA_ZOOM_SPEED,
+    CAMERA_MAX_ZOOM,
+)
+
+
+# ==========================================================
+# Camera Effects
+# ==========================================================
+
+class CameraEffects:
+
+    @staticmethod
+    def zoom_in():
+
+        return CameraEffect(
+
+            name="zoom_in",
+
+            filter=(
+
+                f"scale=1920:1080,"
+                f"zoompan="
+                f"z='min(zoom+{CAMERA_ZOOM_SPEED},{CAMERA_MAX_ZOOM})':"
+                f"d=10000:"
+                f"x='iw/2-(iw/zoom/2)':"
+                f"y='ih/2-(ih/zoom/2)',"
+                f"fps={VIDEO_FPS}"
+
+            )
+
+        )
+
+    @staticmethod
+    def static():
+
+        return CameraEffect(
+
+            name="static",
+
+            filter=(
+
+                f"scale=1920:1080,"
+                f"fps={VIDEO_FPS}"
+
+            )
+
+        )
+
+    @staticmethod
+    def random():
+
+        return random.choice(
+
+            [
+
+                CameraEffects.zoom_in(),
+                CameraEffects.static(),
+
+            ]
+
+        )
+
+==========================================================
+FILE: brain\ffmpeg_filters.py
+==========================================================
+
+
+
+==========================================================
+FILE: brain\image_client.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from pathlib import Path
+from urllib.parse import quote
+
+import requests
+
+
+# ==========================================================
+# Image Client
+# ==========================================================
+
+class ImageClient:
+
+    BASE_URL = "https://image.pollinations.ai/prompt/"
+
+
+    @staticmethod
+    def generate_image(
+        prompt: str,
+        output_path: Path,
+        width: int = 1024,
+        height: int = 576,
+    ) -> Path:
+
+        output_path.parent.mkdir(
+            parents=True,
+            exist_ok=True
+        )
+
+        encoded_prompt = quote(prompt)
+
+        image_url = (
+            f"{ImageClient.BASE_URL}"
+            f"{encoded_prompt}"
+            f"?width={width}"
+            f"&height={height}"
+            f"&model=flux"
+        )
+
+        print("\nGenerating Image...")
+        print(image_url)
+
+        response = requests.get(
+            image_url,
+            timeout=180
+        )
+
+        response.raise_for_status()
+
+        with open(output_path, "wb") as file:
+            file.write(response.content)
+
+        print(f"Image Saved : {output_path}")
+
+        return output_path
+
+==========================================================
+FILE: brain\llm_client.py
+==========================================================
+
+from google import genai
+from google.genai.errors import ClientError, ServerError
+
+from config.settings import GEMINI_API_KEY
+
+
+class LLMClient:
+
+    def __init__(self):
+        self.client = genai.Client(api_key=GEMINI_API_KEY)
+
+        self.models = [
+            "models/gemma-4-31b-it",
+            "models/gemini-3.5-flash",
+            "models/gemini-3.1-flash-lite",
+        ]
+
+    def generate(self, prompt):
+
+        last_error = None
+
+        for model in self.models:
+
+            try:
+
+                print(f"\nTrying Model : {model}")
+
+                response = self.client.models.generate_content(
+                    model=model,
+                    contents=prompt,
+                )
+
+                print(f"Success : {model}")
+
+                return response.text
+
+            except (ClientError, ServerError) as e:
+
+                print(f"Failed : {model}")
+                print(e)
+
+                last_error = e
+
+        raise last_error
+
+==========================================================
+FILE: brain\tts_client.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+import asyncio
+from pathlib import Path
+
+import edge_tts
+
+from config.settings import TTS_PROVIDER
+
+
+# ==========================================================
+# TTS Client
+# ==========================================================
+
+class TTSClient:
+
+    DEFAULT_VOICE = "en-US-AvaNeural"
+
+    @staticmethod
+    async def _generate(
+        text: str,
+        output_path: Path,
+        voice: str
+    ):
+
+        communicate = edge_tts.Communicate(
+            text=text,
+            voice=voice
+        )
+
+        await communicate.save(
+            str(output_path)
+        )
+
+    @staticmethod
+    def generate_audio(
+        text: str,
+        output_path: Path,
+        voice: str = None
+    ):
+
+        if TTS_PROVIDER != "edge":
+            raise ValueError(
+                f"Unsupported TTS Provider : {TTS_PROVIDER}"
+            )
+
+        if voice is None:
+            voice = TTSClient.DEFAULT_VOICE
+
+        output_path.parent.mkdir(
+            parents=True,
+            exist_ok=True
+        )
+
+        print("\nGenerating Audio...")
+
+        asyncio.run(
+            TTSClient._generate(
+                text=text,
+                output_path=output_path,
+                voice=voice
+            )
+        )
+
+        print(f"Audio Saved : {output_path}")
+
+        return output_path
+
+==========================================================
+FILE: brain\video_client.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+import subprocess
+from pathlib import Path
+
+from config.settings import (
+    FFMPEG_PATH,
+    VIDEO_FPS,
+    VIDEO_WIDTH,
+    VIDEO_HEIGHT,
+)
+
+
+# ==========================================================
+# Video Client (FFmpeg)
+# ==========================================================
+
+class VideoClient:
+
+    # ------------------------------------------------------
+    # Image + Audio -> Scene Video
+    # ------------------------------------------------------
+
+    @staticmethod
+    def create_scene_video(
+
+        image_path: Path,
+        audio_path: Path,
+        output_path: Path
+
+    ):
+
+        print("\nGenerating Scene Video...")
+
+        command = [
+
+            FFMPEG_PATH,
+
+            "-y",
+
+            "-loop", "1",
+
+            "-i", str(image_path),
+
+            "-i", str(audio_path),
+
+            "-vf",
+
+            (
+                f"scale={VIDEO_WIDTH}:{VIDEO_HEIGHT},"
+                f"zoompan="
+                f"z='min(zoom+0.0008,1.15)':"
+                f"d=10000:"
+                f"x='iw/2-(iw/zoom/2)':"
+                f"y='ih/2-(ih/zoom/2)',"
+                f"fps={VIDEO_FPS}"
+            ),
+
+            "-c:v", "libx264",
+
+            "-preset", "medium",
+
+            "-tune", "stillimage",
+
+            "-pix_fmt", "yuv420p",
+
+            "-c:a", "aac",
+
+            "-b:a", "192k",
+
+            "-shortest",
+
+            "-movflags", "+faststart",
+
+            str(output_path)
+
+        ]
+
+        subprocess.run(
+            command,
+            check=True
+        )
+
+        print(
+            f"Scene Video Saved : {output_path}"
+        )
+
+    # ------------------------------------------------------
+    # Merge Scene Videos
+    # ------------------------------------------------------
+
+    @staticmethod
+    def merge_scene_videos(
+
+        video_paths: list[Path],
+
+        output_path: Path
+
+    ):
+
+        print("\nMerging Scene Videos...")
+
+        list_file = output_path.parent / "videos.txt"
+
+        with open(
+
+            list_file,
+
+            "w",
+
+            encoding="utf-8"
+
+        ) as file:
+
+            for video in video_paths:
+
+                file.write(
+                    f"file '{video.resolve()}'\n"
+                )
+
+        command = [
+
+            FFMPEG_PATH,
+
+            "-y",
+
+            "-f", "concat",
+
+            "-safe", "0",
+
+            "-i", str(list_file),
+
+            "-c", "copy",
+
+            "-movflags", "+faststart",
+
+            str(output_path)
+
+        ]
+
+        subprocess.run(
+
+            command,
+
+            check=True
+
+        )
+
+        if list_file.exists():
+
+            list_file.unlink()
+
+        print(
+            f"Final Video Saved : {output_path}"
+        )
+
+==========================================================
+FILE: characters\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: characters\character_database.py
+==========================================================
+
+"""
+Future Character Library.
+
+This module will eventually store reusable characters
+or character templates.
+
+Current version intentionally left empty.
+"""
+
+==========================================================
+FILE: config\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: config\paths.py
+==========================================================
+
+from pathlib import Path
+
+
+# ==========================================================
+# Project Root
+# ==========================================================
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+
+# ==========================================================
+# Production Root
+# ==========================================================
+
+PRODUCTION_DIR = PROJECT_ROOT / "production"
+
+
+# ==========================================================
+# Production Output Folders
+# ==========================================================
+
+STORIES_DIR = PRODUCTION_DIR / "stories"
+
+CHARACTERS_DIR = PRODUCTION_DIR / "characters"
+
+SCENES_DIR = PRODUCTION_DIR / "scenes"
+
+NARRATIONS_DIR = PRODUCTION_DIR / "narrations"
+
+IMAGE_PROMPTS_DIR = PRODUCTION_DIR / "image_prompts"
+
+IMAGES_DIR = PRODUCTION_DIR / "images"
+
+AUDIO_DIR = PRODUCTION_DIR / "audio"
+
+SUBTITLES_DIR = PRODUCTION_DIR / "subtitles"
+
+VIDEOS_DIR = PRODUCTION_DIR / "videos"
+
+
+# ==========================================================
+# Auto Create Required Directories
+# ==========================================================
+
+for folder in [
+    PRODUCTION_DIR,
+    STORIES_DIR,
+    CHARACTERS_DIR,
+    SCENES_DIR,
+    NARRATIONS_DIR,
+    IMAGE_PROMPTS_DIR,
+    IMAGES_DIR,
+    AUDIO_DIR,
+    SUBTITLES_DIR,
+    VIDEOS_DIR,
+]:
+    folder.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+==========================================================
+FILE: config\settings.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+import os
+
+from dotenv import load_dotenv
+
+
+# ==========================================================
+# Load Environment Variables
+# ==========================================================
+
+load_dotenv()
+
+
+# ==========================================================
+# API Keys
+# ==========================================================
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+
+FAL_API_KEY = os.getenv("FAL_API_KEY", "")
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+
+ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY", "")
+
+
+# ==========================================================
+# Providers
+# ==========================================================
+
+LLM_PROVIDER = "gemini"
+
+IMAGE_PROVIDER = "pollinations"
+
+TTS_PROVIDER = "edge"
+
+VIDEO_PROVIDER = "ffmpeg"
+
+
+# ==========================================================
+# Default Models
+# ==========================================================
+
+LLM_MODEL = "models/gemma-4-31b-it"
+
+IMAGE_MODEL = "flux"
+
+TTS_MODEL = "en-US-AriaNeural"
+
+VIDEO_ENGINE = "ffmpeg"
+
+
+# ==========================================================
+# FFmpeg
+# ==========================================================
+
+FFMPEG_PATH = r"C:\ffmpeg\bin\ffmpeg.exe"
+
+
+# ==========================================================
+# Video Settings
+# ==========================================================
+
+VIDEO_WIDTH = 1024
+
+VIDEO_HEIGHT = 576
+
+VIDEO_FPS = 30
+
+
+# ==========================================================
+# Camera Settings
+# ==========================================================
+
+CAMERA_DEFAULT_EFFECT = "random"
+
+CAMERA_ZOOM_SPEED = 0.0008
+
+CAMERA_MAX_ZOOM = 1.15
+
+CAMERA_FRAME_COUNT = 10000
+
+
+# ==========================================================
+# Validation
+# ==========================================================
+
+if LLM_PROVIDER == "gemini" and not GEMINI_API_KEY:
+    raise ValueError("GEMINI_API_KEY not found in .env file")
+
+
+if VIDEO_PROVIDER == "ffmpeg":
+
+    if not os.path.exists(FFMPEG_PATH):
+
+        raise ValueError(
+            f"FFmpeg not found : {FFMPEG_PATH}"
+        )
+
+==========================================================
+FILE: exporters\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: exporters\audio_exporter.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+import json
+
+from config.paths import AUDIO_DIR
+from models.generated_audio import GeneratedAudio
+
+
+# ==========================================================
+# Audio Exporter
+# ==========================================================
+
+class AudioExporter:
+
+    @staticmethod
+    def export(audio: GeneratedAudio):
+
+        output_file = (
+            AUDIO_DIR /
+            f"scene_{audio.scene_number:03d}.json"
+        )
+
+        data = {
+
+            "scene_id": audio.scene_id,
+
+            "scene_number": audio.scene_number,
+
+            "title": audio.title,
+
+            "narration": audio.narration,
+
+            "audio_path": audio.audio_path,
+
+            "duration": audio.duration,
+
+            "voice": audio.voice,
+
+            "provider": audio.provider,
+
+            "model": audio.model,
+
+            "sample_rate": audio.sample_rate,
+
+            "format": audio.format
+
+        }
+
+        with open(
+            output_file,
+            "w",
+            encoding="utf-8"
+        ) as f:
+
+            json.dump(
+                data,
+                f,
+                indent=4,
+                ensure_ascii=False
+            )
+
+        print("\nAudio Exported Successfully")
+
+        print(f"Scene : {audio.scene_number}")
+
+        print(f"Saved : {output_file}")
+
+==========================================================
+FILE: exporters\character_bible_exporter.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+import json
+from dataclasses import asdict
+
+from config.paths import CHARACTERS_DIR
+
+
+# ==========================================================
+# Character Bible Exporter
+# ==========================================================
+
+class CharacterBibleExporter:
+
+    @staticmethod
+    def export(character_bibles):
+
+        for character in character_bibles:
+
+            filename = (
+                character.name
+                .replace(" ", "_")
+                .replace("/", "_")
+            )
+
+            filepath = CHARACTERS_DIR / f"{filename}.json"
+
+            with open(
+                filepath,
+                "w",
+                encoding="utf-8"
+            ) as file:
+
+                json.dump(
+                    asdict(character),
+                    file,
+                    indent=4,
+                    ensure_ascii=False
+                )
+
+        print("\nCharacter Bibles exported successfully.")
+        print(CHARACTERS_DIR)
+
+==========================================================
+FILE: exporters\image_exporter.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from models.generated_image import GeneratedImage
+
+
+# ==========================================================
+# Image Exporter
+# ==========================================================
+
+class ImageExporter:
+
+    @staticmethod
+    def export(image: GeneratedImage):
+
+        print("\nImage Exported Successfully")
+        print(f"Scene : {image.scene_number}")
+        print(f"Saved : {image.image_path}")
+
+==========================================================
+FILE: exporters\image_prompt_exporter.py
+==========================================================
+
+import json
+from dataclasses import asdict
+
+from config.paths import IMAGE_PROMPTS_DIR
+
+
+class ImagePromptExporter:
+
+    @staticmethod
+    def export(image_prompts):
+
+        for image_prompt in image_prompts:
+
+            filename = (
+                f"scene_"
+                f"{image_prompt.scene_number:03d}.json"
+            )
+
+            filepath = IMAGE_PROMPTS_DIR / filename
+
+            with open(
+                filepath,
+                "w",
+                encoding="utf-8"
+            ) as file:
+
+                json.dump(
+                    asdict(image_prompt),
+                    file,
+                    indent=4,
+                    ensure_ascii=False
+                )
+
+        print("\nImage Prompts exported successfully.")
+        print(IMAGE_PROMPTS_DIR)
+
+==========================================================
+FILE: exporters\narration_exporter.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+import json
+
+from config.paths import NARRATIONS_DIR
+
+
+# ==========================================================
+# Narration Exporter
+# ==========================================================
+
+class NarrationExporter:
+
+    @staticmethod
+    def export(narration_list):
+
+        output_file = (
+            NARRATIONS_DIR /
+            f"{narration_list.title.replace(' ', '_')}_narrations.json"
+        )
+
+        data = {
+            "title": narration_list.title,
+            "total_scenes": narration_list.total_scenes,
+            "narrations": []
+        }
+
+        for narration in narration_list.narrations:
+
+            data["narrations"].append({
+
+                "scene_id": narration.scene_id,
+
+                "scene_number": narration.scene_number,
+
+                "title": narration.title,
+
+                "narration": narration.narration,
+
+                "word_count": narration.word_count,
+
+                "estimated_duration": narration.estimated_duration,
+
+                "audio_file": narration.audio_file,
+
+                "subtitle_file": narration.subtitle_file
+
+            })
+
+        with open(
+            output_file,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                data,
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
+
+        print("\nNarrations exported successfully.")
+        print(output_file)
+
+        return output_file
+
+==========================================================
+FILE: exporters\scene_exporter.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+import json
+from dataclasses import asdict
+
+from config.paths import SCENES_DIR
+
+
+# ==========================================================
+# Scene Exporter
+# ==========================================================
+
+class SceneExporter:
+
+    @staticmethod
+    def export(scene_list):
+
+        filename = (
+            scene_list.title
+            .replace(" ", "_")
+            .replace("/", "_")
+        )
+
+        filepath = SCENES_DIR / f"{filename}_scenes.json"
+
+        with open(
+            filepath,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                asdict(scene_list),
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
+
+        print("\nScenes exported successfully.")
+        print(filepath)
+
+==========================================================
+FILE: exporters\story_exporter.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from formatters.story_formatter import StoryFormatter
+from config.paths import STORIES_DIR
+
+
+# ==========================================================
+# Story Exporter
+# ==========================================================
+
+class StoryExporter:
+
+    @staticmethod
+    def export(story):
+
+        filename = (
+            story.title
+            .replace(" ", "_")
+            .replace("/", "_")
+        )
+
+        markdown_file = STORIES_DIR / f"{filename}.md"
+        text_file = STORIES_DIR / f"{filename}.txt"
+
+        markdown_file.write_text(
+            StoryFormatter.to_markdown(story),
+            encoding="utf-8"
+        )
+
+        text_file.write_text(
+            StoryFormatter.to_text(story),
+            encoding="utf-8"
+        )
+
+        print("\nStory exported successfully.")
+        print(markdown_file)
+        print(text_file)
+
+==========================================================
+FILE: exporters\video_exporter.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+import json
+from dataclasses import asdict
+
+from config.paths import VIDEOS_DIR
+
+
+# ==========================================================
+# Video Exporter
+# ==========================================================
+
+class VideoExporter:
+
+    @staticmethod
+    def export(video):
+
+        output_file = (
+            VIDEOS_DIR /
+            f"{video.title.replace(' ', '_')}.json"
+        )
+
+        with open(
+
+            output_file,
+
+            "w",
+
+            encoding="utf-8"
+
+        ) as file:
+
+            json.dump(
+
+                asdict(video),
+
+                file,
+
+                indent=4,
+
+                ensure_ascii=False
+
+            )
+
+        print("\nVideo Exported Successfully")
+
+        print(
+            f"Saved : {output_file}"
+        )
+
+==========================================================
+FILE: formatters\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: formatters\research_report_formatter.py
+==========================================================
+
+class ResearchReportFormatter:
+
+    def print_report(self, report):
+
+        print()
+        print("===================================")
+        print("   Universal Research Report (URR)")
+        print("===================================")
+
+        print(f"Topic            : {report.topic}")
+        print(f"Content Type     : {report.content_type}")
+        print(f"Target Audience  : {report.target_audience}")
+        print(f"Goal             : {report.goal}")
+        print(f"Tone             : {report.tone}")
+
+        print()
+        print("Research Content")
+        print("-----------------------------------")
+        print(report.content)
+
+        print("===================================")
+
+==========================================================
+FILE: formatters\story_formatter.py
+==========================================================
+
+class StoryFormatter:
+
+    @staticmethod
+    def print_review(review):
+
+        print("\n==============================")
+        print("Story Review")
+        print("==============================")
+
+        print(f"Score : {review.score}/100")
+        print(f"Passed : {'Yes' if review.passed else 'No'}")
+
+        print("\nFeedback:")
+        print(review.feedback)
+
+    @staticmethod
+    def print_story(story):
+
+        print("\n==============================")
+        print("Story Generated Successfully")
+        print("==============================")
+
+        print(f"\nTitle:\n{story.title}")
+
+        print(f"\nStory:\n{story.story}")
+
+        print(f"\nMoral:\n{story.moral}")
+
+        print(f"\nWord Count:\n{story.word_count}")
+
+    @staticmethod
+    def to_markdown(story):
+
+        return f"""# {story.title}
+
+## Story
+
+{story.story}
+
+---
+
+## Moral
+
+{story.moral}
+
+---
+
+**Word Count:** {story.word_count}
+"""
+
+    @staticmethod
+    def to_text(story):
+
+        return f"""TITLE
+
+{story.title}
+
+
+STORY
+
+{story.story}
+
+
+MORAL
+
+{story.moral}
+
+
+WORD COUNT
+
+{story.word_count}
+"""
+
+==========================================================
+FILE: memory\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: memory\memory_manager.py
+==========================================================
+
+class MemoryManager:
+
+    def __init__(self):
+        print("Memory Manager Started")
+
+==========================================================
+FILE: models\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: models\camera_effect.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from dataclasses import dataclass
+
+
+# ==========================================================
+# Camera Effect Model
+# ==========================================================
+
+@dataclass(slots=True)
+class CameraEffect:
+
+    name: str
+
+    filter: str
+
+==========================================================
+FILE: models\character_bible.py
+==========================================================
+
+from dataclasses import dataclass
+
+
+@dataclass
+class CharacterBible:
+
+    # Identity
+
+    character_id: str
+
+    name: str
+
+    species: str
+
+    role: str
+
+    # Visual Design
+
+    appearance: str
+
+    clothing: str
+
+    accessories: str
+
+    color_palette: str
+
+    # Personality
+
+    personality: str
+
+    strengths: str
+
+    weaknesses: str
+
+    goals: str
+
+    # Animation
+
+    default_expression: str
+
+    default_pose: str
+
+    movement_style: str
+
+    gestures: str
+
+    # Voice
+
+    voice_style: str
+
+    catch_phrase: str
+
+    # Production
+
+    image_prompt: str
+
+    negative_prompt: str
+
+==========================================================
+FILE: models\character_profile.py
+==========================================================
+
+from dataclasses import dataclass
+
+
+@dataclass
+class CharacterProfile:
+    name: str
+    role: str
+    species: str
+    description: str
+
+==========================================================
+FILE: models\generated_audio.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from dataclasses import dataclass
+
+
+# ==========================================================
+# Generated Audio
+# ==========================================================
+
+@dataclass
+class GeneratedAudio:
+
+    # Scene Information
+
+    scene_id: str
+
+    scene_number: int
+
+    title: str
+
+    # Narration
+
+    narration: str
+
+    # Audio
+
+    audio_path: str
+
+    duration: float
+
+    voice: str
+
+    provider: str
+
+    model: str
+
+    sample_rate: int
+
+    format: str
+
+==========================================================
+FILE: models\generated_image.py
+==========================================================
+
+from dataclasses import dataclass
+
+
+@dataclass
+class GeneratedImage:
+
+    scene_id: str
+
+    scene_number: int
+
+    title: str
+
+    prompt: str
+
+    image_path: str
+
+    width: int
+
+    height: int
+
+    provider: str
+
+    model: str
+
+==========================================================
+FILE: models\generated_video.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from dataclasses import dataclass
+
+
+# ==========================================================
+# Generated Video
+# ==========================================================
+
+@dataclass
+class GeneratedVideo:
+
+    # ------------------------------------------------------
+    # Story Information
+    # ------------------------------------------------------
+
+    title: str
+
+    # ------------------------------------------------------
+    # Output Files
+    # ------------------------------------------------------
+
+    video_path: str
+
+    thumbnail_path: str = ""
+
+    subtitle_path: str = ""
+
+    # ------------------------------------------------------
+    # Resolution
+    # ------------------------------------------------------
+
+    width: int = 1024
+
+    height: int = 576
+
+    fps: int = 30
+
+    # ------------------------------------------------------
+    # Duration
+    # ------------------------------------------------------
+
+    duration: float = 0.0
+
+    # ------------------------------------------------------
+    # Encoding
+    # ------------------------------------------------------
+
+    codec: str = "H.264"
+
+    format: str = "MP4"
+
+    # ------------------------------------------------------
+    # Provider
+    # ------------------------------------------------------
+
+    provider: str = "FFmpeg"
+
+    # ------------------------------------------------------
+    # Status
+    # ------------------------------------------------------
+
+    total_scenes: int = 0
+
+    status: str = "completed"
+
+==========================================================
+FILE: models\image_asset.py
+==========================================================
+
+
+
+==========================================================
+FILE: models\image_prompt.py
+==========================================================
+
+from dataclasses import dataclass
+
+
+@dataclass
+class ImagePrompt:
+
+    scene_id: str
+
+    scene_number: int
+
+    title: str
+
+    positive_prompt: str
+
+    negative_prompt: str
+
+    style: str
+
+    aspect_ratio: str
+
+    image_size: str
+
+==========================================================
+FILE: models\narration.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from dataclasses import dataclass, field
+
+
+# ==========================================================
+# Narration
+# ==========================================================
+
+@dataclass
+class Narration:
+
+    scene_id: str
+    scene_number: int
+    title: str
+
+    narration: str
+
+    word_count: int = 0
+
+    estimated_duration: float = 0.0
+
+    audio_file: str = ""
+
+    subtitle_file: str = ""
+
+
+# ==========================================================
+# Narration List
+# ==========================================================
+
+@dataclass
+class NarrationList:
+
+    title: str
+
+    total_scenes: int
+
+    narrations: list[Narration] = field(default_factory=list)
+
+==========================================================
+FILE: models\research_report.py
+==========================================================
+
+from dataclasses import dataclass
+
+
+@dataclass
+class ResearchReport:
+    topic: str
+    content_type: str
+    target_audience: str
+    goal: str
+    tone: str
+    research: str
+
+==========================================================
+FILE: models\review_report.py
+==========================================================
+
+from dataclasses import dataclass
+
+
+@dataclass
+class ReviewReport:
+
+    passed: bool
+
+    score: int
+
+    feedback: str
+
+==========================================================
+FILE: models\scene.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from dataclasses import dataclass, field
+
+
+# ==========================================================
+# Scene Model
+# ==========================================================
+
+@dataclass
+class Scene:
+
+    # Basic Information
+    scene_id: str
+    scene_number: int
+    title: str
+
+    # Story Information
+    summary: str
+    purpose: str
+
+    # Environment
+    location: str
+    time_of_day: str
+
+    # Characters
+    characters: list[str] = field(default_factory=list)
+
+    # Story Content
+    narration: str = ""
+    dialogue: str = ""
+
+    # Emotion
+    emotion: str = ""
+
+    # Visual Direction
+    visual_notes: str = ""
+
+    # Continuity
+    continuity_notes: str = ""
+
+
+# ==========================================================
+# Scene Collection
+# ==========================================================
+
+@dataclass
+class SceneList:
+
+    title: str
+    total_scenes: int
+    scenes: list[Scene] = field(default_factory=list)
+
+==========================================================
+FILE: models\scene_report.py
+==========================================================
+
+
+
+==========================================================
+FILE: models\story_draft.py
+==========================================================
+
+from dataclasses import dataclass
+
+
+@dataclass
+class StoryDraft:
+    title: str
+    story: str
+    moral: str
+    word_count: int
+
+==========================================================
+FILE: prompts\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: prompts\image_prompt.py
+==========================================================
+
+# ==========================================================
+# Image Prompt Generator
+# ==========================================================
+
+class ImagePromptPrompt:
+
+    @staticmethod
+    def generate(scene, character_bibles):
+
+        character_info = ""
+
+        for character in character_bibles:
+
+            if character.character_id in scene.characters:
+
+                character_info += f"""
+Character ID: {character.character_id}
+Name: {character.name}
+Species: {character.species}
+Role: {character.role}
+
+Appearance:
+{character.appearance}
+
+Clothing:
+{character.clothing}
+
+Accessories:
+{character.accessories}
+
+Color Palette:
+{character.color_palette}
+
+Default Expression:
+{character.default_expression}
+
+Default Pose:
+{character.default_pose}
+
+Movement Style:
+{character.movement_style}
+
+Gestures:
+{character.gestures}
+--------------------------------------------------
+"""
+
+        return f"""
+You are an expert AI Image Prompt Engineer.
+
+Your task is to create ONE professional image generation prompt for a children's animated story.
+
+The prompt will later be used with AI image models.
+
+==================================================
+
+SCENE INFORMATION
+
+Scene Number:
+{scene.scene_number}
+
+Scene Title:
+{scene.title}
+
+Scene Summary:
+{scene.summary}
+
+Location:
+{scene.location}
+
+Time of Day:
+{scene.time_of_day}
+
+Emotion:
+{scene.emotion}
+
+Narration:
+{scene.narration}
+
+Dialogue:
+{scene.dialogue}
+
+Visual Notes:
+{scene.visual_notes}
+
+Continuity Notes:
+{scene.continuity_notes}
+
+==================================================
+
+CHARACTERS
+
+{character_info}
+
+==================================================
+
+INSTRUCTIONS
+
+Generate ONE cinematic image prompt.
+
+The image should:
+
+- Keep every character visually consistent.
+- Follow the Character Bible exactly.
+- Match the scene emotion.
+- Match the scene location.
+- Match the time of day.
+- Include cinematic composition.
+- Include professional lighting.
+- Include depth of field.
+- Include high detail.
+- Include colorful children's animation style.
+- Keep the same character design across every scene.
+
+Style:
+
+Pixar-quality 3D animated movie.
+
+==================================================
+
+Return ONLY valid JSON.
+
+Expected Format
+
+{{
+    "scene_id":"{scene.scene_id}",
+    "scene_number":{scene.scene_number},
+    "title":"{scene.title}",
+    "positive_prompt":"...",
+    "negative_prompt":"blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs",
+    "style":"Pixar 3D Animated Movie",
+    "aspect_ratio":"16:9",
+    "image_size":"1024x576"
+}}
+
+Return ONLY JSON.
+"""
+
+==========================================================
+FILE: prompts\scene_prompt.py
+==========================================================
+
+# ==========================================================
+# Scene Prompt
+# ==========================================================
+
+class ScenePrompt:
+
+    @staticmethod
+    def generate(story, character_bibles):
+
+        characters = ""
+
+        for character in character_bibles:
+
+            characters += f"""
+Character ID: {character.character_id}
+Name: {character.name}
+Species: {character.species}
+Role: {character.role}
+
+Appearance: {character.appearance}
+Clothing: {character.clothing}
+Accessories: {character.accessories}
+Color Palette: {character.color_palette}
+
+Personality: {character.personality}
+Strengths: {character.strengths}
+Weaknesses: {character.weaknesses}
+Goals: {character.goals}
+
+Default Expression: {character.default_expression}
+Default Pose: {character.default_pose}
+Movement Style: {character.movement_style}
+Gestures: {character.gestures}
+
+Voice Style: {character.voice_style}
+Catch Phrase: {character.catch_phrase}
+
+--------------------------------------------------
+"""
+
+        return f"""
+You are an expert Storyboard Artist and Children's Story Scene Planner.
+
+Your task is to convert the children's story into a sequence of visual scenes.
+
+The scenes will later be used for:
+
+- AI Image Generation
+- AI Animation
+- AI Video Generation
+
+==================================================
+
+STORY TITLE
+
+{story.title}
+
+==================================================
+
+MORAL
+
+{story.moral}
+
+==================================================
+
+CHARACTER BIBLES
+
+{characters}
+
+==================================================
+
+STORY
+
+{story.story}
+
+==================================================
+
+INSTRUCTIONS
+
+1. Divide the story into 6–10 logical scenes.
+
+2. Each scene should represent ONE important event.
+
+3. Maintain chronological order.
+
+4. Never skip important events.
+
+5. Never invent new characters.
+
+6. Always use the Character Bible for appearance and personality consistency.
+
+7. Narration should describe what happens.
+
+8. Dialogue should contain ONLY spoken words.
+
+9. Visual Notes should describe exactly what should be visible on screen.
+
+10. Continuity Notes should help the next scene remain visually consistent.
+
+11. Keep every scene child-friendly.
+
+12. Keep every scene visually interesting.
+
+==================================================
+
+For EACH scene generate:
+
+scene_id
+scene_number
+title
+summary
+purpose
+location
+time_of_day
+characters
+narration
+dialogue
+emotion
+visual_notes
+continuity_notes
+
+==================================================
+
+Return ONLY valid JSON.
+
+Expected Format
+
+{{
+    "title": "Story Title",
+    "total_scenes": 8,
+    "scenes": [
+        {{
+            "scene_id": "SCENE_001",
+            "scene_number": 1,
+            "title": "",
+            "summary": "",
+            "purpose": "",
+            "location": "",
+            "time_of_day": "",
+            "characters": [],
+            "narration": "",
+            "dialogue": "",
+            "emotion": "",
+            "visual_notes": "",
+            "continuity_notes": ""
+        }}
+    ]
+}}
+
+Return ONLY JSON.
+"""
+
+==========================================================
+FILE: prompts\character\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: prompts\character\character_bible_prompt.py
+==========================================================
+
+class CharacterBiblePrompt:
+
+    @staticmethod
+    def generate(character):
+
+        return f"""
+You are the Lead Character Designer for a professional children's animation studio.
+
+Your job is to create the OFFICIAL CHARACTER BIBLE.
+
+This character may appear in hundreds of future stories, animations, books, videos and games.
+
+Everything you create must remain consistent forever.
+
+Never design a character specifically for one story.
+
+Create a timeless, memorable and reusable character.
+
+----------------------------------------
+
+Character Information
+
+Name:
+{character.name}
+
+Species:
+{character.species}
+
+Role:
+{character.role}
+
+Description:
+{character.description}
+
+----------------------------------------
+
+Requirements
+
+• Audience: Children (5–8 years)
+
+• Family Friendly
+
+• Child Safe
+
+• Colorful
+
+• Cute
+
+• Memorable
+
+• Suitable for stylized 3D animation
+
+• Simple enough for AI image generation
+
+• Clothing must always remain the same.
+
+• Accessories must always remain the same.
+
+• Personality must remain consistent.
+
+• Keep strengths and weaknesses simple.
+
+• Give one memorable catch phrase.
+
+• Define natural movement style.
+
+• Define default facial expression.
+
+• Define default pose.
+
+• Define common gestures.
+
+• Image prompt should ONLY describe the character.
+
+• DO NOT include background.
+
+• DO NOT include scenery.
+
+• DO NOT include camera angle.
+
+• DO NOT include lighting.
+
+• Negative prompt should prevent poor quality generations.
+
+----------------------------------------
+
+Return ONLY valid JSON.
+
+JSON Schema
+
+{{
+    "character_id": "",
+
+    "name": "",
+
+    "species": "",
+
+    "role": "",
+
+    "appearance": "",
+
+    "clothing": "",
+
+    "accessories": "",
+
+    "color_palette": "",
+
+    "personality": "",
+
+    "strengths": "",
+
+    "weaknesses": "",
+
+    "goals": "",
+
+    "default_expression": "",
+
+    "default_pose": "",
+
+    "movement_style": "",
+
+    "gestures": "",
+
+    "voice_style": "",
+
+    "catch_phrase": "",
+
+    "image_prompt": "",
+
+    "negative_prompt": ""
+}}
+"""
+
+==========================================================
+FILE: prompts\character\character_prompt.py
+==========================================================
+
+class CharacterPrompt:
+
+    @staticmethod
+    def generate(research_report):
+
+        return f"""
+You are an expert story planner.
+
+Your job is to identify the characters required for the story.
+
+Project Information
+
+Topic:
+{research_report.topic}
+
+Content Type:
+{research_report.content_type}
+
+Target Audience:
+{research_report.target_audience}
+
+Goal:
+{research_report.goal}
+
+Tone:
+{research_report.tone}
+
+Instructions:
+
+- Identify only the characters needed.
+- Do NOT write the story.
+- Do NOT invent detailed personalities.
+- Do NOT invent relationships.
+- Keep descriptions short (1 sentence).
+- Create between 2 and 5 characters.
+
+Role must be one of:
+
+- Main Character
+- Supporting Character
+- Antagonist
+- Mentor
+- Narrator
+
+Return ONLY valid JSON.
+
+Example:
+
+{{
+    "characters": [
+        {{
+            "name": "Leo",
+            "role": "Main Character",
+            "species": "Lion",
+            "description": "A proud lion who believes he is the king of the forest."
+        }},
+        {{
+            "name": "Barnaby",
+            "role": "Supporting Character",
+            "species": "Rabbit",
+            "description": "A clever rabbit who solves problems using intelligence."
+        }}
+    ]
+}}
+"""
+
+==========================================================
+FILE: prompts\research\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: prompts\research\base_prompt.py
+==========================================================
+
+class BasePrompt:
+
+    def __init__(
+        self,
+        content_type,
+        target_audience,
+        goal,
+        tone
+    ):
+
+        self.content_type = content_type
+        self.target_audience = target_audience
+        self.goal = goal
+        self.tone = tone
+
+    def build(self, topic):
+        """
+        Every Prompt must implement this.
+        """
+        raise NotImplementedError(
+            "Child Prompt must implement build()"
+        )
+
+==========================================================
+FILE: prompts\research\story_prompt.py
+==========================================================
+
+from prompts.research.base_prompt import BasePrompt
+
+
+class StoryPrompt(BasePrompt):
+
+    def __init__(self):
+
+        super().__init__(
+            content_type="Kids Story",
+            target_audience="5-8 Years",
+            goal="Educational + Fun",
+            tone="Funny"
+        )
+
+    def build(self, topic):
+
+        return f"""
+Research this topic for a kids educational story.
+
+Topic:
+{topic}
+
+Instructions:
+
+- Write in simple English.
+- Target audience: {self.target_audience}
+- Goal: {self.goal}
+- Tone: {self.tone}
+- Reply in only 5-6 short sentences.
+"""
+
+==========================================================
+FILE: prompts\reviewing\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: prompts\reviewing\reviewer_prompt.py
+==========================================================
+
+class ReviewerPrompt:
+
+    def build(self, story):
+
+        return f"""
+You are a professional children's story reviewer.
+
+Your job is to review the story and return ONLY valid JSON.
+
+Review the story using the following criteria:
+
+1. Suitable for children aged 5-8.
+2. Easy English.
+3. Clear beginning, middle and ending.
+4. Fun and engaging.
+5. Positive moral.
+6. No scary, violent or inappropriate content.
+7. Grammar and spelling are correct.
+8. Story length should be around 400-600 words.
+
+Story Title:
+{story.title}
+
+Story:
+{story.story}
+
+Moral:
+{story.moral}
+
+Return ONLY this JSON:
+
+{{
+    "passed": true,
+    "score": 95,
+    "feedback": "Short explanation of the review."
+}}
+
+Do not write markdown.
+
+Do not write explanations.
+
+Return only JSON.
+"""
+
+==========================================================
+FILE: prompts\writing\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: prompts\writing\writer_prompt.py
+==========================================================
+
+class WriterPrompt:
+
+    @staticmethod
+    def generate(research_report, character_bibles):
+
+        characters = ""
+
+        for character in character_bibles:
+
+            characters += f"""
+
+Name:
+{character.name}
+
+Species:
+{character.species}
+
+Role:
+{character.role}
+
+Appearance:
+{character.appearance}
+
+Clothing:
+{character.clothing}
+
+Accessories:
+{character.accessories}
+
+Personality:
+{character.personality}
+
+Strengths:
+{character.strengths}
+
+Weaknesses:
+{character.weaknesses}
+
+Goals:
+{character.goals}
+
+Voice Style:
+{character.voice_style}
+
+Catch Phrase:
+{character.catch_phrase}
+
+Movement Style:
+{character.movement_style}
+
+Default Expression:
+{character.default_expression}
+
+Default Pose:
+{character.default_pose}
+
+Gestures:
+{character.gestures}
+
+----------------------------------------
+"""
+
+        return f"""
+You are a professional children's story writer.
+
+Write an ORIGINAL children's story.
+
+Never copy existing stories.
+
+----------------------------------------
+Research
+
+Topic:
+{research_report.topic}
+
+Content Type:
+{research_report.content_type}
+
+Target Audience:
+{research_report.target_audience}
+
+Goal:
+{research_report.goal}
+
+Tone:
+{research_report.tone}
+
+Research:
+{research_report.research}
+
+----------------------------------------
+Official Character Bible
+
+{characters}
+
+----------------------------------------
+Rules
+
+Use ONLY the characters provided.
+
+Never change their appearance.
+
+Never change their clothing.
+
+Never change their accessories.
+
+Never change their personality.
+
+Keep every character visually consistent.
+
+Never invent new main characters.
+
+Only introduce tiny side characters if absolutely necessary.
+
+Story Structure
+
+Beginning
+
+Problem
+
+Adventure
+
+Climax
+
+Ending
+
+Moral
+
+Language Rules
+
+Simple English
+
+Age 5–8
+
+Fun
+
+Funny
+
+Educational
+
+Family Friendly
+
+No violence
+
+No horror
+
+No politics
+
+No religion
+
+No copyrighted characters
+
+Story Length
+
+Approximately 350–450 words.
+
+----------------------------------------
+
+Return ONLY valid JSON.
+
+JSON Schema
+
+{{
+    "title": "",
+    "story": "",
+    "moral": "",
+    "word_count": 0
+}}
+"""
+
+==========================================================
+FILE: publishing\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: tests\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: tests\test_character_agent.py
+==========================================================
+
+from agents.character_agent import CharacterAgent
+from agents.research_agent import ResearchAgent
+
+
+def main():
+
+    topic = "Lion and Rabbit"
+
+    research_agent = ResearchAgent()
+    research_agent.start()
+
+    report = research_agent.research(topic)
+
+    print()
+
+    character_agent = CharacterAgent()
+    character_agent.start()
+
+    characters = character_agent.generate_characters(report)
+
+    print("\n==============================")
+    print("Generated Characters")
+    print("==============================\n")
+
+    for character in characters:
+        print(character)
+        print()
+
+
+if __name__ == "__main__":
+    main()
+
+==========================================================
+FILE: tests\test_character_bible_agent.py
+==========================================================
+
+from agents.research_agent import ResearchAgent
+from agents.character_agent import CharacterAgent
+from agents.character_bible_agent import CharacterBibleAgent
+
+
+def main():
+
+    topic = "Lion and Rabbit"
+
+    # Research
+
+    research_agent = ResearchAgent()
+    research_agent.start()
+
+    report = research_agent.research(topic)
+
+    # Character Profiles
+
+    character_agent = CharacterAgent()
+    character_agent.start()
+
+    characters = character_agent.generate_characters(report)
+
+    # Character Bible
+
+    bible_agent = CharacterBibleAgent()
+    bible_agent.start()
+
+    print("\n==============================")
+    print("Character Bible")
+    print("==============================")
+
+    for character in characters:
+
+        bible = bible_agent.generate_character_bible(character)
+
+        print("\n========================================")
+        print(bible.name)
+        print("========================================")
+
+        print("Character ID:")
+        print(bible.character_id)
+
+        print("\nSpecies:")
+        print(bible.species)
+
+        print("\nRole:")
+        print(bible.role)
+
+        print("\nAppearance:")
+        print(bible.appearance)
+
+        print("\nClothing:")
+        print(bible.clothing)
+
+        print("\nAccessories:")
+        print(bible.accessories)
+
+        print("\nColor Palette:")
+        print(bible.color_palette)
+
+        print("\nPersonality:")
+        print(bible.personality)
+
+        print("\nStrengths:")
+        print(bible.strengths)
+
+        print("\nWeaknesses:")
+        print(bible.weaknesses)
+
+        print("\nGoals:")
+        print(bible.goals)
+
+        print("\nDefault Expression:")
+        print(bible.default_expression)
+
+        print("\nDefault Pose:")
+        print(bible.default_pose)
+
+        print("\nMovement Style:")
+        print(bible.movement_style)
+
+        print("\nGestures:")
+        print(bible.gestures)
+
+        print("\nVoice Style:")
+        print(bible.voice_style)
+
+        print("\nCatch Phrase:")
+        print(bible.catch_phrase)
+
+        print("\nImage Prompt:")
+        print(bible.image_prompt)
+
+        print("\nNegative Prompt:")
+        print(bible.negative_prompt)
+
+
+if __name__ == "__main__":
+    main()
+
+==========================================================
+FILE: tests\test_flux.py
+==========================================================
+
+
+
+==========================================================
+FILE: tests\test_gemini.py
+==========================================================
+
+from google import genai
+from dotenv import load_dotenv
+from config.settings import GEMINI_API_KEY
+import os
+
+# Load environment variables
+load_dotenv()
+
+API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not API_KEY:
+    raise ValueError("GEMINI_API_KEY not found in .env file")
+
+client = genai.Client(api_key=API_KEY)
+
+response = client.models.generate_content(
+    model="gemma-4-31b-it",
+    contents="Say hello in one sentence."
+)
+
+print(response.text)
+
+==========================================================
+FILE: tests\test_gemini_image_generation.py
+==========================================================
+
+from pathlib import Path
+
+from google import genai
+from dotenv import load_dotenv
+
+from config.settings import GEMINI_API_KEY
+
+
+# ============================================
+# Load Environment Variables
+# ============================================
+
+load_dotenv()
+
+
+# ============================================
+# Output Folder
+# ============================================
+
+output_dir = Path("production/images")
+output_dir.mkdir(parents=True, exist_ok=True)
+
+output_file = output_dir / "test_image.png"
+
+
+# ============================================
+# Prompt
+# ============================================
+
+prompt = """
+A cute baby lion wearing a tiny red royal cape,
+Pixar-style 3D animation,
+cinematic lighting,
+highly detailed,
+vibrant colors,
+16:9,
+8K quality
+"""
+
+
+# ============================================
+# Gemini Client
+# ============================================
+
+client = genai.Client(api_key=GEMINI_API_KEY)
+
+
+# ============================================
+# Generate Image
+# ============================================
+
+print("Generating image...")
+
+response = client.models.generate_content(
+    model="gemini-3.1-flash-image",
+    contents=[prompt],
+)
+
+
+# ============================================
+# Save Image
+# ============================================
+
+image_found = False
+
+for part in response.parts:
+
+    if part.text is not None:
+        print(part.text)
+
+    elif part.inline_data is not None:
+
+        image = part.as_image()
+
+        image.save(output_file)
+
+        image_found = True
+
+        print("\nImage saved successfully.")
+        print(output_file)
+
+
+if not image_found:
+
+    print("\nNo image returned by Gemini.")
+
+==========================================================
+FILE: tests\test_models.py
+==========================================================
+
+from google import genai
+from config.settings import GEMINI_API_KEY
+
+client = genai.Client(api_key=GEMINI_API_KEY)
+
+print("Testing models...\n")
+
+for model in client.models.list():
+    name = model.name
+
+    try:
+        response = client.models.generate_content(
+            model=name,
+            contents="Reply with only the word: OK"
+        )
+
+        print(f"✅ WORKS: {name}")
+        print("Response:", response.text)
+        print("-" * 50)
+
+    except Exception as e:
+        print(f"❌ FAIL: {name}")
+        print(type(e).__name__)
+
+==========================================================
+FILE: tools\doc_generators\update_all_docs.py
+==========================================================
+
+import subprocess
+import sys
+from pathlib import Path
+
+# ----------------------------------------------------
+# Base Directory
+# ----------------------------------------------------
+
+BASE_DIR = Path(__file__).resolve().parent
+
+generators = [
+    "update_project_status.py",
+    "update_devlog.py",
+    "update_roadmap.py",
+    # Future generators
+    # "update_architecture.py",
+    # "update_decisions.py",
+]
+
+print("=" * 60)
+print("AI Content OS Documentation Generator")
+print("=" * 60)
+
+success = 0
+failed = 0
+
+for generator in generators:
+
+    script = BASE_DIR / generator
+
+    print(f"\nRunning: {generator}")
+
+    result = subprocess.run(
+        [sys.executable, str(script)],
+        cwd=BASE_DIR.parent.parent
+    )
+
+    if result.returncode == 0:
+        print(f"SUCCESS : {generator}")
+        success += 1
+    else:
+        print(f"FAILED  : {generator}")
+        failed += 1
+
+print("\n" + "=" * 60)
+print("Documentation Generation Finished")
+print("=" * 60)
+
+print(f"Successful : {success}")
+print(f"Failed     : {failed}")
+print(f"Total      : {len(generators)}")
+
+if failed == 0:
+    print("\nAll documentation updated successfully.")
+else:
+    print("\nSome generators failed.")
+
+==========================================================
+FILE: tools\doc_generators\update_architecture.py
+==========================================================
+
+
+
+==========================================================
+FILE: tools\doc_generators\update_decisions.py
+==========================================================
+
+
+
+==========================================================
+FILE: tools\doc_generators\update_devlog.py
+==========================================================
+
+import json
+from pathlib import Path
+
+# ----------------------------------------------------
+# Paths
+# ----------------------------------------------------
+
+BASE_DIR = Path(__file__).resolve().parents[2]
+
+json_file = BASE_DIR / "config" / "devlog.json"
+output_file = BASE_DIR / "docs" / "00_Project" / "DEVLOG.md"
+
+print(f"BASE_DIR    : {BASE_DIR}")
+print(f"JSON File   : {json_file}")
+print(f"Output File : {output_file}")
+
+# ----------------------------------------------------
+# Read JSON
+# ----------------------------------------------------
+
+with open(json_file, "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# ----------------------------------------------------
+# Generate Markdown
+# ----------------------------------------------------
+
+markdown = f"""# {data["project_name"]}
+
+# Development Log
+
+Version: {data["version"]}
+
+Status: {data["status"]}
+
+---
+
+"""
+
+for i, phase in enumerate(data["phases"], start=1):
+
+    markdown += f"## Phase {i} — {phase['title']}\n\n"
+
+    markdown += f"Status\n\n"
+
+    if phase["status"] == "Completed":
+        markdown += "✅ Completed\n\n"
+    else:
+        markdown += f"{phase['status']}\n\n"
+
+    markdown += "Work Completed\n\n"
+
+    for item in phase["work_completed"]:
+        markdown += f"- {item}\n"
+
+    markdown += "\nOutcome\n\n"
+
+    markdown += phase["outcome"]
+
+    markdown += "\n\n---\n\n"
+
+markdown += f"""# Next Development Target
+
+{data["next_target"]}
+"""
+
+# ----------------------------------------------------
+# Write File
+# ----------------------------------------------------
+
+with open(output_file, "w", encoding="utf-8") as f:
+    f.write(markdown)
+
+print("\nGenerated Markdown:\n")
+print(markdown)
+
+print(f"\nCharacters Written: {len(markdown)}")
+
+print("\nDEVLOG.md updated successfully.")
+
+==========================================================
+FILE: tools\doc_generators\update_project_status.py
+==========================================================
+
+import json
+from pathlib import Path
+
+# ----------------------------------------------------
+# Paths
+# ----------------------------------------------------
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+metadata_file = BASE_DIR / "config" / "project_metadata.json"
+output_file = BASE_DIR / "docs" / "00_Project" / "PROJECT_STATUS.md"
+
+print(f"BASE_DIR      : {BASE_DIR}")
+print(f"Metadata File : {metadata_file}")
+print(f"Output File   : {output_file}")
+
+# ----------------------------------------------------
+# Validate Files
+# ----------------------------------------------------
+
+if not metadata_file.exists():
+    raise FileNotFoundError(f"Metadata file not found:\n{metadata_file}")
+
+output_file.parent.mkdir(parents=True, exist_ok=True)
+
+# ----------------------------------------------------
+# Read Metadata
+# ----------------------------------------------------
+
+with open(metadata_file, "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# ----------------------------------------------------
+# Generate Markdown
+# ----------------------------------------------------
+
+markdown = f"""# {data['project_name']}
+
+## Project Information
+
+- **Version:** {data['version']}
+- **Phase:** {data['phase']}
+- **Current Milestone:** {data['current_milestone']}
+- **Next Milestone:** {data['next_milestone']}
+
+---
+
+## Completed Modules
+
+"""
+
+for module in data["completed_modules"]:
+    markdown += f"- ✅ {module}\n"
+
+markdown += "\n---\n\n## Pending Modules\n\n"
+
+for module in data["pending_modules"]:
+    markdown += f"- ⏳ {module}\n"
+
+# ----------------------------------------------------
+# Write Markdown
+# ----------------------------------------------------
+
+with open(output_file, "w", encoding="utf-8") as f:
+    f.write(markdown)
+    f.flush()
+
+print("\nGenerated Markdown:\n")
+print(markdown)
+
+print(f"\nCharacters Written: {len(markdown)}")
+print(f"\nPROJECT_STATUS.md updated successfully.")
+
+==========================================================
+FILE: tools\doc_generators\update_roadmap.py
+==========================================================
+
+import json
+from pathlib import Path
+
+# ----------------------------------------------------
+# Paths
+# ----------------------------------------------------
+
+BASE_DIR = Path(__file__).resolve().parents[2]
+
+json_file = BASE_DIR / "config" / "roadmap.json"
+output_file = BASE_DIR / "docs" / "00_Project" / "ROADMAP.md"
+
+print(f"BASE_DIR    : {BASE_DIR}")
+print(f"JSON File   : {json_file}")
+print(f"Output File : {output_file}")
+
+# ----------------------------------------------------
+# Read JSON
+# ----------------------------------------------------
+
+with open(json_file, "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# ----------------------------------------------------
+# Generate Markdown
+# ----------------------------------------------------
+
+markdown = f"""# {data["project_name"]}
+
+# Product Roadmap
+
+Version: {data["version"]}
+
+Status: {data["status"]}
+
+---
+
+# Vision
+
+{data["vision"]}
+
+---
+
+# Development Principles
+
+"""
+
+for item in data["principles"]:
+    markdown += f"- {item}\n"
+
+markdown += "\n---\n\n"
+
+for index, stage in enumerate(data["stages"], start=1):
+
+    markdown += f"## Stage {index} — {stage['title']}\n\n"
+
+    markdown += f"Status\n\n"
+
+    if stage["status"] == "Completed":
+        markdown += "✅ Completed\n\n"
+    else:
+        markdown += "🟡 Planned\n\n"
+
+    markdown += f"Goal\n\n{stage['goal']}\n\n"
+
+    markdown += "Components\n\n"
+
+    for component in stage["components"]:
+        markdown += f"- {component}\n"
+
+    markdown += "\nOutcome\n\n"
+
+    markdown += stage["outcome"]
+
+    markdown += "\n\n---\n\n"
+
+markdown += f"""# Next Milestone
+
+{data["next_milestone"]}
+"""
+
+# ----------------------------------------------------
+# Write File
+# ----------------------------------------------------
+
+with open(output_file, "w", encoding="utf-8") as f:
+    f.write(markdown)
+
+print("\nGenerated Markdown:\n")
+print(markdown)
+
+print(f"\nCharacters Written: {len(markdown)}")
+
+print("\nROADMAP.md updated successfully.")
+
+==========================================================
+FILE: utils\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: utils\image_prompt_mapper.py
+==========================================================
+
+from models.image_prompt import ImagePrompt
+
+
+class ImagePromptMapper:
+
+    @staticmethod
+    def from_json(data):
+
+        return ImagePrompt(
+
+            scene_id=data.get(
+                "scene_id",
+                ""
+            ),
+
+            scene_number=data.get(
+                "scene_number",
+                0
+            ),
+
+            title=data.get(
+                "title",
+                ""
+            ),
+
+            positive_prompt=data.get(
+                "positive_prompt",
+                ""
+            ),
+
+            negative_prompt=data.get(
+                "negative_prompt",
+                ""
+            ),
+
+            style=data.get(
+                "style",
+                "Pixar 3D Animated Movie"
+            ),
+
+            aspect_ratio=data.get(
+                "aspect_ratio",
+                "16:9"
+            ),
+
+            image_size=data.get(
+                "image_size",
+                "1024x576"
+            )
+
+        )
+
+==========================================================
+FILE: utils\json_parser.py
+==========================================================
+
+import json
+
+
+def parse_json(response: str) -> dict:
+    """
+    Parse JSON returned by the LLM.
+
+    Supports:
+    - Plain JSON
+    - ```json ... ```
+    - ``` ... ```
+
+    Returns:
+        dict
+
+    Raises:
+        ValueError if JSON is invalid.
+    """
+
+    if not response:
+        raise ValueError("LLM returned an empty response.")
+
+    cleaned = response.strip()
+
+    # Remove ```json
+    if cleaned.startswith("```json"):
+        cleaned = cleaned.replace("```json", "", 1)
+
+    # Remove ```
+    if cleaned.startswith("```"):
+        cleaned = cleaned.replace("```", "", 1)
+
+    if cleaned.endswith("```"):
+        cleaned = cleaned[:-3]
+
+    cleaned = cleaned.strip()
+
+    try:
+        return json.loads(cleaned)
+
+    except json.JSONDecodeError as e:
+        raise ValueError(
+            f"Invalid JSON returned by LLM.\n\nResponse:\n{response}"
+        ) from e
+
+==========================================================
+FILE: utils\narration_mapper.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from models.narration import Narration
+from models.narration import NarrationList
+
+
+# ==========================================================
+# Narration Mapper
+# ==========================================================
+
+class NarrationMapper:
+
+    @staticmethod
+    def from_json(data: dict) -> NarrationList:
+
+        narrations = []
+
+        for item in data.get("narrations", []):
+
+            narration = Narration(
+
+                scene_id=item.get("scene_id", ""),
+
+                scene_number=item.get("scene_number", 0),
+
+                title=item.get("title", ""),
+
+                narration=item.get("narration", ""),
+
+                word_count=item.get("word_count", 0),
+
+                estimated_duration=item.get(
+                    "estimated_duration",
+                    0.0
+                ),
+
+                audio_file=item.get("audio_file", ""),
+
+                subtitle_file=item.get("subtitle_file", "")
+
+            )
+
+            narrations.append(narration)
+
+        return NarrationList(
+
+            title=data.get("title", ""),
+
+            total_scenes=data.get(
+                "total_scenes",
+                len(narrations)
+            ),
+
+            narrations=narrations
+
+        )
+
+==========================================================
+FILE: utils\scene_mapper.py
+==========================================================
+
+# ==========================================================
+# Imports
+# ==========================================================
+
+from models.scene import Scene, SceneList
+
+
+# ==========================================================
+# Scene Mapper
+# ==========================================================
+
+class SceneMapper:
+
+    @staticmethod
+    def from_json(data: dict) -> SceneList:
+
+        scenes = []
+
+        for item in data.get("scenes", []):
+
+            scene = Scene(
+                scene_id=item.get("scene_id", ""),
+                scene_number=item.get("scene_number", 0),
+                title=item.get("title", ""),
+                summary=item.get("summary", ""),
+                purpose=item.get("purpose", ""),
+                location=item.get("location", ""),
+                time_of_day=item.get("time_of_day", ""),
+                characters=item.get("characters", []),
+                narration=item.get("narration", ""),
+                dialogue=item.get("dialogue", ""),
+                emotion=item.get("emotion", ""),
+                visual_notes=item.get("visual_notes", ""),
+                continuity_notes=item.get("continuity_notes", "")
+            )
+
+            scenes.append(scene)
+
+        return SceneList(
+            title=data.get("title", ""),
+            total_scenes=data.get("total_scenes", len(scenes)),
+            scenes=scenes
+        )
+
+==========================================================
+FILE: workflows\__init__.py
+==========================================================
+
+
+
+==========================================================
+FILE: workflows\story_workflow.py
+==========================================================
+
+from agents.research_agent import ResearchAgent
+from agents.character_agent import CharacterAgent
+from agents.character_bible_agent import CharacterBibleAgent
+from agents.writer_agent import WriterAgent
+from agents.reviewer_agent import ReviewerAgent
+from agents.scene_agent import SceneAgent
+from agents.narration_agent import NarrationAgent
+from agents.image_prompt_agent import ImagePromptAgent
+from agents.image_generation_agent import ImageGenerationAgent
+from agents.tts_agent import TTSAgent
+from agents.video_generation_agent import VideoGenerationAgent
+
+from formatters.story_formatter import StoryFormatter
+
+from exporters.story_exporter import StoryExporter
+from exporters.character_bible_exporter import CharacterBibleExporter
+from exporters.scene_exporter import SceneExporter
+from exporters.narration_exporter import NarrationExporter
+from exporters.image_prompt_exporter import ImagePromptExporter
+
+
+class StoryWorkflow:
+
+    def run(self, topic):
+
+        print("Story Workflow Started")
+
+        # --------------------------------------------------
+        # Research
+        # --------------------------------------------------
+
+        research_agent = ResearchAgent()
+        research_agent.start()
+
+        research_report = research_agent.research(topic)
+
+        # --------------------------------------------------
+        # Character Profiles
+        # --------------------------------------------------
+
+        character_agent = CharacterAgent()
+        character_agent.start()
+
+        characters = character_agent.generate_characters(
+            research_report
+        )
+
+        # --------------------------------------------------
+        # Character Bible
+        # --------------------------------------------------
+
+        character_bible_agent = CharacterBibleAgent()
+        character_bible_agent.start()
+
+        character_bibles = (
+            character_bible_agent.generate_character_bibles(
+                characters
+            )
+        )
+
+        # --------------------------------------------------
+        # Export Character Bibles
+        # --------------------------------------------------
+
+        CharacterBibleExporter.export(
+            character_bibles
+        )
+
+        # --------------------------------------------------
+        # Story Writer
+        # --------------------------------------------------
+
+        writer_agent = WriterAgent()
+        writer_agent.start()
+
+        draft = writer_agent.write(
+            research_report,
+            character_bibles
+        )
+
+        # --------------------------------------------------
+        # Story Reviewer
+        # --------------------------------------------------
+
+        reviewer_agent = ReviewerAgent()
+        reviewer_agent.start()
+
+        review = reviewer_agent.review(
+            draft
+        )
+
+        StoryFormatter.print_review(
+            review
+        )
+
+        # --------------------------------------------------
+        # Export Story
+        # --------------------------------------------------
+
+        StoryExporter.export(
+            draft
+        )
+
+        # --------------------------------------------------
+        # Scene Generation
+        # --------------------------------------------------
+
+        scene_agent = SceneAgent()
+        scene_agent.start()
+
+        scene_list = scene_agent.generate_scenes(
+            draft,
+            character_bibles
+        )
+
+        # --------------------------------------------------
+        # Export Scenes
+        # --------------------------------------------------
+
+        SceneExporter.export(
+            scene_list
+        )
+
+        # --------------------------------------------------
+        # Narration Generation
+        # --------------------------------------------------
+
+        narration_agent = NarrationAgent()
+        narration_agent.start()
+
+        narration_list = (
+            narration_agent.generate_narrations(
+                scene_list
+            )
+        )
+
+        # --------------------------------------------------
+        # Export Narrations
+        # --------------------------------------------------
+
+        NarrationExporter.export(
+            narration_list
+        )
+
+        # --------------------------------------------------
+        # Image Prompt Generation
+        # --------------------------------------------------
+
+        image_prompt_agent = ImagePromptAgent()
+        image_prompt_agent.start()
+
+        image_prompts = (
+            image_prompt_agent.generate_image_prompts(
+                scene_list.scenes,
+                character_bibles
+            )
+        )
+
+        # --------------------------------------------------
+        # Export Image Prompts
+        # --------------------------------------------------
+
+        ImagePromptExporter.export(
+            image_prompts
+        )
+
+        # --------------------------------------------------
+        # Image Generation
+        # --------------------------------------------------
+
+        image_generation_agent = ImageGenerationAgent()
+        image_generation_agent.start()
+
+        generated_images = (
+            image_generation_agent.generate_images(
+                image_prompts
+            )
+        )
+
+        # --------------------------------------------------
+        # Audio Generation (TTS)
+        # --------------------------------------------------
+
+        tts_agent = TTSAgent()
+        tts_agent.start()
+
+        generated_audio = (
+            tts_agent.generate_audio(
+                narration_list
+            )
+        )
+
+        # --------------------------------------------------
+        # Video Generation
+        # --------------------------------------------------
+
+        video_generation_agent = VideoGenerationAgent()
+        video_generation_agent.start()
+
+        generated_video = (
+            video_generation_agent.generate_video(
+                draft=draft,
+                generated_images=generated_images,
+                generated_audio=generated_audio
+            )
+        )
+
+        # --------------------------------------------------
+        # Print Story
+        # --------------------------------------------------
+
+        StoryFormatter.print_story(
+            draft
+        )
+
+        print("\n===================================")
+        print("AI Content OS Completed")
+        print("===================================")
+        print(f"Final Video : {generated_video.video_path}")
+
+        return {
+            "story": draft,
+            "scenes": scene_list,
+            "narrations": narration_list,
+            "images": generated_images,
+            "audio": generated_audio,
+            "video": generated_video,
+        }
+

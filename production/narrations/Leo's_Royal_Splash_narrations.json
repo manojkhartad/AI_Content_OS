@@ -1,0 +1,86 @@
+{
+    "title": "Leo's Royal Splash",
+    "total_scenes": 8,
+    "narrations": [
+        {
+            "scene_id": "SCENE_001",
+            "scene_number": 1,
+            "title": "The Royal Decree",
+            "narration": "Leo the Lion loved being the boss of the jungle. He marched with stiff, exaggerated steps, though he nearly tripped over his own royal red cape.",
+            "word_count": 26,
+            "estimated_duration": 10.4,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_002",
+            "scene_number": 2,
+            "title": "Robby's Lightbulb Moment",
+            "narration": "This was a big problem for Robby the Rabbit, whose ears loved to wiggle! As he saw his sad friends, Robby suddenly froze as a brilliant idea struck him.",
+            "word_count": 29,
+            "estimated_duration": 11.6,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_003",
+            "scene_number": 3,
+            "title": "The Great Deception",
+            "narration": "Robby bounced over to Leo with high energy, rubbing his paws together as he delivered the shocking news.",
+            "word_count": 18,
+            "estimated_duration": 7.2,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_004",
+            "scene_number": 4,
+            "title": "The March to the Well",
+            "narration": "Leo was far too prideful to believe another king existed. He puffed out his chest and marched toward the old stone well, his cape flapping wildly.",
+            "word_count": 26,
+            "estimated_duration": 10.4,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_005",
+            "scene_number": 5,
+            "title": "The Mirror Image",
+            "narration": "Robby pointed toward the well. Leo leaned over the edge and saw a grumpy lion with a tilted crown staring back at him from the clear water.",
+            "word_count": 27,
+            "estimated_duration": 10.8,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_006",
+            "scene_number": 6,
+            "title": "The Royal Splash",
+            "narration": "Leo let out a loud, theatrical roar, and the reflection roared back! Thinking he was fighting a rival, Leo jumped in with a giant splash!",
+            "word_count": 25,
+            "estimated_duration": 10.0,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_007",
+            "scene_number": 7,
+            "title": "The Rescue",
+            "narration": "Leo floated in the water, looking very soggy and silly. Seeing the lion's plight, Robby reached into his blue leather satchel and pulled out a sturdy rope to help him out.",
+            "word_count": 31,
+            "estimated_duration": 12.4,
+            "audio_file": "",
+            "subtitle_file": ""
+        },
+        {
+            "scene_id": "SCENE_008",
+            "scene_number": 8,
+            "title": "A New Way of Ruling",
+            "narration": "Leo realized that Robby was much smarter than he was. From that day on, the animals wiggled their ears as much as they wanted, while Leo practiced walking without tripping.",
+            "word_count": 30,
+            "estimated_duration": 12.0,
+            "audio_file": "",
+            "subtitle_file": ""
+        }
+    ]
+}

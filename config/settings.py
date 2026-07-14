@@ -72,6 +72,19 @@ VIDEO_FPS = 30
 
 
 # ==========================================================
+# Camera Settings
+# ==========================================================
+
+CAMERA_DEFAULT_EFFECT = "random"
+
+CAMERA_ZOOM_SPEED = 0.0008
+
+CAMERA_MAX_ZOOM = 1.15
+
+CAMERA_FRAME_COUNT = 10000
+
+
+# ==========================================================
 # Validation
 # ==========================================================
 
@@ -80,7 +93,9 @@ if LLM_PROVIDER == "gemini" and not GEMINI_API_KEY:
 
 
 if VIDEO_PROVIDER == "ffmpeg":
+
     if not os.path.exists(FFMPEG_PATH):
+
         raise ValueError(
             f"FFmpeg not found : {FFMPEG_PATH}"
         )

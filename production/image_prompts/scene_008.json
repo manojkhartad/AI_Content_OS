@@ -1,9 +1,9 @@
 {
     "scene_id": "SCENE_008",
     "scene_number": 8,
-    "title": "Peace in the Meadow",
-    "positive_prompt": "Wide cinematic shot, Pixar 3D animation style. A vibrant, sun-drenched jungle meadow filled with colorful wildflowers and soft morning light. In the foreground, RUBY-BUNNY-001—a small anthropomorphic rabbit with cream-colored fur, oversized rounded ears with pink lining, and large amber eyes—is hopping away into the distance. She is wearing a cyan sleeveless tunic with a large circular golden-yellow button and round magnifying goggles with thick red frames resting on her forehead. Ruby is looking back over her shoulder with a proud, satisfied, and happy smile. The background features lush, detailed tropical foliage under a clear morning sky. High-end 3D character design, volumetric lighting, soft bokeh, cinematic depth of field, vibrant color palette, intricate fur texture, 8k resolution, masterpiece quality.",
-    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, dull colors, photorealistic, realistic, humans, messy, uneven eyes",
+    "title": "A New Way of Ruling",
+    "positive_prompt": "A wide-angle cinematic 3D shot in the style of a high-end Pixar animation. A sun-drenched jungle clearing during a bright afternoon with golden volumetric light filtering through lush tropical canopy leaves. In the center, LEO, a plump stylized lion with golden-yellow fur, a fluffy orange mane, and big amber eyes, is caught in a comical moment, tripping over the gold-bordered hem of his royal red velvet cape; his tiny gold crown is tilted to the left. Nearby, ROBBY, a small cream-colored rabbit wearing a lime green button-up vest, a red silk bowtie, and a royal blue satchel, looks on with a warm, proud smile and a friendly thumbs-up. Surrounding them, a diverse group of happy jungle animals are joyfully wiggling their ears in celebration. Soft-focus background with a shallow depth of field, extremely detailed fur textures using subsurface scattering, vivid colors, 8k resolution, cheerful and humble atmosphere, professional studio lighting.",
+    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, grumpy expression, centered crown, realistic photography, 2D, sketch",
     "style": "Pixar 3D Animated Movie",
     "aspect_ratio": "16:9",
     "image_size": "1024x576"

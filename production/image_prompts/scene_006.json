@@ -1,9 +1,9 @@
 {
     "scene_id": "SCENE_006",
     "scene_number": 6,
-    "title": "The Splash",
-    "positive_prompt": "Pixar-quality 3D animated film still. A cute, plump lion named Leo with soft golden-yellow fur, a fluffy orange-brown mane, and expressive amber eyes is captured mid-air in a dynamic, comical fall. He wears a royal red velvet cape that is snagged on his paw, and a shiny, slightly tilted gold crown on his head. Leo has a shocked, surprised expression as he tumbles toward the water of a mossy well. A giant, magnificent, stylized water splash erupts around him, catching the morning sunlight. High-quality cinematic lighting with soft shadows, shallow depth of field with a blurred mossy well background, vibrant color palette, rich textures on the velvet cape and fur, ultra-detailed, playful and chaotic atmosphere.",
-    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, scary, dark, realistic, distorted face, elongated limbs",
+    "title": "The Royal Splash",
+    "positive_prompt": "A breathtaking wide-angle cinematic shot from a Pixar-style 3D animated movie. LEO-LION-001, a plump stylized 3D lion with oversized golden-yellow fur, a huge fluffy orange mane, and expressive amber eyes, is captured mid-air in a dramatic leap into an ancient, weathered stone well. He is wearing a small royal red velvet cape with a thick gold embroidered border and a tiny, polished gold crown tilted to the left. His expression is a hilarious mix of fury and sudden shock. A massive, stylized 3D water splash erupts violently from the well's mouth, sending crystalline droplets flying in all directions and soaking the lush, vibrant green grass around the stone base. Bright morning sunlight creates shimmering highlights on the splashing water and soft subsurface scattering on the lion's fluffy fur. High-detail textures on the stone and velvet, professional cinematic lighting, shallow depth of field with a soft-focus meadow background, 8k resolution, vivid and colorful palette.",
+    "negative_prompt": "blurry, low quality, watermark, logo, text, cropped, deformed, duplicate, bad anatomy, extra limbs, 2D, sketch, grainy, realistic photography, moody lighting",
     "style": "Pixar 3D Animated Movie",
     "aspect_ratio": "16:9",
     "image_size": "1024x576"
