@@ -1,18 +1,22 @@
-from agents.base_agent import BaseAgent
+from agents.base_llm_agent import BaseLLMAgent
 
 from models.research_report import ResearchReport
-
-from brain.brain import Brain
 
 from prompts.research.story_prompt import StoryPrompt
 
 
-class ResearchAgent(BaseAgent):
+class ResearchAgent(BaseLLMAgent):
 
     def __init__(self):
         super().__init__("Research Agent")
 
     def research(self, topic):
+
+        return self.run(topic)
+
+    def run(self, topic):
+
+        self.start()
 
         print(f"Research Started on: {topic}")
 
@@ -20,11 +24,9 @@ class ResearchAgent(BaseAgent):
 
         final_prompt = prompt.build(topic)
 
-        brain = Brain()
+        research_text = self.think(final_prompt)
 
-        research_text = brain.think(final_prompt)
-
-        report = ResearchReport(
+        return ResearchReport(
             topic=topic,
             content_type="Kids Story",
             target_audience="5-8 Years",
@@ -32,5 +34,3 @@ class ResearchAgent(BaseAgent):
             tone="Funny",
             research=research_text
         )
-
-        return report

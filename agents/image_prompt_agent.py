@@ -1,13 +1,14 @@
-from agents.base_agent import BaseAgent
-from brain.brain import Brain
+from agents.base_llm_agent import BaseLLMAgent
 
-from prompts.image_prompt import ImagePromptPrompt
+from config.settings import IMAGE_PROMPT_BATCH_SIZE
+
+from prompts.image_prompt_batch import ImagePromptBatchPrompt
 
 from utils.json_parser import parse_json
 from utils.image_prompt_mapper import ImagePromptMapper
 
 
-class ImagePromptAgent(BaseAgent):
+class ImagePromptAgent(BaseLLMAgent):
 
     def __init__(self):
         super().__init__("Image Prompt Agent")
@@ -18,34 +19,55 @@ class ImagePromptAgent(BaseAgent):
         character_bibles
     ):
 
-        print("Image Prompt Generation Started")
+        return self.run(
+            scenes,
+            character_bibles
+        )
 
-        brain = Brain()
+    def run(
+        self,
+        scenes,
+        character_bibles
+    ):
+
+        self.start()
+
+        print("Image Prompt Generation Started")
 
         image_prompts = []
 
-        for scene in scenes:
+        total_scenes = len(scenes)
+
+        for start in range(
+            0,
+            total_scenes,
+            IMAGE_PROMPT_BATCH_SIZE
+        ):
+
+            batch = scenes[
+                start:start + IMAGE_PROMPT_BATCH_SIZE
+            ]
 
             print(
-                f"Generating Image Prompt: "
-                f"Scene {scene.scene_number}"
+                f"Generating Image Prompts "
+                f"({len(batch)} Scenes)"
             )
 
-            prompt = ImagePromptPrompt.generate(
-                scene,
+            prompt = ImagePromptBatchPrompt.generate(
+                batch,
                 character_bibles
             )
 
-            response = brain.think(prompt)
+            response = self.think(prompt)
 
             data = parse_json(response)
 
-            image_prompt = ImagePromptMapper.from_json(
+            batch_prompts = ImagePromptMapper.from_json_list(
                 data
             )
 
-            image_prompts.append(
-                image_prompt
+            image_prompts.extend(
+                batch_prompts
             )
 
         return image_prompts

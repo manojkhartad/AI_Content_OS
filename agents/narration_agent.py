@@ -22,6 +22,15 @@ class NarrationAgent(BaseAgent):
         scene_list
     ) -> NarrationList:
 
+        return self.run(scene_list)
+
+    def run(
+        self,
+        scene_list
+    ) -> NarrationList:
+
+        self.start()
+
         print("Narration Generation Started")
 
         narrations = []

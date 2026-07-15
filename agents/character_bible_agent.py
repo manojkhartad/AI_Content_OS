@@ -1,6 +1,4 @@
-from agents.base_agent import BaseAgent
-
-from brain.brain import Brain
+from agents.base_llm_agent import BaseLLMAgent
 
 from models.character_bible import CharacterBible
 
@@ -9,20 +7,24 @@ from prompts.character.character_bible_prompt import CharacterBiblePrompt
 from utils.json_parser import parse_json
 
 
-class CharacterBibleAgent(BaseAgent):
+class CharacterBibleAgent(BaseLLMAgent):
 
     def __init__(self):
         super().__init__("Character Bible Agent")
 
     def generate_character_bible(self, character):
 
+        return self.run(character)
+
+    def run(self, character):
+
+        self.start()
+
         print(f"Generating Character Bible: {character.name}")
 
         prompt = CharacterBiblePrompt.generate(character)
 
-        brain = Brain()
-
-        response = brain.think(prompt)
+        response = self.think(prompt)
 
         data = parse_json(response)
 
@@ -55,7 +57,7 @@ class CharacterBibleAgent(BaseAgent):
 
         for character in characters:
 
-            bible = self.generate_character_bible(character)
+            bible = self.run(character)
 
             character_bibles.append(bible)
 

@@ -49,3 +49,19 @@ class ImagePromptMapper:
             )
 
         )
+
+    @staticmethod
+    def from_json_list(data):
+
+        if not isinstance(data, list):
+            raise ValueError("Expected a list of image prompts.")
+
+        image_prompts = []
+
+        for item in data:
+
+            image_prompts.append(
+                ImagePromptMapper.from_json(item)
+            )
+
+        return image_prompts

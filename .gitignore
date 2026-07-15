@@ -55,27 +55,46 @@ dist/
 # Generated Production Assets
 # ==========================
 
+# Workflow Checkpoint
+production/checkpoint.json
+
 # Stories
 production/stories/
 
-# Character JSON
+# Characters
 production/characters/
 
-# Scene JSON
+# Scenes
 production/scenes/
 
-# Generated Images
+# Narrations
+production/narrations/
+
+# Image Prompts
+production/image_prompts/
+
+# Images
 production/images/
 
-# Generated Videos
-production/videos/
-
-# Generated Audio (future)
+# Audio
 production/audio/
 
-# Generated Thumbnails (future)
+# Videos
+production/videos/
+
+# Subtitles
+production/subtitles/
+
+# Thumbnails
 production/thumbnails/
 
+# ==========================
 # Temporary Files
+# ==========================
 *.tmp
 *.temp
+
+# ==========================
+# Cache
+# ==========================
+cache/

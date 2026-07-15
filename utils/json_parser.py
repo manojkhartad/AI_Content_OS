@@ -1,32 +1,35 @@
 import json
 
 
-def parse_json(response: str) -> dict:
+def parse_json(response) -> dict:
     """
     Parse JSON returned by the LLM.
 
     Supports:
-    - Plain JSON
+    - dict (already parsed)
+    - list (already parsed)
+    - Plain JSON string
     - ```json ... ```
     - ``` ... ```
-
-    Returns:
-        dict
-
-    Raises:
-        ValueError if JSON is invalid.
     """
 
-    if not response:
+    if response is None:
         raise ValueError("LLM returned an empty response.")
+
+    # Already parsed
+    if isinstance(response, (dict, list)):
+        return response
+
+    if not isinstance(response, str):
+        raise TypeError(
+            f"Expected str, dict or list. Got {type(response).__name__}."
+        )
 
     cleaned = response.strip()
 
-    # Remove ```json
     if cleaned.startswith("```json"):
         cleaned = cleaned.replace("```json", "", 1)
 
-    # Remove ```
     if cleaned.startswith("```"):
         cleaned = cleaned.replace("```", "", 1)
 

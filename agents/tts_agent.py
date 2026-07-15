@@ -20,6 +20,12 @@ class TTSAgent(BaseAgent):
 
     def generate_audio(self, narration_list):
 
+        return self.run(narration_list)
+
+    def run(self, narration_list):
+
+        self.start()
+
         print("Audio Generation Started")
 
         generated_audio = []

@@ -1,5 +1,4 @@
-from agents.base_agent import BaseAgent
-from brain.brain import Brain
+from agents.base_llm_agent import BaseLLMAgent
 
 from models.character_profile import CharacterProfile
 
@@ -8,20 +7,24 @@ from prompts.character.character_prompt import CharacterPrompt
 from utils.json_parser import parse_json
 
 
-class CharacterAgent(BaseAgent):
+class CharacterAgent(BaseLLMAgent):
 
     def __init__(self):
         super().__init__("Character Agent")
 
     def generate_characters(self, research_report):
 
+        return self.run(research_report)
+
+    def run(self, research_report):
+
+        self.start()
+
         print("Character Generation Started")
 
         prompt = CharacterPrompt.generate(research_report)
 
-        brain = Brain()
-
-        response = brain.think(prompt)
+        response = self.think(prompt)
 
         data = parse_json(response)
 

@@ -1,228 +1,142 @@
-from agents.research_agent import ResearchAgent
-from agents.character_agent import CharacterAgent
-from agents.character_bible_agent import CharacterBibleAgent
-from agents.writer_agent import WriterAgent
-from agents.reviewer_agent import ReviewerAgent
-from agents.scene_agent import SceneAgent
-from agents.narration_agent import NarrationAgent
-from agents.image_prompt_agent import ImagePromptAgent
-from agents.image_generation_agent import ImageGenerationAgent
-from agents.tts_agent import TTSAgent
-from agents.video_generation_agent import VideoGenerationAgent
+# ==========================================================
+# Imports
+# ==========================================================
 
-from formatters.story_formatter import StoryFormatter
+from workflows.base_workflow import BaseWorkflow
+from workflows.workflow_context import WorkflowContext
+from workflows.workflow_result import WorkflowResult
 
-from exporters.story_exporter import StoryExporter
-from exporters.character_bible_exporter import CharacterBibleExporter
-from exporters.scene_exporter import SceneExporter
-from exporters.narration_exporter import NarrationExporter
-from exporters.image_prompt_exporter import ImagePromptExporter
+from workflows.steps.research_step import ResearchStep
+from workflows.steps.character_step import CharacterStep
+from workflows.steps.character_bible_step import CharacterBibleStep
+from workflows.steps.writer_step import WriterStep
+from workflows.steps.reviewer_step import ReviewerStep
+from workflows.steps.scene_step import SceneStep
+from workflows.steps.narration_step import NarrationStep
+from workflows.steps.image_prompt_step import ImagePromptStep
+from workflows.steps.image_generation_step import ImageGenerationStep
+from workflows.steps.tts_step import TTSStep
+from workflows.steps.video_step import VideoStep
+
+from utils.checkpoint_manager import CheckpointManager
 
 
-class StoryWorkflow:
+# ==========================================================
+# Story Workflow
+# ==========================================================
 
-    def run(self, topic):
+class StoryWorkflow(BaseWorkflow):
 
-        print("Story Workflow Started")
+    def __init__(self):
 
-        # --------------------------------------------------
-        # Research
-        # --------------------------------------------------
+        self.steps = [
 
-        research_agent = ResearchAgent()
-        research_agent.start()
+            ResearchStep(),
 
-        research_report = research_agent.research(topic)
+            CharacterStep(),
 
-        # --------------------------------------------------
-        # Character Profiles
-        # --------------------------------------------------
+            CharacterBibleStep(),
 
-        character_agent = CharacterAgent()
-        character_agent.start()
+            WriterStep(),
 
-        characters = character_agent.generate_characters(
-            research_report
-        )
+            ReviewerStep(),
 
-        # --------------------------------------------------
-        # Character Bible
-        # --------------------------------------------------
+            SceneStep(),
 
-        character_bible_agent = CharacterBibleAgent()
-        character_bible_agent.start()
+            NarrationStep(),
 
-        character_bibles = (
-            character_bible_agent.generate_character_bibles(
-                characters
-            )
-        )
+            ImagePromptStep(),
 
-        # --------------------------------------------------
-        # Export Character Bibles
-        # --------------------------------------------------
+            ImageGenerationStep(),
 
-        CharacterBibleExporter.export(
-            character_bibles
-        )
+            TTSStep(),
 
-        # --------------------------------------------------
-        # Story Writer
-        # --------------------------------------------------
+            VideoStep(),
 
-        writer_agent = WriterAgent()
-        writer_agent.start()
+        ]
 
-        draft = writer_agent.write(
-            research_report,
-            character_bibles
-        )
+        self.checkpoint = CheckpointManager()
 
-        # --------------------------------------------------
-        # Story Reviewer
-        # --------------------------------------------------
+    # ------------------------------------------------------
+    # Run Workflow
+    # ------------------------------------------------------
 
-        reviewer_agent = ReviewerAgent()
-        reviewer_agent.start()
+    def run(
 
-        review = reviewer_agent.review(
-            draft
-        )
+        self,
 
-        StoryFormatter.print_review(
-            review
-        )
+        context: WorkflowContext
 
-        # --------------------------------------------------
-        # Export Story
-        # --------------------------------------------------
-
-        StoryExporter.export(
-            draft
-        )
-
-        # --------------------------------------------------
-        # Scene Generation
-        # --------------------------------------------------
-
-        scene_agent = SceneAgent()
-        scene_agent.start()
-
-        scene_list = scene_agent.generate_scenes(
-            draft,
-            character_bibles
-        )
-
-        # --------------------------------------------------
-        # Export Scenes
-        # --------------------------------------------------
-
-        SceneExporter.export(
-            scene_list
-        )
-
-        # --------------------------------------------------
-        # Narration Generation
-        # --------------------------------------------------
-
-        narration_agent = NarrationAgent()
-        narration_agent.start()
-
-        narration_list = (
-            narration_agent.generate_narrations(
-                scene_list
-            )
-        )
-
-        # --------------------------------------------------
-        # Export Narrations
-        # --------------------------------------------------
-
-        NarrationExporter.export(
-            narration_list
-        )
-
-        # --------------------------------------------------
-        # Image Prompt Generation
-        # --------------------------------------------------
-
-        image_prompt_agent = ImagePromptAgent()
-        image_prompt_agent.start()
-
-        image_prompts = (
-            image_prompt_agent.generate_image_prompts(
-                scene_list.scenes,
-                character_bibles
-            )
-        )
-
-        # --------------------------------------------------
-        # Export Image Prompts
-        # --------------------------------------------------
-
-        ImagePromptExporter.export(
-            image_prompts
-        )
-
-        # --------------------------------------------------
-        # Image Generation
-        # --------------------------------------------------
-
-        image_generation_agent = ImageGenerationAgent()
-        image_generation_agent.start()
-
-        generated_images = (
-            image_generation_agent.generate_images(
-                image_prompts
-            )
-        )
-
-        # --------------------------------------------------
-        # Audio Generation (TTS)
-        # --------------------------------------------------
-
-        tts_agent = TTSAgent()
-        tts_agent.start()
-
-        generated_audio = (
-            tts_agent.generate_audio(
-                narration_list
-            )
-        )
-
-        # --------------------------------------------------
-        # Video Generation
-        # --------------------------------------------------
-
-        video_generation_agent = VideoGenerationAgent()
-        video_generation_agent.start()
-
-        generated_video = (
-            video_generation_agent.generate_video(
-                draft=draft,
-                generated_images=generated_images,
-                generated_audio=generated_audio
-            )
-        )
-
-        # --------------------------------------------------
-        # Print Story
-        # --------------------------------------------------
-
-        StoryFormatter.print_story(
-            draft
-        )
+    ) -> WorkflowResult:
 
         print("\n===================================")
-        print("AI Content OS Completed")
+        print("Story Workflow Started")
         print("===================================")
-        print(f"Final Video : {generated_video.video_path}")
 
-        return {
-            "story": draft,
-            "scenes": scene_list,
-            "narrations": narration_list,
-            "images": generated_images,
-            "audio": generated_audio,
-            "video": generated_video,
-        }
+        completed_steps = self.checkpoint.load()
+
+        for step in self.steps:
+
+            step_name = step.__class__.__name__
+
+            # --------------------------------------------------
+            # Resume Support
+            # --------------------------------------------------
+
+            if step_name in completed_steps:
+
+                print(
+                    f"\n✓ Skipping {step_name}"
+                )
+
+                continue
+
+            print(
+                f"\n========== {step_name} =========="
+            )
+
+            context.profiler.start(step_name)
+
+            try:
+
+                context = step.execute(context)
+
+                self.checkpoint.save(step_name)
+
+            except Exception as e:
+
+                print(
+                    f"\n❌ {step_name} Failed"
+                )
+
+                print(e)
+
+                raise
+
+            finally:
+
+                context.profiler.stop(step_name)
+
+        print("\n==============================")
+        print("Story Generated Successfully")
+        print("==============================")
+
+        context.profiler.report()
+
+        self.checkpoint.clear()
+
+        return WorkflowResult(
+
+            story=context.get("draft"),
+
+            scenes=context.get("scene_list"),
+
+            narrations=context.get("narration_list"),
+
+            images=context.get("generated_images"),
+
+            audio=context.get("generated_audio"),
+
+            video=context.get("generated_video"),
+
+        )

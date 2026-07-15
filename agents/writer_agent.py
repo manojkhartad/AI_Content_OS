@@ -1,6 +1,4 @@
-from agents.base_agent import BaseAgent
-
-from brain.brain import Brain
+from agents.base_llm_agent import BaseLLMAgent
 
 from models.story_draft import StoryDraft
 
@@ -9,12 +7,29 @@ from prompts.writing.writer_prompt import WriterPrompt
 from utils.json_parser import parse_json
 
 
-class WriterAgent(BaseAgent):
+class WriterAgent(BaseLLMAgent):
 
     def __init__(self):
         super().__init__("Writer Agent")
 
-    def write(self, research_report, character_bibles):
+    def write(
+        self,
+        research_report,
+        character_bibles
+    ):
+
+        return self.run(
+            research_report,
+            character_bibles
+        )
+
+    def run(
+        self,
+        research_report,
+        character_bibles
+    ):
+
+        self.start()
 
         print("Story Writing Started")
 
@@ -23,9 +38,7 @@ class WriterAgent(BaseAgent):
             character_bibles
         )
 
-        brain = Brain()
-
-        response = brain.think(prompt)
+        response = self.think(prompt)
 
         data = parse_json(response)
 

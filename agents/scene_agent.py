@@ -2,8 +2,7 @@
 # Imports
 # ==========================================================
 
-from agents.base_agent import BaseAgent
-from brain.brain import Brain
+from agents.base_llm_agent import BaseLLMAgent
 
 from prompts.scene_prompt import ScenePrompt
 
@@ -15,7 +14,7 @@ from utils.scene_mapper import SceneMapper
 # Scene Agent
 # ==========================================================
 
-class SceneAgent(BaseAgent):
+class SceneAgent(BaseLLMAgent):
 
     def __init__(self):
         super().__init__("Scene Agent")
@@ -26,6 +25,19 @@ class SceneAgent(BaseAgent):
         character_bibles
     ):
 
+        return self.run(
+            story,
+            character_bibles
+        )
+
+    def run(
+        self,
+        story,
+        character_bibles
+    ):
+
+        self.start()
+
         print("Scene Generation Started")
 
         prompt = ScenePrompt.generate(
@@ -33,9 +45,7 @@ class SceneAgent(BaseAgent):
             character_bibles
         )
 
-        brain = Brain()
-
-        response = brain.think(prompt)
+        response = self.think(prompt)
 
         data = parse_json(response)
 
